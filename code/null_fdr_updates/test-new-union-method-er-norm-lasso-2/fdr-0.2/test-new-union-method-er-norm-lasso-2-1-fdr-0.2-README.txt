@@ -1,0 +1,15 @@
+	lasso-2-1
+Test	lasso
+Lag	2
+Coef	1
+Hyper	0.1
+FDR	0.2
+Causal Genes	15
+Effect Genes	23
+Sig. Edges	23
+% Sig. Edges	0.23
+Total Genes	100
+Total possible Edges	10000
+Threshold	2.9E-01
+Matrix	fdr-0.2/test-new-union-method-er-norm-lasso-2-1-fdr-0.2-matrix.txt
+Filename	fdr-0.2/test-new-union-method-er-norm-lasso-2-1-fdr-0.2-network.txt

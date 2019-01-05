@@ -1,0 +1,2 @@
+coef	coefr	intercept
+fit/test-local-null-er-norm-lasso-2-l-fit-row-0_coefs.p	fit/test-local-null-er-norm-lasso-2-l-fit-row-0_coefsr.p	fit/test-local-null-er-norm-lasso-2-l-fit-row-0_intercepts.p

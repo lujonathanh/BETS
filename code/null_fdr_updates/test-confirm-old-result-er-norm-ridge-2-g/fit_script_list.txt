@@ -1,0 +1,1 @@
+test-confirm-old-result-er-norm-ridge-2-g-fit-row-0.sh

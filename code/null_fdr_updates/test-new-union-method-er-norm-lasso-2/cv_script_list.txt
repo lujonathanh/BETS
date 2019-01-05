@@ -1,0 +1,7 @@
+test-new-union-method-er-norm-lasso-2-cv-0-row-0.sh
+test-new-union-method-er-norm-lasso-2-cv-1-row-0.sh
+test-new-union-method-er-norm-lasso-2-cv-2-row-0.sh
+test-new-union-method-er-norm-lasso-2-cv-3-row-0.sh
+test-new-union-method-er-norm-lasso-2-cv-4-row-0.sh
+test-new-union-method-er-norm-lasso-2-cv-5-row-0.sh
+test-new-union-method-er-norm-lasso-2-cv-6-row-0.sh

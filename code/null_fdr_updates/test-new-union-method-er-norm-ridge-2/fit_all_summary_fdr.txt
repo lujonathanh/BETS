@@ -1,0 +1,9 @@
+Test	Lag	Coef	Hyper	FDR	Causal Genes	Effect Genes	Sig. Edges	% Sig. Edges	Total Genes	Total possible Edges	Threshold	Matrix	Filename
+ridge	2	1	100.0	0.01	1	1	1	0.01	100	10000	9.8E-02	fdr-0.01/test-new-union-method-er-norm-ridge-2-1-fdr-0.01-matrix.txt	fdr-0.01/test-new-union-method-er-norm-ridge-2-1-fdr-0.01-network.txt
+ridge	2	2	100.0	0.01	2	2	2	0.02	100	10000	6.9E-02	fdr-0.01/test-new-union-method-er-norm-ridge-2-2-fdr-0.01-matrix.txt	fdr-0.01/test-new-union-method-er-norm-ridge-2-2-fdr-0.01-network.txt
+ridge	2	1	100.0	0.05	1	1	1	0.01	100	10000	9.8E-02	fdr-0.05/test-new-union-method-er-norm-ridge-2-1-fdr-0.05-matrix.txt	fdr-0.05/test-new-union-method-er-norm-ridge-2-1-fdr-0.05-network.txt
+ridge	2	2	100.0	0.05	2	2	2	0.02	100	10000	6.9E-02	fdr-0.05/test-new-union-method-er-norm-ridge-2-2-fdr-0.05-matrix.txt	fdr-0.05/test-new-union-method-er-norm-ridge-2-2-fdr-0.05-network.txt
+ridge	2	1	100.0	0.1	1	1	1	0.01	100	10000	9.8E-02	fdr-0.1/test-new-union-method-er-norm-ridge-2-1-fdr-0.1-matrix.txt	fdr-0.1/test-new-union-method-er-norm-ridge-2-1-fdr-0.1-network.txt
+ridge	2	2	100.0	0.1	2	2	2	0.02	100	10000	6.9E-02	fdr-0.1/test-new-union-method-er-norm-ridge-2-2-fdr-0.1-matrix.txt	fdr-0.1/test-new-union-method-er-norm-ridge-2-2-fdr-0.1-network.txt
+ridge	2	1	100.0	0.2	1	1	1	0.01	100	10000	9.8E-02	fdr-0.2/test-new-union-method-er-norm-ridge-2-1-fdr-0.2-matrix.txt	fdr-0.2/test-new-union-method-er-norm-ridge-2-1-fdr-0.2-network.txt
+ridge	2	2	100.0	0.2	2	2	2	0.02	100	10000	6.9E-02	fdr-0.2/test-new-union-method-er-norm-ridge-2-2-fdr-0.2-matrix.txt	fdr-0.2/test-new-union-method-er-norm-ridge-2-2-fdr-0.2-network.txt

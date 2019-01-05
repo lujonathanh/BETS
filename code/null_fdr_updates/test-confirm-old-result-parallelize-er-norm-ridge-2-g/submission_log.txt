@@ -1,0 +1,5 @@
+
+******************************
+Tue Jan 31 11:24:05 EST 2017
+/Users/jlu96/v-causal-snps/code/della/test-confirm-old-result-parallelize-er-norm-ridge-2-g
+Reading from cv_parallel_script_list.txt

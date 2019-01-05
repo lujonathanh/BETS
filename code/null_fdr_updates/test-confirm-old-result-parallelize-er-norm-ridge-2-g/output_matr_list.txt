@@ -1,0 +1,4 @@
+coef	coefr	intercept
+fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-0_coefs.p	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-0_coefsr.p	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-0_intercepts.p
+fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-1_coefs.p	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-1_coefsr.p	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-1_intercepts.p
+fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-2_coefs.p	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-2_coefsr.p	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-2_intercepts.p

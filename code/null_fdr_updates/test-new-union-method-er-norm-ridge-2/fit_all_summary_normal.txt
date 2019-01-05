@@ -1,0 +1,18 @@
+Test: ridge
+Lag: 2
+Hyper: 100.0
+Responses: 100
+Coefs per response:200
+Total nonzero:20000
+Nonzero Coefs/Response:200.0
+Intercept avg: -0.0107740171598std: 0.25955235868
+Average fit result: 
+DW:Lag1      2.008294
+df         200.000000
+hyper      100.000000
+mse          0.171923
+n           40.000000
+r2           0.789356
+row         49.500000
+sse          6.876910
+dtype: float64

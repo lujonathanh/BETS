@@ -1,0 +1,10 @@
+basal_comK:τσ¨
+    $pool > mRNAkτσ¨
+    k_1τσ¨
+
+bind_comK:
+τσ¨   $pool > mRNAk
+    k_2 * comK**h / (k_k**h + comK**h)τσ¨τσ¨
+
+trans_comK:
+    mRNAk > mRNAk + comKτσ¨    k_3τσ¨τσ¨basal_comS:τσ¨    $pool > mRNAsτσ¨    k_4τσ¨τσ¨bind_comS:τσ¨    $pool > mRNAsτσ¨    k_5/ (1 + (comK/k_s)**p)τσ¨τσ¨trans_comS:τσ¨    mRNAs > mRNAs + comSτσ¨    k_6τσ¨τσ¨deg_mRNAk:τσ¨    mRNAk > $poolτσ¨    k_7τσ¨τσ¨deg_comK:τσ¨    comK > $poolτσ¨    k_8τσ¨τσ¨deg_mRNAs:τσ¨    mRNAs > $poolτσ¨    k_9τσ¨τσ¨deg_comS:τσ¨    comS > $poolτσ¨    k_10τσ¨τσ¨bind_mecAk:τσ¨    mecA + comK > mecAkτσ¨    k_11/omegaτσ¨τσ¨unbind_mecAk:τσ¨    mecAk > mecA + comKτσ¨    k_11unτσ¨τσ¨deg_mecAk:τσ¨    mecAk > mecAτσ¨    k_12τσ¨τσ¨bind_mecAs:τσ¨    mecA + comS > mecAsτσ¨    k_13/omegaτσ¨τσ¨unbind_mecAs:τσ¨    mecAs > mecA + comSτσ¨    k_13unτσ¨τσ¨deg_mecAs:τσ¨    mecAs > mecAτσ¨    k_14τσ¨τσ¨#initializationτσ¨mRNAk = 0τσ¨mRNAs = 0τσ¨comK = 0τσ¨comS = 0τσ¨mecA = 500τσ¨mecAs = 0τσ¨mecAk = 0τσ¨τσ¨#parametersτσ¨k_1 = 0.025 * 0.072/ 3600 # k_7 * alpha_k / (k_3) = 0.025 * alpha_kτσ¨k_2 = 0.19τσ¨k_3 = 0.2τσ¨k_4 = 0τσ¨k_5 = 5000τσ¨k_6 = 0.2τσ¨k_7 = 0.005τσ¨k_8 = 0.0001τσ¨k_9 = 0.005τσ¨k_10 = 0.0001τσ¨k_11 = 2 * 10**(-6)τσ¨k_11un = 5 * 10**(-4)τσ¨k_12 = 0.05τσ¨k_13 = 4.5 * 10**(-6)τσ¨k_13un = 5 * 10**(-5)τσ¨k_14 = 4 * 10**(-5)τσ¨omega = 1.66τσ¨h = 2τσ¨p = 5τσ¨k_k = 5000τσ¨k_s = 8333τσ¨

@@ -1,0 +1,2 @@
+0.0001	0.001	0.01	0.1	1.0
+hyper/test-local-null-er-norm-lasso-2-l-cv-0-result.txt	hyper/test-local-null-er-norm-lasso-2-l-cv-1-result.txt	hyper/test-local-null-er-norm-lasso-2-l-cv-2-result.txt	hyper/test-local-null-er-norm-lasso-2-l-cv-3-result.txt	hyper/test-local-null-er-norm-lasso-2-l-cv-4-result.txt

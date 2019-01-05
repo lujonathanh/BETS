@@ -1,0 +1,2 @@
+coef	coefr	intercept
+fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g_coefs.p	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g_coefsr.p	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g_intercepts.p

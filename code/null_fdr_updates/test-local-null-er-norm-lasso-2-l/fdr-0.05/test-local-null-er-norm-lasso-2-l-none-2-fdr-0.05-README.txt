@@ -1,0 +1,15 @@
+	lasso-2-2
+Test	lasso
+Lag	2
+Coef	2
+Hyper	0.1
+FDR	0.05
+Causal Genes	1
+Effect Genes	1
+Sig. Edges	1
+% Sig. Edges	0.01
+Total Genes	100
+Total possible Edges	10000
+Threshold	4.0E-01
+Matrix	fdr-0.05/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.05-matrix.txt
+Filename	fdr-0.05/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.05-network.txt

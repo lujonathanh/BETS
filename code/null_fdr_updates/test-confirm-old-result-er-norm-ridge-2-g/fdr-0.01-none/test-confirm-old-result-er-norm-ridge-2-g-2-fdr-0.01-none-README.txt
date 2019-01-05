@@ -1,0 +1,15 @@
+	ridge-2-2
+Test	ridge
+Lag	2
+Coef	2
+Hyper	100.0
+FDR	0.01
+Causal Genes	2
+Effect Genes	2
+Sig. Edges	2
+% Sig. Edges	0.02
+Total Genes	100
+Total possible Edges	10000
+Threshold	6.9E-02
+Matrix	fdr-0.01-none/test-confirm-old-result-er-norm-ridge-2-g-2-fdr-0.01-none-matrix.txt
+Filename	fdr-0.01-none/test-confirm-old-result-er-norm-ridge-2-g-2-fdr-0.01-none-network.txt

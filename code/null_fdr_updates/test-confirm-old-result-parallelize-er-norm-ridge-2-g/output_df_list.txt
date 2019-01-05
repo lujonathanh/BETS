@@ -1,0 +1,4 @@
+fit_result	fit_resultr
+fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-0_fit_result_df.txt	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-0_fit_result_dfr.txt
+fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-1_fit_result_df.txt	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-1_fit_result_dfr.txt
+fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-2_fit_result_df.txt	fit/test-confirm-old-result-parallelize-er-norm-ridge-2-g-fit-row-2_fit_result_dfr.txt

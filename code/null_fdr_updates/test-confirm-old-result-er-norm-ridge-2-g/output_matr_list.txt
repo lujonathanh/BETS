@@ -1,0 +1,2 @@
+coef	coefr	intercept
+fit/test-confirm-old-result-er-norm-ridge-2-g-fit-row-0_coefs.p	fit/test-confirm-old-result-er-norm-ridge-2-g-fit-row-0_coefsr.p	fit/test-confirm-old-result-er-norm-ridge-2-g-fit-row-0_intercepts.p
