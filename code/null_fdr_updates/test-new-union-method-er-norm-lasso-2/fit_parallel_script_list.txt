@@ -1,1 +1,0 @@
-./test-new-union-method-er-norm-lasso-2-fit-row-0.sh

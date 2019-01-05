@@ -1,9 +1,0 @@
-Test	Lag	Coef	Hyper	FDR	Causal Genes	Effect Genes	Sig. Edges	% Sig. Edges	Total Genes	Total possible Edges	Threshold	Matrix	Filename
-lasso	2	1	0.1	0.01	5	7	7	0.07	100	10000	3.8E-01	fdr-0.01/test-local-null-er-norm-lasso-2-l-none-1-fdr-0.01-matrix.txt	fdr-0.01/test-local-null-er-norm-lasso-2-l-none-1-fdr-0.01-network.txt
-lasso	2	2	0.1	0.01	1	1	1	0.01	100	10000	4.0E-01	fdr-0.01/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.01-matrix.txt	fdr-0.01/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.01-network.txt
-lasso	2	1	0.1	0.05	5	7	7	0.07	100	10000	3.8E-01	fdr-0.05/test-local-null-er-norm-lasso-2-l-none-1-fdr-0.05-matrix.txt	fdr-0.05/test-local-null-er-norm-lasso-2-l-none-1-fdr-0.05-network.txt
-lasso	2	2	0.1	0.05	1	1	1	0.01	100	10000	4.0E-01	fdr-0.05/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.05-matrix.txt	fdr-0.05/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.05-network.txt
-lasso	2	1	0.1	0.1	5	7	7	0.07	100	10000	3.8E-01	fdr-0.1/test-local-null-er-norm-lasso-2-l-none-1-fdr-0.1-matrix.txt	fdr-0.1/test-local-null-er-norm-lasso-2-l-none-1-fdr-0.1-network.txt
-lasso	2	2	0.1	0.1	1	1	1	0.01	100	10000	4.0E-01	fdr-0.1/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.1-matrix.txt	fdr-0.1/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.1-network.txt
-lasso	2	1	0.1	0.2	7	10	10	0.1	100	10000	3.6E-01	fdr-0.2/test-local-null-er-norm-lasso-2-l-none-1-fdr-0.2-matrix.txt	fdr-0.2/test-local-null-er-norm-lasso-2-l-none-1-fdr-0.2-network.txt
-lasso	2	2	0.1	0.2	1	1	1	0.01	100	10000	4.0E-01	fdr-0.2/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.2-matrix.txt	fdr-0.2/test-local-null-er-norm-lasso-2-l-none-2-fdr-0.2-network.txt

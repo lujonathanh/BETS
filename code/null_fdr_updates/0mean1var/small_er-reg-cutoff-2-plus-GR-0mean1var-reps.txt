@@ -1,4 +1,0 @@
-small_er-rep1-2cutoff-0mean-1var-100.txt
-small_er-rep2-2cutoff-0mean-1var-100.txt
-small_er-rep3-2cutoff-0mean-1var-100.txt
-small_er-rep4-2cutoff-0mean-1var-100.txt

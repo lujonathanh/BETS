@@ -1,2 +1,0 @@
-coef	coefr	intercept	interceptr
-fit/test-new-union-method-er-norm-lasso-2_coefs.p	fit/test-new-union-method-er-norm-lasso-2_coefsr.p	fit/test-new-union-method-er-norm-lasso-2_intercepts.p	fit/test-new-union-method-er-norm-lasso-2_interceptsr.p
