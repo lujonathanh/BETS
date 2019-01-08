@@ -4,43 +4,6 @@
 # Assume both of below files to be n genes x T timepoints
 # RAND should be DATAFILE where each gene is randomized by time.
 
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/small_data/0mean/small_er-rep3-2cutoff-0mean-1var-100.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/small_data/0mean/small_er-rep3-2cutoff-0mean-1var-100-rand.txt
-#export NROWS=100
-#export GENES=test-new-fdr
-#export LOADREPS=0
-
-
-
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/raw_files/over-expression/CEBPB/small_data/0mean1var/small-100.CEBPB.rep_file_list.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/raw_files/over-expression/CEBPB/small_data/0mean1var/small-100.CEBPB.rep_file_list-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/raw_files/over-expression/CEBPB/small_data/filter_gene_list/gene_list.txt
-#export NROWS=100
-#export GENES=test.CEBPB..slow
-#export NORMALIZATION=0mean1var
-#export LOADREPS=1
-
-
-
-
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/raw_files/over-expression/CEBPB/0mean1var/CEBPB.rep_file_list.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/raw_files/over-expression/CEBPB/0mean1var/CEBPB.rep_file_list-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/raw_files/over-expression/CEBPB/filter_genelist/CEBPB.sig_genes_reg_fdr-0.05-all-ensg-cutoff-2-plusGR.txt
-#export NROWS=2768      # Rows (i.e. # genes) in your datafile. This is only used to determine how to parallelize
-#export GENES=CEBPB           #protein-coding
-#export NORMALIZATION=0mean1var
-#export LOADREPS=1
-
-
-
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/DREAM/data//0mean1var/reps.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/DREAM/data//0mean1var/reps-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/DREAM/data//0mean1var/genes.txt
-#export NROWS=100     # Rows (i.e. # genes) in your datafile. This is used to determine how to parallelize
-#export GENES=            #protein-coding
-#export NORMALIZATION=0mean1var
-#export LOADREPS=1
-
 
 #export DATAFILE=/Users/jlu96/v-causal-snps/data/DREAM/data/insilico_size100_1/0mean/reps.txt
 #export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/DREAM/data/insilico_size100_1/0mean/reps-rand.txt
@@ -69,76 +32,6 @@ export GENES=KLF15-pairwise           #protein-coding
 export NORMALIZATION=0mean
 export LOADREPS=1
 
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/DREAM/data/insilico_size100_1/0mean/reps.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/DREAM/data/insilico_size100_1/0mean/reps-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/DREAM/data/insilico_size100_1/0mean/genes.txt
-#export NROWS=100     # Rows (i.e. # genes) in your datafile. This is used to determine how to parallelize
-#export GENES=TEST-PAIRWISE-insilico_size100_1_bootstrap            #protein-coding
-#export NORMALIZATION=0mean
-#export LOADREPS=1
-
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/unperturbed/data/joint-unperturbed/0mean/edgeR-reg-cutoff-2-plus-GR-0mean_joint-unperturbed-reps.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/unperturbed/data/joint-unperturbed/0mean/edgeR-reg-cutoff-2-plus-GR-0mean_joint-unperturbed-reps-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/unperturbed/data/joint-unperturbed/0mean/sig_genes_reg_fdr-0.05-all-ensg-cutoff-2-plusGR.txt
-#export NROWS=2768     # Rows (i.e. # genes) in your datafile. This is used to determine how to parallelize
-#export GENES=joint-unperturbed           #protein-coding
-#export NORMALIZATION=0mean
-#export LOADREPS=1
-
-
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/unperturbed/data/joint-unperturbed/0mean/edgeR-reg-cutoff-2-plus-GR-0mean_joint-unperturbed-reps-urand.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/unperturbed/data/joint-unperturbed/0mean/edgeR-reg-cutoff-2-plus-GR-0mean_joint-unperturbed-reps-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/unperturbed/data/joint-unperturbed/0mean/sig_genes_reg_fdr-0.05-all-ensg-cutoff-2-plusGR.txt
-#export NROWS=2768     # Rows (i.e. # genes) in your datafile. This is used to determine how to parallelize
-#export GENES=joint-unperturbed_urand           #protein-coding
-#export NORMALIZATION=0mean
-#export LOADREPS=1
-
-
-##
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/DREAM/data//0mean/reps.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/DREAM/data//0mean/reps-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/DREAM/data//0mean/genes.txt
-#export NROWS=100     # Rows (i.e. # genes) in your datafile. This is used to determine how to parallelize
-#export GENES=TEST-LITE-BOOTSTRAP-METHOD-            #protein-coding
-#export NORMALIZATION=0mean
-#export LOADREPS=1
-
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/final-integration/0mean1var/integration.rep_file_list.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/final-integration/0mean1var/integration.rep_file_list-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/raw_files/sig_genes_reg_fdr-0.05-all-ensg-cutoff-2-plusGR.txt
-#export NROWS=2768      # Rows (i.e. # genes) in your datafile. This is used to determine how to parallelize
-#export GENES=integration            #protein-coding
-#export NORMALIZATION=0mean1var
-#export LOADREPS=1
-
-
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/0mean/edgeR-reg-cutoff-2-plus-GR-0mean-reps.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/0mean/edgeR-reg-cutoff-2-plus-GR-0mean-reps-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/raw_files/sig_genes_reg_fdr-0.05-all-ensg-cutoff-2-plusGR.txt
-#export NROWS=2768      # Rows (i.e. # genes) in your datafile. This is used to determine how to parallelize
-#export GENES=prot2TPM.bootstrap          #protein-coding
-#export NORMALIZATION=0mean
-#export LOADREPS=1
-
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/final-integration/small_data/integration.rep_file_list.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/final-integration/small_data/integration.rep_file_list-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/final-integration/small_data/filter_gene_list/gene_list.txt
-#export NROWS=100      # Rows (i.e. # genes) in your datafile. This is used to determine how to parallelize
-#export GENES=testingsmallintegration            #protein-coding
-#export NORMALIZATION=0mean
-#export LOADREPS=1
-
-
-#export DATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/final-integration/small_data/integration.rep_file_list.txt
-#export RANDDATAFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/final-integration/small_data/integration.rep_file_list-rand.txt
-#export GENEFILE=/Users/jlu96/v-causal-snps/data/GeneExpressionData/edgeR-reg-reps-norm/data/final-integration/small_data/filter_gene_list/gene_list.txt
-#export NROWS=100      # Rows (i.e. # genes) in your datafile. This is used to determine how to parallelize
-#export GENES=testingsmallintegration            #protein-coding
-#export NORMALIZATION=0mean
-#export LOADREPS=1
-
-
 # Just some names for the outputs you use
 export DEG=er                   #edge-R
 export SAMPLE=norm              #normalized values (or "avg" for averaged values, or "sample" for sampled replicates)
@@ -155,22 +48,21 @@ fi
 
 # Causal params
 export CAUSAL=enet
-#export CAUSAL=ridge
-#export CAUSAL=lasso
-#export LAG=2
-export LAG=1
+export LAG=2
 export NULL=g
+
 
 export BOOTSTRAPNUM=1000
 #export BOOTSTRAPNUM=100
 #export BOOTSTRAPNUM=10
-# you have to run prep_jobs_bootstrap.sh in order to get the bootstrap jobs
-
-
 
 # Output names
 export OUTPUTNAME="$GENES-$NORMALIZATION-$REPS-$DEG-$SAMPLE-$CAUSAL-$LAG-$NULL"
-export FOLDER=della/$OUTPUTNAME                        # Folder made on your directory to scp to cluster.
+export FOLDER=../runs/$OUTPUTNAME                        # Folder made on your directory to scp to cluster.
+
+
+
+# Internal processing for the data
 
 
 export DATANAME=${DATAFILE##*/}  # retain the part after the last slash
