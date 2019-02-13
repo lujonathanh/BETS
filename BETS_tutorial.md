@@ -11,7 +11,7 @@ In overview, BETS:
 # Preparing for a Run
 
 1. Set the parameters at `code/package_params_cpipeline.sh`
-1. [Optional] If you want to run on your own computing cluster, modify `code/run_all_parallel_wait.sh`
+1. (OPTIONAL) If you want to run on your own computing cluster, modify `code/run_all_parallel_wait.sh`
 1. Package for the cluster
   * `cd code/`
   * `source ./package_params_cpipeline.sh`
@@ -24,7 +24,8 @@ In overview, BETS:
 
 ## 1. Set hyperparameters
 1. Set the list of scripts to run from. `export scriptlist=cv_parallel_script_list.txt`
-1. If on your own computer, do `./run_all_parallel_no_cluster.sh`, otherwise do `./run_all_parallel_wait.sh`
+1. If on your own computer, do `./run_all_parallel_no_cluster.sh`
+   Otherwise do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. Set the hyperparameter for the fit. `./set_hyper.sh`
 
