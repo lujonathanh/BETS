@@ -24,7 +24,7 @@ In overview, BETS:
 
 ## 1. Set hyperparameters
 1. Set the list of scripts to run from. `export scriptlist=cv_parallel_script_list.txt`
-1. If on your own computer, do `./run_all_parallel_no_cluster.sh`
+1. If on your own computer, do `./run_all_parallel_no_cluster.sh`  
    Otherwise do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. Set the hyperparameter for the fit. `./set_hyper.sh`
