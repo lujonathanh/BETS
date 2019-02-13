@@ -9,6 +9,8 @@ mkdir $FOLDER
 
 echo "COPYING TO " $FOLDER
 
+
+cp package_params_cpipeline.sh package_for_cluster_cpipeline.sh $FOLDER
 cp $DATAFILE $FOLDER
 cp $RANDDATAFILE $FOLDER
 cp $GENEFILE $FOLDER
@@ -17,8 +19,8 @@ cp -r $CAUSAL $FOLDER
 
 while read file; do
     #echo Copy $file to $FOLDER
-    cp $file $FOLDER
-done <package_required_files_cpipeline.txt
+    cp code/$file $FOLDER
+done < code/package_required_files_cpipeline.txt
 
 
 if [ "$LOADREPS" != "0" ];
