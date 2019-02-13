@@ -30,7 +30,7 @@ See `BETS_tutorial.md` for a step-by-step walk through of BETS.
 
 # Questions?
 
-Please post them at [our google group](https://groups.google.com/forum/#!forum/bets-support)
+Please post them at [our google group](https://groups.google.com/forum/#!forum/bets-support)!
 
 # About the Method 
 
