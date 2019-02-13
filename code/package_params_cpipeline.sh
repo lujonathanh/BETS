@@ -103,7 +103,7 @@ export FOLDER=../runs/$OUTPUTNAME
 
 
 export NULL=g  # DO NOT CHANGE
-# The null thresholding method, where g is global null and l is the local null
+# The null thresholding method, where g is broad null and l is the narrow null
 # Must be one of {l, g}.
 # BETS uses g.
 

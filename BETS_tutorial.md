@@ -2,14 +2,27 @@
 
 In overview, BETS:
 
-* takes as input (or multiple replicates) gene matrix and a randomized version of the gene matrix, where each gene's expression has been permuted over time.
+* takes as input (or multiple replicates of) gene matrix and a randomized version of the gene matrix, where each gene's expression has been permuted over time.
 * creates a "run" folder where the input and code are copied.
 * runs the scripts in parallel
 * outputs a network with FDR thresholding performed based off of bootstrap frequencies.
 
+# Input
+
+BETS takes in a tab-delimited gene by timepoint file. It should have the first column be the genenames, and the columns after be the ordered timepoints (left is earlier, right is later). See `data/DREAM/insilico/0mean/insilico_size100_1_0mean_TS-rep-1.txt` as an example.
+
+`gene   time1   time2 time3 ...
+geneA   0.1 0.1 -0.2    ...
+geneB   0.3 -0.2    -0.1    ...
+...`
+
+If there are multiple replicates, you instead give a 
+
+
 
 # Preparing for a Run
 
+1. Get to the BETS directory from the command line.
 1. Set the parameters at `code/package_params_cpipeline.sh`
 1. (OPTIONAL) If you want to run on your own computing cluster, modify `code/run_all_parallel_wait.sh`
 1. Package for the cluster
@@ -44,9 +57,13 @@ In overview, BETS:
 1. `export scriptlist=finish-effect-bootstrap-all.sh`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`, otherwise do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
-1. `./get_result_bootstrap_lite.sh`
-1. `./get_result_bootstrap-fdr-0.05-effect_lite.sh`
+1. Combine the bootstrap elastic net fits. `./get_result_bootstrap_lite.sh`
+1. Combine the significant networks for each bootstrap sample. `./get_result_bootstrap-fdr-0.05-effect_lite.sh`
 
 ## 4. Format the output.
 1. Put all the timing results together now that it's done. '`./summarize_time.sh`
-1. Write all results to `run_l-fdr`. `./downstream_prep.sh`
+1. Write all results to the folder: `run_l-fdr/`. `./downstream_prep.sh`
+
+# Questions?
+
+Reach out at the [Google Group](https://groups.google.com/forum/#!forum/bets-support)!
