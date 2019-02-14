@@ -7,10 +7,10 @@ BETS is a Python package that infers causal networks from time series data.
 
 BETS is a good method for your problem if:
 * you have a dataset of gene expression values (or other assay type) over time
-  * you can have multiple replicates 
-  * the time points are *about* equally spaced
-
-The method requires that all input  TODO
+  * time points are *about* equally spaced
+  * number of genes can greatly exceed number of time points (thousands is fine, if you have a computing cluster)
+  * Multiple replicates are allowed if each replicate has the same number of timepoints.
+* you want to know about the strength and time delay of the causal effects
 
 # Requirements
 
