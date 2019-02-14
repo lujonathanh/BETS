@@ -14,15 +14,15 @@ The method requires that all input  TODO
 
 # Requirements
 
-BETS requires installation of the following libraries:
+BETS is coded in Python 2.7. It requires installation of the following libraries:
 
-* numpy (1.13.1 or above)
-* scipy (0.19.1 or above)
-* pandas (0.20.3 or above)
-* matplotlib (1.4.3 or above)
-* sklearn (0.19.0 or above)
+* [numpy](https://docs.scipy.org/doc/numpy/user/install.html) (>= 1.13.1)
+* [scipy](https://scipy.org/install.html) (>= 0.19.1)
+* [pandas](https://pandas.pydata.org/pandas-docs/stable/install.html) (>= 0.20.3)
+* [matplotlib](https://matplotlib.org/users/installing.html) (>= 1.4.3)
+* [sklearn](https://scikit-learn.org/stable/install.html) (>= 0.19.0)
 
-It has been tested in Python 2.7 on MacOSX v.10.11.6.
+It has been tested on MacOSX v.10.11.6.
 
 # How To Run
 
