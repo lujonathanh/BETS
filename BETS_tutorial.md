@@ -49,7 +49,7 @@ If there are multiple replicates, you instead give a
 1. Wait for the jobs to complete.
 1. `./finish-effect.sh`
 
-## 3. Perform bootstrap stability selection.
+## 3. Perform stability selection (from bootstrap samples).
 1. `source ./package_params_cpipeline.sh`
 1. `export scriptlist=bootstrap_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`, otherwise do `./run_all_parallel_wait.sh`
