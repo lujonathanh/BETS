@@ -62,7 +62,8 @@ If there are multiple replicates, you instead give a
 
 ## 4. Format the output.
 1. Put all the timing results together now that it's done. '`./summarize_time.sh`
-1. Write all results to the folder: `run_l-fdr/`. `./downstream_prep.sh`
+1. Organize the results. `./downstream_prep.sh`
+1. All the results are now under `run_l-fdr`
 
 # Questions?
 
