@@ -1,7 +1,9 @@
 # BETS
 Causal Network Inference and Analysis from Time Series
 
-BETS is a Python package that infers causal networks from time series data. It is described in [this paper](https://www.biorxiv.org/content/10.1101/587170v1) with the analysis available [here](https://drive.google.com/drive/folders/14f47-XB9KzBKn-BMwwfgb-0hXSFCJC2n?usp=sharing).
+BETS is a Python package that infers causal networks from time series data. 
+
+It is described in [this paper](https://www.biorxiv.org/content/10.1101/587170v1) with the analysis available [here](https://drive.google.com/drive/folders/14f47-XB9KzBKn-BMwwfgb-0hXSFCJC2n?usp=sharing).
 
 # Is BETS right for you?
 
