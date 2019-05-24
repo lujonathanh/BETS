@@ -3,6 +3,8 @@ Causal Network Inference and Analysis from Time Series
 
 BETS is a Python package that infers causal networks from time series data. 
 
+It is described in [this paper](https://www.biorxiv.org/content/10.1101/587170v1) with the analysis available [here](https://drive.google.com/drive/folders/14f47-XB9KzBKn-BMwwfgb-0hXSFCJC2n?usp=sharing).
+
 # Is BETS right for you?
 
 BETS is a good method for your problem if:
@@ -43,4 +45,4 @@ for a high-dimensional gene-expression time series data.
 BETS was developed by Jonathan Lu, Bianca Dumitrascu, and Professor Barbara Engelhardt in the [Engelhardt Group](beehive.cs.princeton.edu) at the Department of Computer Science at Princeton University over 2016-2019.
 
 # Citation
-This work is in submission.
+This work is in submission. Preprint available [here](https://www.biorxiv.org/content/10.1101/587170v1).
