@@ -218,14 +218,15 @@ def run(args):
 
 
     for b in range(args.bootstrap_num):
-        print "SEED/BOOTSTRAP NUM: ", b
+        if b % 50 == 0:
+            print "SEED/BOOTSTRAP NUM: ", b
 
         bootstrap_outmost_name = args.output_name + "-bootstrap-" + str(b)
 
         bootstrap_folder = os.path.join("bootstrap", str(b))
         if not os.path.exists(bootstrap_folder):
             os.makedirs(bootstrap_folder)
-        print "Created folder: ", bootstrap_folder
+        # print "Created folder: ", bootstrap_folder
 
         bootstrap_outmost_prefix = os.path.join(bootstrap_folder, bootstrap_outmost_name)
 
@@ -265,7 +266,7 @@ def run(args):
             os.chmod(bootstrap_scripts[i], 0777)
 
 
-        print "Scripts made"
+        # print "Scripts made"
 
         # all_bootstrap_scripts = all_bootstrap_scripts.union(set(bootstrap_scripts))
 
@@ -287,7 +288,7 @@ def run(args):
         output_matr_df = pd.DataFrame(bootstrap_output_dict)
         output_matr_file = os.path.join(bootstrap_folder, bootstrap_outmost_name + "_output_matr_list.txt")
         output_matr_df.to_csv(output_matr_file, sep="\t", index=False)
-        print "Raw parallelilized output matrices, before integration, written to", output_matr_file
+        # print "Raw parallelilized output matrices, before integration, written to", output_matr_file
 
 
 
@@ -305,7 +306,7 @@ def run(args):
         int_matr_file = bootstrap_outmost_prefix +  "_int_matr_list.txt"
         int_matr_df = pd.DataFrame(int_matr_dict, index=[0])
         int_matr_df.to_csv(int_matr_file, sep="\t", index=False)
-        print "integrated matrices written to " + int_matr_file
+        # print "integrated matrices written to " + int_matr_file
 
 
         bootstrap_result_dict = collections.OrderedDict()
@@ -317,7 +318,7 @@ def run(args):
         output_df_file = bootstrap_outmost_prefix + "_output_df_list.txt"
         output_df_df = pd.DataFrame(bootstrap_result_dict)
         output_df_df.to_csv(output_df_file, sep="\t", index=False)
-        print "output dfs file written to ", output_df_file
+        # print "output dfs file written to ", output_df_file
 
         int_df_dict = collections.OrderedDict()
         int_df_dict["fit_result"] = bootstrap_outmost_prefix + "_fit_result_df.txt"
@@ -326,7 +327,7 @@ def run(args):
         int_df_file = bootstrap_outmost_prefix + "_int_df_list.txt"
         int_df_df = pd.DataFrame(int_df_dict, index=[0])
         int_df_df.to_csv(int_df_file, sep="\t", index=False)
-        print "Integrated dfs file written to ", int_df_file
+        # print "Integrated dfs file written to ", int_df_file
 
 
 
@@ -351,7 +352,7 @@ def run(args):
                         " -sb " + "n" + " -tn " + args.test_name + " -of " + bootstrap_folder + "\n")
             ifile.write("END=$(date)\n")
             ifile.write("echo " + finish_none_script + ",$START,$END,$SECONDS >> " + finishtimefile + "\n")
-            print "Finish script, stratby None, written to", finish_none_script
+            # print "Finish script, stratby None, written to", finish_none_script
             os.chmod(finish_none_script, 0777)
 
         finish_none_scripts.append(finish_none_script)
@@ -376,7 +377,7 @@ def run(args):
             ifile.write("END=$(date)\n")
             ifile.write("echo " + finish_effect_script + ",$START,$END,$SECONDS >> " + finishtimefile + "\n")
 
-            print "Finish script, stratby effect, written to", finish_effect_script
+            # print "Finish script, stratby effect, written to", finish_effect_script
             os.chmod(finish_effect_script, 0777)
 
         finish_effect_scripts.append(finish_effect_script)
@@ -398,7 +399,7 @@ def run(args):
 
 
 
-        print "-----------"
+        # print "-----------"
 
 
     int_coef_file = "all_bootstrap_coefs.txt"

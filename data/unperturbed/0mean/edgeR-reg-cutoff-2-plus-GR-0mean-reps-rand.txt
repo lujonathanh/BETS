@@ -1,0 +1,3 @@
+A549.rna_seq.dedex.featurecounts.genes.TPM.selected_samples.surrogate_variables_reduced.corrected_ln.protein_coding.rep1-edgeR-reg-cutoff-2-plus-GR-0mean-rand.txt
+A549.rna_seq.dedex.featurecounts.genes.TPM.selected_samples.surrogate_variables_reduced.corrected_ln.protein_coding.rep2-edgeR-reg-cutoff-2-plus-GR-0mean-rand.txt
+A549.rna_seq.dedex.featurecounts.genes.TPM.selected_samples.surrogate_variables_reduced.corrected_ln.protein_coding.rep3-edgeR-reg-cutoff-2-plus-GR-0mean-rand.txt
