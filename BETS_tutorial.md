@@ -11,10 +11,13 @@ In overview, BETS:
 
 BETS takes in a tab-delimited gene by timepoint file. It should have the first column be the genenames, and the columns after be the ordered timepoints (left is earlier, right is later). See `data/DREAM/insilico/0mean/insilico_size100_1_0mean_TS-rep-1.txt` as an example.
 
-`gene   time1   time2 time3 ...
-geneA   0.1 0.1 -0.2    ...
-geneB   0.3 -0.2    -0.1    ...
-...`
+`gene   time1   time2 time3 ...  `
+
+`geneA   0.1 0.1 -0.2    ...  `
+
+`geneB   0.3 -0.2    -0.1    ...  `
+
+`...`
 
 If there are multiple replicates, you instead give a 
 
