@@ -63,7 +63,7 @@ If there are multiple replicates, you instead give a
 1. Combine the significant networks for each bootstrap sample. `./get_result_bootstrap-fdr-0.05-effect_lite.sh`
 
 ## 5. Format the output.
-1. Put all the timing results together now that it's done. '`./summarize_time.sh`
+1. Put all the timing results together now that it's done. `./summarize_time.sh`
 1. Organize the results. `./downstream_prep.sh`
 1. All the results are now under `run_l-fdr`
 
