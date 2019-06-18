@@ -24,6 +24,10 @@ If there are multiple replicates, you instead give a
 
 # Running BETS (in detail)
 
+## 0. Make sure you have the libraries installed in Python 2.7
+
+`python2.7 -m pip install -r requirements.txt`
+
 ## 1. Preparing for a Run
 
 1. Get to the BETS directory from the command line.
