@@ -7,11 +7,11 @@ echo "Dumping from " $SCRIPT " to " $OUTPUT
 
 source ./package_params_cpipeline.sh
 
-python get_declared_bash_params.py -f $SCRIPT -o tmp
+python2 get_declared_bash_params.py -f $SCRIPT -o tmp
 
 printenv > tmp-envs.txt
 
-python dump_bash_params.py -e tmp-envs.txt -p tmp -o $OUTPUT
+python2 dump_bash_params.py -e tmp-envs.txt -p tmp -o $OUTPUT
 
 rm tmp
 rm tmp-envs.txt

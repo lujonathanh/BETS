@@ -1,6 +1,5 @@
 causal_pipeline.py
 cleanup.sh
-clusterize
 cross_validate.py
 default_cv_run.sh
 della_convert_filename.py
@@ -45,8 +44,6 @@ prep_jobs_rand_cv.py
 prep_jobs_rand_cv.sh
 prep_jobs_rand_cv_no_hyper.sh
 README_cpipeline.txt
-run_causal_pipeline.sh
-run_causal_pipeline_cluster.sh
 run_all_parallel_wait.sh
 run_all_parallel_no_cluster.sh
 set_hyper.py
