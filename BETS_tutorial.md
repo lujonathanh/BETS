@@ -60,7 +60,7 @@ If there are multiple replicates, you instead give a
 1. `export scriptlist=bootstrap_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`, otherwise do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
-1. `export scriptlist=finish-effect-bootstrap-all.sh`
+1. `export scriptlist=finish-effect-bootstrap_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`, otherwise do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. Combine the bootstrap elastic net fits. `./get_result_bootstrap_lite.sh`
