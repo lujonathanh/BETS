@@ -22,7 +22,7 @@ def load_hg_ensg_old():
         for row in reader:
             if row["Ensembl Gene ID"]:
                 hg2ensg[row["Approved Symbol"]] = row["Ensembl Gene ID"]
-    ensg2hg = dict([(item[1], item[0]) for item in hg2ensg.items() if item[0] != ""])
+    ensg2hg = dict([(item[1], item[0]) for item in list(hg2ensg.items()) if item[0] != ""])
 
     return hg2ensg, ensg2hg
 
@@ -32,7 +32,7 @@ def load_hg_ensg(ensg_hg_file = data_dir +  "gencode.v22.gene_id_to_gene_name.js
     with open(ensg_hg_file , 'rU') as jsonfile:
         ensg2hg = json.load(jsonfile)
 
-    hg2ensg = dict([(item[1], item[0]) for item in ensg2hg.items() if item[0] != ""])
+    hg2ensg = dict([(item[1], item[0]) for item in list(ensg2hg.items()) if item[0] != ""])
 
     return hg2ensg, ensg2hg
 
@@ -50,7 +50,7 @@ def hg2ensg(gene, verbose=False):
         return conv[gene]
     except KeyError:
         if verbose:
-            print "Gene ", gene, " missing from hg2ensg"
+            print("Gene ", gene, " missing from hg2ensg")
         return ""
 
 def ensg2hg(gene, verbose=False):
@@ -64,7 +64,7 @@ def ensg2hg(gene, verbose=False):
         return conv[gene]
     except KeyError:
         if verbose:
-            print "Gene ", gene, "missing from ensg2hg"
+            print("Gene ", gene, "missing from ensg2hg")
         return ""
 
 
@@ -76,9 +76,9 @@ def load_hg_prot():
     genes = prot_hg_df["Gene_Name"]
     prots = prot_hg_df["Protein"]
 
-    prot2hg = dict(zip(prots, genes))
+    prot2hg = dict(list(zip(prots, genes)))
 
-    hg2prot = dict(zip(genes, prots))
+    hg2prot = dict(list(zip(genes, prots)))
 
     return hg2prot, prot2hg
 
@@ -95,7 +95,7 @@ def hg2prot(gene, verbose=False):
         return conv[gene]
     except KeyError:
         if verbose:
-            print "Gene ", gene, " missing from hg2prot"
+            print("Gene ", gene, " missing from hg2prot")
         return ""
 
 def prot2hg(gene, verbose=False):
@@ -109,7 +109,7 @@ def prot2hg(gene, verbose=False):
         return conv[gene]
     except KeyError:
         if verbose:
-            print "Gene ", gene, "missing from prot2hg"
+            print("Gene ", gene, "missing from prot2hg")
         return ""
 
 def load_syn_hg():
@@ -144,10 +144,10 @@ def load_syn_hg():
 
     extra_syns = [syn for syn in syn2hg if len(syn2hg[syn]) > 1]
 
-    print "Num syns:", len(syn2hg.keys())
-    print "Num symbols: ", len(prev_syns), "set: ", len(set(prev_syns))
-    print "Num Synonyms: ", len(just_syns), "set: ", len(set(just_syns))
-    print "Num more than one: ", len(extra_syns)
+    print("Num syns:", len(list(syn2hg.keys())))
+    print("Num symbols: ", len(prev_syns), "set: ", len(set(prev_syns)))
+    print("Num Synonyms: ", len(just_syns), "set: ", len(set(just_syns)))
+    print("Num more than one: ", len(extra_syns))
 
     unique_syn2hg = syn2hg.copy()
     for syn in syn2hg:
@@ -168,8 +168,8 @@ def load_hg_gr():
     gr = df["GR Gene"].values
     genes = df["Gene Symbol"].values
 
-    gene2gr = dict(zip(genes, gr))
-    gr2gene = dict(zip(gr, genes))
+    gene2gr = dict(list(zip(genes, gr)))
+    gr2gene = dict(list(zip(gr, genes)))
 
 
     return gene2gr, gr2gene
@@ -185,7 +185,7 @@ def gr2hg(gene, verbose=False):
         return conv[gene]
     except KeyError:
         if verbose:
-            print "Gene ", gene, "missing from gr2hg"
+            print("Gene ", gene, "missing from gr2hg")
         return ""
 
 
@@ -194,7 +194,7 @@ def load_genes(filename, header=False, verbose=True, as_set=True):
     with open(filename, 'rU') as csvfile:
         reader = csv.reader(csvfile, delimiter="\t")
         if header:
-            reader.next()
+            next(reader)
         for row in reader:
             genes.append(row[0])
 
@@ -202,7 +202,7 @@ def load_genes(filename, header=False, verbose=True, as_set=True):
         genes = set(genes)
 
     if verbose:
-        print "# Genes in ", filename, ": ", len(genes)
+        print("# Genes in ", filename, ": ", len(genes))
     return genes
 
 def write_genes(filename, genes):
@@ -210,7 +210,7 @@ def write_genes(filename, genes):
         writer = csv.writer(csvfile, delimiter='\t')
         for gene in genes:
             writer.writerow([gene])
-    print len(genes), " genes writen to: ", filename
+    print(len(genes), " genes writen to: ", filename)
 
 
 
@@ -265,7 +265,7 @@ def annotate_cols_summary(df, cols, col_name = "Type", do_reverse=False):
 
     for col in rev_cols:
         indices = np.where(np.logical_and(pd.notnull(sum_df[col]), sum_df[col] != 0))[0]
-        print "FOr col", col, ":", len(indices)
+        print("FOr col", col, ":", len(indices))
         type_array[indices] += col + ","
 
     sum_df[col_name] = type_array
@@ -318,7 +318,7 @@ def get_annotated(df, names=[], cols=genecols,
 
         both_genes = df_genes.intersection(annot_genes)
 
-        print "# ", name, " genes in df: ", len(both_genes)
+        print("# ", name, " genes in df: ", len(both_genes))
 
 
         newcols = []
@@ -332,7 +332,7 @@ def get_annotated(df, names=[], cols=genecols,
         # Annotate the total number in that row
         df[name] = np.sum([df[newcol] for newcol in newcols], axis=0)
 
-        print "# ", name, " edges in df: ", len(np.where(df[name])[0])
+        print("# ", name, " edges in df: ", len(np.where(df[name])[0]))
 
     return df
 
@@ -346,17 +346,17 @@ def load_network_df(filename, cols=genecols, make_pairs=True):
 
     df = make_pair_col(df, cols)
 
-    print "Initial pairs: ", len(df)
+    print("Initial pairs: ", len(df))
     df.drop_duplicates(subset="Pair", keep="first", inplace=True)
-    print "After dup drops: ", len(df)
+    print("After dup drops: ", len(df))
 
     # Drop self-interactions
 
     df.drop(df[cols[0]] == df[cols[1]])
 
-    print "After self drops: ", len(df)
+    print("After self drops: ", len(df))
 
-    df.index = range(len(df))
+    df.index = list(range(len(df)))
 
     return df
 
@@ -371,7 +371,7 @@ def load_causal_df(filename, cause_col, effect_col):
     #drop self-interactions
     df.drop(df[cols[0]] == df[cols[1]])
 
-    df.index = range(len(df))
+    df.index = list(range(len(df)))
 
     return df
 
@@ -396,7 +396,7 @@ def get_genes_in(df, name, genecols=["Gene"], verbose=False):
     genes = get_genes(in_df, genecols=genecols)
 
     if verbose:
-        print "Genes in ", name, ":", len(genes)
+        print("Genes in ", name, ":", len(genes))
 
     return genes
 
@@ -451,7 +451,7 @@ def limit_to_genes_all(df, genes, cols=genecols):
 
     new_df = df[indices].copy()
 
-    new_df.index = range(len(new_df))
+    new_df.index = list(range(len(new_df)))
 
     return new_df
 
@@ -543,7 +543,7 @@ def matr_to_net(matr_df, edge_name=None, abs_name=None, cause_effect_col = "Caus
 
     if do_sort:
         net_df.sort_values(sort_by, ascending=False, inplace=True)
-    print "New network (edges, attributes) = ", net_df.shape
+    print("New network (edges, attributes) = ", net_df.shape)
 
     return net_df
 
@@ -554,33 +554,33 @@ def matr_file_to_net_file(matr_file, name, net_file=None, conv_to_hg=True, add_p
     if not net_file:
         net_file = matr_file[:-4] + "-network.txt"
 
-    print name
+    print(name)
 
     cause_name = name + " Cause"
     effect_name = name + " Effect"
 
     matr_df = pd.read_csv(matr_file, sep="\t", header=0, index_col=0)
 
-    print matr_df.head()
+    print(matr_df.head())
 
     net_df = matr_to_net(matr_df, name, colnames=[cause_name, effect_name])
 
-    print net_df.head()
+    print(net_df.head())
 
     if conv_to_hg:
         net_df[cause_name] = [ensg2hg(gene) for gene in net_df[cause_name]]
         net_df[effect_name] = [ensg2hg(gene) for gene in net_df[effect_name]]
 
-        print "Post conversion: "
-        print net_df.head()
+        print("Post conversion: ")
+        print(net_df.head())
 
     if add_pair:
         net_df = make_pair_col(net_df, [cause_name, effect_name], "Pair")
 
-    print
-    print "FINAL:"
-    print net_df.head()
-    print "Writing to ", net_file
+    print()
+    print("FINAL:")
+    print(net_df.head())
+    print("Writing to ", net_file)
     net_df.to_csv(net_file, sep="\t", index=False)
 
 def overlay_dfs(old_df, over_df, key = "Pair", over_cols=[], fill_empty=False, fill_genecols=genecols, how='outer'):
@@ -603,7 +603,7 @@ def overlay_dfs(old_df, over_df, key = "Pair", over_cols=[], fill_empty=False, f
     # columns to merge over
     add_df = over_df[over_cols]
 
-    print "Over cols: ", over_cols
+    print("Over cols: ", over_cols)
 
     #
     df = old_df.merge(add_df, left_on=key, right_on=key, how=how)
@@ -621,12 +621,12 @@ def overlay_dfs(old_df, over_df, key = "Pair", over_cols=[], fill_empty=False, f
 def fill_empty_genecols(df, genecols=genecols, key="Pair"):
         # for the places where genecols are empty, rewrite the annotation
     indices = np.where(np.logical_or(pd.isnull(df[genecols[0]]), pd.isnull(df[genecols[1]])))[0]
-    print "Num missing genecols: ", len(indices)
-    print indices
+    print("Num missing genecols: ", len(indices))
+    print(indices)
 
     pairs = [eval(p) for p in df[key][indices].values]
 
-    zip_cols = zip(*pairs)
+    zip_cols = list(zip(*pairs))
     df[genecols[0]][indices] = zip_cols[0]
     df[genecols[1]][indices] = zip_cols[1]
 
@@ -682,5 +682,5 @@ def get_feedforward(G, Ps=None, Xs=None, Ts=None):
                 for P in this_Ps:
                     feedforward_set.add((P, X, T))
 
-    print "Num feedforward: ", len(feedforward_set)
+    print("Num feedforward: ", len(feedforward_set))
     return feedforward_set

@@ -38,10 +38,10 @@ def fit_ols(X, Y, verbose=False,**kwargs):
     Y_pred, fit_result = compute_fit(X, Y, coef, intercept)
 
     if verbose:
-        print "Diff in prediction"
-        print linreg.predict(X).shape
-        print Y_pred.shape
-        print Y_pred - np.reshape(linreg.predict(X), (n,1))
+        print("Diff in prediction")
+        print(linreg.predict(X).shape)
+        print(Y_pred.shape)
+        print(Y_pred - np.reshape(linreg.predict(X), (n,1)))
 
     return Y_pred, coef, intercept, fit_result
 
@@ -77,12 +77,12 @@ def fit_lasso(X, Y, verbose=False, max_iter = 50000, **kwargs):
 
     # Temp adding 2/6/17 -JLu
     if verbose:
-        print "Tolerance: "
-        print lasso.tol
+        print("Tolerance: ")
+        print(lasso.tol)
 
-        print "Duality gap: "
-        print lasso.dual_gap_
-        print coef
+        print("Duality gap: ")
+        print(lasso.dual_gap_)
+        print(coef)
 
         # print "Diff in prediction"
         # print lasso.predict(X).shape
@@ -120,10 +120,10 @@ def fit_ridge(X, Y, verbose=False, max_iter=50000, **kwargs):
     Y_pred, fit_result = compute_fit(X, Y, coef, intercept)
 
     if verbose:
-        print "Diff in prediction"
-        print ridge.predict(X).shape
-        print Y_pred.shape
-        print Y_pred - np.reshape(ridge.predict(X), (n,1))
+        print("Diff in prediction")
+        print(ridge.predict(X).shape)
+        print(Y_pred.shape)
+        print(Y_pred - np.reshape(ridge.predict(X), (n,1)))
 
     return Y_pred, coef, intercept, fit_result
 
@@ -164,10 +164,10 @@ def fit_enet(X, Y, verbose=False, max_iter=30000, **kwargs):
     fit_result["dual_gap"] = enet.dual_gap_
 
     if verbose:
-        print "Diff in prediction"
-        print enet.predict(X).shape
-        print Y_pred.shape
-        print Y_pred - np.reshape(enet.predict(X), (n,1))
+        print("Diff in prediction")
+        print(enet.predict(X).shape)
+        print(Y_pred.shape)
+        print(Y_pred - np.reshape(enet.predict(X), (n,1)))
 
     return Y_pred, coef, intercept, fit_result
 
@@ -188,8 +188,8 @@ def durbin_watson(resid, lag=1, verbose=False):
     ssr = np.sum(resid**2)
 
     if verbose:
-        print np.diff(resid,n=lag), resid
-        print ssar, ssr
+        print(np.diff(resid,n=lag), resid)
+        print(ssar, ssr)
 
     return ssar * 1.0 / ssr
 
@@ -337,26 +337,26 @@ def perform_test_random(X_matr, rand_X_matr, Y_matr, lag, fit_method, replace_ro
 
             if verbose:
 
-                print "Original TS: ", X_matr[p]
-                print "Randomized TS: ", X_matr_temp[p]
+                print("Original TS: ", X_matr[p])
+                print("Randomized TS: ", X_matr_temp[p])
 
-                print "Original X_t: ", X_t_orig[:T - lag, p:-1:n]
-                print "Randomized X_t", X_t_temp[:T - lag, p:-1:n]
+                print("Original X_t: ", X_t_orig[:T - lag, p:-1:n])
+                print("Randomized X_t", X_t_temp[:T - lag, p:-1:n])
 
-                print "Same Y_t?", (Y_t_orig == Y_t_temp).all()
+                print("Same Y_t?", (Y_t_orig == Y_t_temp).all())
 
-                print "Orig coefs: ", coef_orig[p: lag * n + 1: n]
-                print "Right around: "
-                print coef_orig[p - 1: lag * n + 1: n]
-                print coef_orig[p + 1: lag * n + 1: n]
+                print("Orig coefs: ", coef_orig[p: lag * n + 1: n])
+                print("Right around: ")
+                print(coef_orig[p - 1: lag * n + 1: n])
+                print(coef_orig[p + 1: lag * n + 1: n])
 
-                print "Updated coefs: ", coef_temp[p: lag * n + 1: n]
-                print "Right around: "
-                print coef_temp[p - 1: lag * n + 1: n]
-                print coef_temp[p + 1: lag * n + 1: n]
+                print("Updated coefs: ", coef_temp[p: lag * n + 1: n])
+                print("Right around: ")
+                print(coef_temp[p - 1: lag * n + 1: n])
+                print(coef_temp[p + 1: lag * n + 1: n])
 
-                print "Updated coefs:", coef
-                print "Y_pred_temp", Y_pred_temp
+                print("Updated coefs:", coef)
+                print("Y_pred_temp", Y_pred_temp)
 
     coef = coef.reshape(n * lag, 1)
 
@@ -366,7 +366,7 @@ def perform_test_random(X_matr, rand_X_matr, Y_matr, lag, fit_method, replace_ro
 
     fit_result = fit_result_temps_df.mean().to_dict()
 
-    keys = fit_result.keys()
+    keys = list(fit_result.keys())
 
     for key in keys:
         fit_result[key + "_mean"] = fit_result[key] # LEFT OFF HERE 1/25
@@ -442,8 +442,8 @@ def perform_loto_cv(X_matr, Y_matr, lag, fit_method, replace_row, verbose=False,
 
 
     if verbose:
-        print "Y_tests: ", Y_tests
-        print "Y_preds: ", Y_preds
-        print fit_result
+        print("Y_tests: ", Y_tests)
+        print("Y_preds: ", Y_preds)
+        print(fit_result)
 
     return fit_result

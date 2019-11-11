@@ -6,7 +6,7 @@ try:
     mpl.use('Agg')
     import matplotlib.pyplot as plt
     HAS_PLT = True
-except ImportError, RuntimeError:
+except ImportError as RuntimeError:
     HAS_PLT = False
 
 import scipy.stats as stats
@@ -60,7 +60,7 @@ def load_basic_rep_file_list(rep_file):
     # subtract one to ignore the gene column
     geneTS = np.zeros((df.shape[0], df.shape[1] - 1, len(dfs)))
 
-    for i, df in zip(range(len(dfs)), dfs):
+    for i, df in zip(list(range(len(dfs))), dfs):
 
         genes, geneTS[:, :, i] = get_gene_TS(df)
 
@@ -96,14 +96,14 @@ def load_rep_file_list(rep_file, return_timepoints=False):
     # subtract one to ignore the gene column
     geneTS = np.zeros((df.shape[0], df.shape[1] - 1, len(dfs)))
 
-    for i, df in zip(range(len(dfs)), dfs):
+    for i, df in zip(list(range(len(dfs))), dfs):
 
         genes, geneTS[:, :, i] = get_gene_TS(df)
 
 
     timekeys, num_per_keys = get_shared_timekeys(dfs, index="gene")
-    print "Time keys: ", timekeys
-    print num_per_keys
+    print("Time keys: ", timekeys)
+    print(num_per_keys)
 
     # join all the replicates by gene, then let index be normal
     df = dfs[0].set_index('gene').join([x.set_index('gene') for x in dfs[1:]])
@@ -211,7 +211,7 @@ def load_file_and_avg(filename, keys = timekeys, all_avg=True, fold_change=False
     # look at differences
 
     if fold_change:
-        print "Fold change loaded"
+        print("Fold change loaded")
         fold_keys = []
         for i in range(len(keys) - 1):
             key1 = keys[i]
@@ -220,7 +220,7 @@ def load_file_and_avg(filename, keys = timekeys, all_avg=True, fold_change=False
             data[fold_key] = data[key2] * 1.0/ data[key1]
             fold_keys.append(fold_key)
     if diff:
-        print "Diff loaded"
+        print("Diff loaded")
         diff_keys = []
         for i in range(len(keys) - 1):
             key1 = keys[i]
@@ -232,12 +232,12 @@ def load_file_and_avg(filename, keys = timekeys, all_avg=True, fold_change=False
 
 
     if normal_diff:
-        print "normalized diff loaded"
+        print("normalized diff loaded")
         normal_diff_keys = []
         data["Mean_diff"] = data[diff_keys].mean(axis=1)
         data["Std_diff"] = data[diff_keys].std(axis=1)
 
-        for i, diff_key in zip(range(len(keys) - 1), diff_keys):
+        for i, diff_key in zip(list(range(len(keys) - 1)), diff_keys):
             key1 = keys[i]
             key2 = keys[i + 1]
             normal_diff_key = key1 + "-" + key2 + " normal_diff"
@@ -249,7 +249,7 @@ def load_file_and_avg(filename, keys = timekeys, all_avg=True, fold_change=False
         
     if verbose:
         for key, key_num in zip(keys, num_per_key):
-            print key, "has", key_num, "data points"
+            print(key, "has", key_num, "data points")
 
     return data
 
@@ -351,12 +351,12 @@ if HAS_PLT:
             #                 for timekey in timekeys])
             # print list(num_per_keys)
         if timepoints == None:
-            timepoints = range(len(keys))
+            timepoints = list(range(len(keys)))
 
 
         fig = plt.figure(figsize=figsize)
         ax = plt.subplot(111)
-        for gene, i in zip(genes, range(len(genes))):
+        for gene, i in zip(genes, list(range(len(genes)))):
             # time points, average for the index, std for index
             index = data[gene_col] == gene
 
@@ -368,8 +368,8 @@ if HAS_PLT:
             gene_avg = data[index][keys].values.flatten()
 
             if verbose:
-                print "Gene: ", gene
-                print gene_avg
+                print("Gene: ", gene)
+                print(gene_avg)
 
             # try to plot the bar here
             if plot_bar:
@@ -447,7 +447,7 @@ if HAS_PLT:
 
         if filename:
             fig.savefig(filename)
-            print "Plot saved to ", filename
+            print("Plot saved to ", filename)
 
         if show_plot:
             plt.show()
@@ -465,35 +465,35 @@ if HAS_PLT:
         colors = ['red', 'blue', 'green', 'cyan', 'magenta', 'yellow']
         fig = plt.figure(figsize=(12,8))
         ax = plt.subplot(111)
-        for gene_pair, i in zip( gene_pairs, range(len(gene_pairs))):
+        for gene_pair, i in zip( gene_pairs, list(range(len(gene_pairs)))):
             # time points, average for the index, std for index
 
             gene1, gene2 = gene_pair
 
-            print gene1, gene2
+            print(gene1, gene2)
             gene1_avg = data[data['gene'] == gene1][keys].values.flatten()
             gene2_avg = data[data['gene'] == gene2][keys].values.flatten()
             if no_error:
-                plt.errorbar(range(len(keys)), gene1_avg, label=gene1, color=colors[i])
+                plt.errorbar(list(range(len(keys))), gene1_avg, label=gene1, color=colors[i])
             else:
                 try:
                     gene1_std = data[data['gene'] == gene1][[key + 'std' for key in keys]].values.flatten()
 
-                    plt.errorbar(range(len(keys)), gene1_avg,
+                    plt.errorbar(list(range(len(keys))), gene1_avg,
                              yerr=stats.t.ppf(0.95, num_per_keys - 1) * gene1_std, label=gene1, color=colors[i])
                 except KeyError:
-                    plt.errorbar(range(len(keys)), gene1_avg, label=gene1, color=colors[i])
+                    plt.errorbar(list(range(len(keys))), gene1_avg, label=gene1, color=colors[i])
 
             if no_error:
-                plt.errorbar(range(len(keys)), gene2_avg,  color=colors[i], linestyle='dashed')
+                plt.errorbar(list(range(len(keys))), gene2_avg,  color=colors[i], linestyle='dashed')
             else:
                 try:
                     gene2_std = data[data['gene'] == gene2][[key + 'std' for key in keys]].values.flatten()
 
-                    plt.errorbar(range(len(keys)), gene2_avg,
+                    plt.errorbar(list(range(len(keys))), gene2_avg,
                              yerr=stats.t.ppf(0.95, num_per_keys - 1) * gene2_std,  color=colors[i], linestyle='dashed')
                 except KeyError:
-                    plt.errorbar(range(len(keys)), gene2_avg,  color=colors[i], linestyle='dashed')
+                    plt.errorbar(list(range(len(keys))), gene2_avg,  color=colors[i], linestyle='dashed')
 
 
         # Shrink current axis by 20%
@@ -513,7 +513,7 @@ if HAS_PLT:
         plt.xlim(-1, 12)
         if filename:
             fig.savefig(filename)
-            print "Plot saved to ", filename
+            print("Plot saved to ", filename)
 
         plt.show()
         plt.close()
@@ -529,10 +529,10 @@ if HAS_PLT:
             step_size = num_plot
 
 
-        plot_indices = range(min_plot, max_plot, step_size)
+        plot_indices = list(range(min_plot, max_plot, step_size))
 
 
-        for i, num in zip(plot_indices, range(1, len(plot_indices)+1)):
+        for i, num in zip(plot_indices, list(range(1, len(plot_indices)+1))):
             title = title_prefix + "," + str(num)
             if file_prefix:
                 filename = file_prefix + "-" + str(num)
@@ -557,22 +557,22 @@ if HAS_PLT:
 
         # assign colors
 
-        geneToColor = dict(zip(genes, colors))
-        print "Gene to color is: ", geneToColor
+        geneToColor = dict(list(zip(genes, colors)))
+        print("Gene to color is: ", geneToColor)
 
 
-        geneToStyle = dict(zip(genes, styles))
-        print "Gene to style is ", geneToStyle
+        geneToStyle = dict(list(zip(genes, styles)))
+        print("Gene to style is ", geneToStyle)
 
         # get the min and max of the data
         ymin_data = np.min(data[data['gene'].isin(genes)][keys].values)
         ymax_data = np.max(data[data['gene'].isin(genes)][keys].values)
         yavg_data = np.average(data[data['gene'].isin(genes)][keys].values)
         ystd_data = np.std(data[data['gene'].isin(genes)][keys].values)
-        print "Y min is : ", ymin_data
-        print "Y max is : ", ymax_data
-        print "Y avg is : ", yavg_data
-        print "Y std is : ", ystd_data
+        print("Y min is : ", ymin_data)
+        print("Y max is : ", ymax_data)
+        print("Y avg is : ", yavg_data)
+        print("Y std is : ", ystd_data)
 
 
 
@@ -586,10 +586,10 @@ if HAS_PLT:
             try:
                 gene_std = data[data['gene'] == gene][[key + 'std' for key in keys]].values.flatten()
 
-                ax1.errorbar(range(len(keys)), gene_avg,
+                ax1.errorbar(list(range(len(keys))), gene_avg,
                          yerr=stats.t.ppf(0.95, num_per_keys - 1) * gene_std, color=geneToColor[gene], linestyle=geneToStyle[gene])
             except KeyError:
-                ax1.errorbar(range(len(keys)), gene_avg, label=gene, color=geneToColor[gene], linestyle=geneToStyle[gene])
+                ax1.errorbar(list(range(len(keys))), gene_avg, label=gene, color=geneToColor[gene], linestyle=geneToStyle[gene])
 
 
 
@@ -619,10 +619,10 @@ if HAS_PLT:
             try:
                 gene_std = data[data['gene'] == gene][[key + 'std' for key in keys]].values.flatten()
 
-                ax.errorbar(range(len(keys)), gene_avg,
+                ax.errorbar(list(range(len(keys))), gene_avg,
                          yerr=stats.t.ppf(0.95, num_per_keys - 1) * gene_std, color=geneToColor[gene], linestyle=geneToStyle[gene])
             except KeyError:
-                ax.errorbar(range(len(keys)), gene_avg, label=gene, color=geneToColor[gene], linestyle=geneToStyle[gene])
+                ax.errorbar(list(range(len(keys))), gene_avg, label=gene, color=geneToColor[gene], linestyle=geneToStyle[gene])
             if plot_reps:
                 index = data['gene'] == gene
                 ax.scatter([rep2index[r] for r in repkeys], data[index][repkeys], color=geneToColor[gene], s=5)
@@ -655,7 +655,7 @@ if HAS_PLT:
             filename = file_prefix + "-" + str(int(yavg_data)) + "-" + str(int(ystd_data)) + "-" + gene_string
 
 
-            print "Figure saved to ", filename
+            print("Figure saved to ", filename)
             fig.savefig(filename)
 
         plt.show()
@@ -674,10 +674,10 @@ if HAS_PLT:
             step_size = num_plot
 
 
-        plot_indices = range(min_plot, max_plot, step_size)
+        plot_indices = list(range(min_plot, max_plot, step_size))
 
 
-        for i, num in zip(plot_indices, range(1, len(plot_indices)+1)):
+        for i, num in zip(plot_indices, list(range(1, len(plot_indices)+1))):
 
             plot_genes = genes[i: min(i+num_plot, max_plot)]
 
@@ -705,21 +705,21 @@ if HAS_PLT:
             genes.add(pair[1])
 
 
-        pairToColor = dict(zip(pairs, colors))
-        print " pair to color is: ",  pairToColor
+        pairToColor = dict(list(zip(pairs, colors)))
+        print(" pair to color is: ",  pairToColor)
 
-        print pairs
-        print genes
+        print(pairs)
+        print(genes)
 
         # get the min and max of the data
         ymin_data = np.min(data[data['gene'].isin(genes)][keys].values)
         ymax_data = np.max(data[data['gene'].isin(genes)][keys].values)
         yavg_data = np.average(data[data['gene'].isin(genes)][keys].values)
         ystd_data = np.std(data[data['gene'].isin(genes)][keys].values)
-        print "Y min is : ", ymin_data
-        print "Y max is : ", ymax_data
-        print "Y avg is : ", yavg_data
-        print "Y std is : ", ystd_data
+        print("Y min is : ", ymin_data)
+        print("Y max is : ", ymax_data)
+        print("Y avg is : ", yavg_data)
+        print("Y std is : ", ystd_data)
 
 
 
@@ -727,35 +727,35 @@ if HAS_PLT:
 
 
 
-        for pair, i in zip(pairs, range(len(pairs))):
+        for pair, i in zip(pairs, list(range(len(pairs)))):
             # time points, average for the index, std for index
 
             gene1, gene2 = pair
 
-            print gene1, gene2
+            print(gene1, gene2)
             gene1_avg = data[data['gene'] == gene1][keys].values.flatten()
             gene2_avg = data[data['gene'] == gene2][keys].values.flatten()
             if no_error:
-                ax1.errorbar(range(len(keys)), gene1_avg,  color=pairToColor[pair])
+                ax1.errorbar(list(range(len(keys))), gene1_avg,  color=pairToColor[pair])
             else:
                 try:
                     gene1_std = data[data['gene'] == gene1][[key + 'std' for key in keys]].values.flatten()
 
-                    ax1.errorbar(range(len(keys)), gene1_avg,
+                    ax1.errorbar(list(range(len(keys))), gene1_avg,
                              yerr=stats.t.ppf(0.95, num_per_keys - 1) * gene1_std,  color=pairToColor[pair])
                 except KeyError:
-                    ax1.errorbar(range(len(keys)), gene1_avg,  color=pairToColor[pair])
+                    ax1.errorbar(list(range(len(keys))), gene1_avg,  color=pairToColor[pair])
 
             if no_error:
-                ax1.errorbar(range(len(keys)), gene2_avg,  color=pairToColor[pair], linestyle='dashed')
+                ax1.errorbar(list(range(len(keys))), gene2_avg,  color=pairToColor[pair], linestyle='dashed')
             else:
                 try:
                     gene2_std = data[data['gene'] == gene2][[key + 'std' for key in keys]].values.flatten()
 
-                    ax1.errorbar(range(len(keys)), gene2_avg,
+                    ax1.errorbar(list(range(len(keys))), gene2_avg,
                              yerr=stats.t.ppf(0.95, num_per_keys - 1) * gene2_std,  color=pairToColor[pair], linestyle='dashed')
                 except KeyError:
-                    ax1.errorbar(range(len(keys)), gene2_avg,  color=pairToColor[pair], linestyle='dashed')
+                    ax1.errorbar(list(range(len(keys))), gene2_avg,  color=pairToColor[pair], linestyle='dashed')
         if line_color_labels != None:
             for line, color, label in line_color_labels:
                 ax1.axvline(line, color=color,label=label)
@@ -780,30 +780,30 @@ if HAS_PLT:
         for pair, ax in zip(pairs, [ax2, ax3, ax4]):
             gene1, gene2 = pair
 
-            print gene1, gene2
+            print(gene1, gene2)
             gene1_avg = data[data['gene'] == gene1][keys].values.flatten()
             gene2_avg = data[data['gene'] == gene2][keys].values.flatten()
             if no_error:
-                ax.errorbar(range(len(keys)), gene1_avg,  label=gene1, color=pairToColor[pair])
+                ax.errorbar(list(range(len(keys))), gene1_avg,  label=gene1, color=pairToColor[pair])
             else:
                 try:
                     gene1_std = data[data['gene'] == gene1][[key + 'std' for key in keys]].values.flatten()
 
-                    ax.errorbar(range(len(keys)), gene1_avg,
+                    ax.errorbar(list(range(len(keys))), gene1_avg,
                              yerr=stats.t.ppf(0.95, num_per_keys - 1) * gene1_std,  label=gene1,color=pairToColor[pair])
                 except KeyError:
-                    ax.errorbar(range(len(keys)), gene1_avg, label=gene1, color=pairToColor[pair])
+                    ax.errorbar(list(range(len(keys))), gene1_avg, label=gene1, color=pairToColor[pair])
 
             if no_error:
-                ax.errorbar(range(len(keys)), gene2_avg, label=gene2, color=pairToColor[pair], linestyle='dashed')
+                ax.errorbar(list(range(len(keys))), gene2_avg, label=gene2, color=pairToColor[pair], linestyle='dashed')
             else:
                 try:
                     gene2_std = data[data['gene'] == gene2][[key + 'std' for key in keys]].values.flatten()
 
-                    ax.errorbar(range(len(keys)), gene2_avg,
+                    ax.errorbar(list(range(len(keys))), gene2_avg,
                              yerr=stats.t.ppf(0.95, num_per_keys - 1) * gene2_std, label=gene2, color=pairToColor[pair], linestyle='dashed')
                 except KeyError:
-                    ax.errorbar(range(len(keys)), gene2_avg, label=gene2, color=pairToColor[pair], linestyle='dashed')
+                    ax.errorbar(list(range(len(keys))), gene2_avg, label=gene2, color=pairToColor[pair], linestyle='dashed')
             if xlim != None:
                 ax.set_xlim(xlim[0], xlim[1])
             else:
@@ -829,7 +829,7 @@ if HAS_PLT:
             filename = file_prefix + "-" + str(int(yavg_data)) + "-" + str(int(ystd_data)) + "-" + gene_string
 
 
-            print "Figure saved to ", filename
+            print("Figure saved to ", filename)
             fig.savefig(filename)
 
         plt.show()
@@ -847,10 +847,10 @@ if HAS_PLT:
                 step_size = num_plot
 
 
-            plot_indices = range(min_plot, max_plot, step_size)
+            plot_indices = list(range(min_plot, max_plot, step_size))
 
 
-            for i, num in zip(plot_indices, range(1, len(plot_indices)+1)):
+            for i, num in zip(plot_indices, list(range(1, len(plot_indices)+1))):
 
                 plot_pairs = pairs[i: min(i+num_plot, max_plot)]
 
@@ -899,10 +899,10 @@ if HAS_PLT:
                 min_value = xlim[0]
                 max_value = xlim[1]
             bins = np.linspace(min_value, max_value, bins)
-            print bins
+            print(bins)
 
         figs = []
-        for t, time_name in zip(range(T), time_names):
+        for t, time_name in zip(list(range(T)), time_names):
             title = title_prefix + time_name
             fig = plt.figure(figsize=(8,8))
             plt.hist(trans_matr[t], bins=bins)
@@ -924,13 +924,13 @@ if HAS_PLT:
             if save_prefix:
                 filename = save_prefix + time_name
                 fig.savefig(filename)
-                print "Plot saved to ", filename
+                print("Plot saved to ", filename)
             figs.append(fig)
             plt.show()
             plt.close()
 
         if save_prefix:
-            print "All images saved with prefix:", save_prefix
+            print("All images saved with prefix:", save_prefix)
 
         return figs
 
@@ -995,7 +995,7 @@ def get_sig_gene_pairs(sig_matr, genes):
 
     grows, gcols = [genes[row] for row in rows], [genes[col] for col in cols]
 
-    return zip(grows, gcols)
+    return list(zip(grows, gcols))
 
 
 
@@ -1063,22 +1063,22 @@ def make_and_save_randomized_data(data, seed=123, filename=None):
 
     rand_data_dict = {}
     rand_data_dict['gene'] = data['gene'].values
-    for i, key in zip(range(len(keys)), keys):
+    for i, key in zip(list(range(len(keys))), keys):
         rand_data_dict[key] = rand_geneTS[:, i]
     rand_data = pd.DataFrame(data=rand_data_dict, columns=["gene"] + list(keys))
 
     if filename == None:
-        print "Randomized not written"
+        print("Randomized not written")
     else:
         rand_data.to_csv(filename, sep='\t', index=False)
-        print "Randomized written to ", filename
+        print("Randomized written to ", filename)
 
     return rand_data
 
 
 def make_gene_matrix(matrix, genes):
     data_dict = collections.OrderedDict()
-    for i, gene in zip(range(len(genes)), genes):
+    for i, gene in zip(list(range(len(genes))), genes):
         data_dict[gene] = matrix[:, i]
     df = pd.DataFrame(data_dict)
     df["gene"] = genes

@@ -45,7 +45,7 @@ export NROWS=100
 
 
 
-export GENES=insilico_size100_1
+export GENES=insilico_size100_1-test-namedellamodify
 # Give a name of the dataset.
 
 
@@ -70,7 +70,7 @@ export SAMPLE=norm
 # Parameters of the causal network inference method.
 
 
-export CAUSAL=enet
+export CAUSAL=lasso
 # The type of vector autoregression model.
 # Must be one of {ridge, lasso, enet}
 # BETS sets CAUSAL=enet

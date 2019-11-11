@@ -4,9 +4,9 @@ __author__ = 'jlu96'
 import numpy as np
 from sklearn.model_selection import LeaveOneOut
 import matplotlib as mpl
+import importlib
 mpl.use('Agg')
 import matplotlib.pyplot as plt
-reload(plt)
 import pandas as pd
 import pickle
 import collections
@@ -41,7 +41,7 @@ def cross_validate(X_matr, lag, fit_method, hyperlist, rows=None, has_reps=False
     T = X_matr.shape[1]
 
     if rows == None:
-        rows = range(n)
+        rows = list(range(n))
 
     hyper_fit_dfs = []
 
@@ -80,8 +80,8 @@ def cross_validate(X_matr, lag, fit_method, hyperlist, rows=None, has_reps=False
 
         hyper_fit_dfs.append(fit_result_df)
 
-        print "Hyper: ", hyper
-        print fit_result_df.head(n=20)
+        print("Hyper: ", hyper)
+        print(fit_result_df.head(n=20))
 
     return hyper_fit_dfs
 
@@ -167,8 +167,8 @@ def run_cross_validate(geneTS, fit_method=fm.fit_lasso,
     """
 
 
-    print "Hyper-parameters for cross-validation"
-    print hyperlist
+    print("Hyper-parameters for cross-validation")
+    print(hyperlist)
 
     # Cross-validate
 
@@ -180,8 +180,8 @@ def run_cross_validate(geneTS, fit_method=fm.fit_lasso,
 
     best_hyper, best, hyper_df = get_best_hyper(hyper_df, sort_by=sort_by)
 
-    print "Hypers results:"
-    print hyper_df
+    print("Hypers results:")
+    print(hyper_df)
 
 
     return best_hyper, best, hyper_df, hyper_fit_dfs
@@ -284,7 +284,7 @@ def plot_hyper_boxplot(hyperlist, fit_result_dfs, fit_result_key, xlabel="Hyperp
     fig, axes = plt.subplots(nrows=1, ncols=1, figsize=figsize)
 
     data = [fit_result_df[fit_result_key].values for fit_result_df in fit_result_dfs]
-    pos = range(1, len(hyperlist) + 1)
+    pos = list(range(1, len(hyperlist) + 1))
 
     plt.boxplot(data, positions=pos, showmeans=True)
 
@@ -339,7 +339,7 @@ def plot_hyper_boxplot(hyperlist, fit_result_dfs, fit_result_key, xlabel="Hyperp
 
     if filename:
         fig.savefig(filename)
-        print "Plot saved to ", filename
+        print("Plot saved to ", filename)
 
     plt.show()
     plt.close()
@@ -413,7 +413,7 @@ def plot_corr_matrix(corr_matr, labels, ylabels=None, title='Correlation matrix'
 
 
     if do_special_marker:
-        print "Doing special marker. Be wary of wrong turns."
+        print("Doing special marker. Be wary of wrong turns.")
         assert len(special_marker_rows) == len(special_marker_columns)
         plt.scatter(special_marker_columns, special_marker_rows, color=special_marker_color,
                     s=special_marker_size, marker=special_marker_type)
@@ -464,7 +464,7 @@ def plot_corr_matrix(corr_matr, labels, ylabels=None, title='Correlation matrix'
         axes.tick_params(axis='y', which='major', pad=y_pad)
     if filename:
         fig.savefig(filename, bbox_inches="tight", pad_inches=0.5)
-        print "Plot saved to ", filename
+        print("Plot saved to ", filename)
     plt.show()
     plt.close()
 
@@ -477,7 +477,7 @@ def plot_coef(df, cause_gene, effect_gene, lag, coef, savefile=True, file_prefix
 
     if savefile == True:
         filename = file_prefix + cause_gene.replace(".", ",") + "-" + effect_gene.replace(".", ",") + "-lag-" + str(int(lag)) + "-coef-" + float_to_label(coef) + file_type
-        print "Filename: ", filename
+        print("Filename: ", filename)
     else:
         filename = None
 
@@ -510,7 +510,7 @@ def plot_all_coef(acoefs, df, genes, min_coef=0.01, file_prefix=None, savefile=T
     """
 
     if verbose:
-        print "Min Coef to plot: ", min_coef
+        print("Min Coef to plot: ", min_coef)
 
     # iterate down the coefs of each effect gene. This is one effect gene per column.
     for j in range(acoefs.shape[2]):
@@ -529,8 +529,8 @@ def plot_all_coef(acoefs, df, genes, min_coef=0.01, file_prefix=None, savefile=T
 
         if verbose:
             if cause_num > 0:
-                print "Out gene: ", out_gene
-                print "Causes: ", cause_num
+                print("Out gene: ", out_gene)
+                print("Causes: ", cause_num)
 
         for i in range(cause_num):
 
@@ -653,7 +653,7 @@ def fit_all(X_matr, Y_matr, rows, lag, fit_method, save_prefix=None, save_XY=Tru
 
     fit_results = []
 
-    for i, row in zip(range(Y_matr.shape[0]), rows):
+    for i, row in zip(list(range(Y_matr.shape[0])), rows):
         if has_reps:
             Y = np.reshape(Y_matr[i,], (1, T, Y_matr.shape[2]))
 
@@ -685,20 +685,20 @@ def fit_all(X_matr, Y_matr, rows, lag, fit_method, save_prefix=None, save_XY=Tru
 
 
         if verbose:
-            print i, row
-            print "X: ", X_matr
-            print "Y: ", Y
-            print "X_t: ", X_t
-            print "Y_t: ", Y_t
-            print "Y_pred: ", Y_pred
-            print "Checking Y_pred: ", fm.compute_fit(X_t, Y_t, coef, intercept)
-            print "coef: ", coef
-            print "intercept: ", intercept
-            print "fit result: ", fit_result
+            print(i, row)
+            print("X: ", X_matr)
+            print("Y: ", Y)
+            print("X_t: ", X_t)
+            print("Y_t: ", Y_t)
+            print("Y_pred: ", Y_pred)
+            print("Checking Y_pred: ", fm.compute_fit(X_t, Y_t, coef, intercept))
+            print("coef: ", coef)
+            print("intercept: ", intercept)
+            print("fit result: ", fit_result)
 
     fit_result_df = pd.DataFrame(fit_results)
 
-    print "Finished fitting all"
+    print("Finished fitting all")
 
 
     # remember coefs are cause-by-effect.
@@ -749,7 +749,7 @@ def fit_all_random(X_matr, rand_X_matr, Y_matr, rows, lag, fit_method, save_pref
 
     fit_results = []
 
-    for i, row in zip(range(n), rows):
+    for i, row in zip(list(range(n)), rows):
         if has_reps:
             Y = np.reshape(Y_matr[i,], (1, T, Y_matr.shape[2]))
 
@@ -782,15 +782,15 @@ def fit_all_random(X_matr, rand_X_matr, Y_matr, rows, lag, fit_method, save_pref
 
 
         if verbose:
-            print i, row
-            print "X: ", X_matr
-            print "Y: ", Y
+            print(i, row)
+            print("X: ", X_matr)
+            print("Y: ", Y)
 #             print "X_t: ", X_t
 #             print "Y_t: ", Y_t
 #             print "Y_pred: ", Y_pred
 #             print "Checking Y_pred: ", fm.compute_fit(X_t, Y_t, coef, intercept)
-            print "coef: ", coef
-            print "fit result: ", fit_result
+            print("coef: ", coef)
+            print("fit result: ", fit_result)
 
     fit_result_df = pd.DataFrame(fit_results)
 
@@ -826,7 +826,7 @@ def summarize_fit(coefs, intercepts, fit_result_df, filename=None, hyper=None, t
 
 
 
-    print summary_string
+    print(summary_string)
 
     if filename != None:
         with open(filename, 'w') as ifile:
@@ -940,7 +940,7 @@ def get_max_network(dfs, max_col, index_col):
         whole_df = whole_dfs[i]
 
         missing_indices = np.setdiff1d(indices, whole_df.index)
-        missing_df = pd.DataFrame(data=dict(zip(whole_df.columns.values, [np.NINF for x in whole_df.columns.values])),
+        missing_df = pd.DataFrame(data=dict(list(zip(whole_df.columns.values, [np.NINF for x in whole_df.columns.values]))),
                                             index=missing_indices)
         whole_dfs[i] = pd.concat((whole_df, missing_df)).sort_index()
         # at this point all dfs should have same ordered indices
@@ -980,14 +980,14 @@ def run(geneTS, geneTSr, hyper, fit_method=fm.fit_lasso,
     """
 
     if rows == None:
-        rows = range(geneTS.shape[0])
+        rows = list(range(geneTS.shape[0]))
 
     if null not in {"l", "g"}:
         raise ValueError("Null must either be l (local) or g (global)")
 
     geneTSy = geneTS[rows,:]
 
-    print "Y shape: ", geneTSy.shape
+    print("Y shape: ", geneTSy.shape)
 
     coefs, intercepts, fit_result_df = fit_all(geneTS, geneTSy, rows, lag, fit_method, hyper=hyper, has_reps=has_reps,
                                                only_array=only_array)
@@ -1007,20 +1007,20 @@ def run(geneTS, geneTSr, hyper, fit_method=fm.fit_lasso,
 
 
     if save_prefix != None:
-        pickle.dump(coefs, open(save_prefix + "_coefs.p", 'wB'))
-        pickle.dump(intercepts, open(save_prefix + "_intercepts.p", 'wB'))
-        pickle.dump(coefsr, open(save_prefix + "_coefsr.p", 'wB'))
-        # pickle.dump(interceptsr, open(save_prefix + "_interceptsr.p", 'wB'))
+        pickle.dump(coefs, open(save_prefix + "_coefs.p", 'wb'))
+        pickle.dump(intercepts, open(save_prefix + "_intercepts.p", 'wb'))
+        pickle.dump(coefsr, open(save_prefix + "_coefsr.p", 'wb'))
+        # pickle.dump(interceptsr, open(save_prefix + "_interceptsr.p", 'wb'))
         fit_result_df.to_csv(save_prefix + "_fit_result_df.txt", sep="\t", index=0)
         fit_result_dfr.to_csv(save_prefix + "_fit_result_dfr.txt", sep="\t", index=0)
 
 
-        print "Coefs saved to ", save_prefix + "_coefs.p"
-        print "Intercepts saved to ", save_prefix + "_intercepts.p"
-        print "Fit result saved to ", save_prefix + "_fit_result_df.txt"
-        print "Coefs-rand. saved to ", save_prefix + "_coefsr.p"
+        print("Coefs saved to ", save_prefix + "_coefs.p")
+        print("Intercepts saved to ", save_prefix + "_intercepts.p")
+        print("Fit result saved to ", save_prefix + "_fit_result_df.txt")
+        print("Coefs-rand. saved to ", save_prefix + "_coefsr.p")
         # print "Intercepts-rand. saved to ", save_prefix + "_interceptsr.p"
-        print "Fit result-rand. saved to ", save_prefix + "_fit_result_dfr.txt"
+        print("Fit result-rand. saved to ", save_prefix + "_fit_result_dfr.txt")
 
 
 
@@ -1054,14 +1054,14 @@ def run_bootstrap(geneTS, geneTSr, hyper, fit_method=fm.fit_lasso,
     """
 
     if rows == None:
-        rows = range(geneTS.shape[0])
+        rows = list(range(geneTS.shape[0]))
 
     if null not in {"l", "g"}:
         raise ValueError("Null must either be l (local) or g (global)")
 
     geneTSy = geneTS[rows,:]
 
-    print "Y shape: ", geneTSy.shape
+    print("Y shape: ", geneTSy.shape)
 
     coefs, intercepts, fit_result_df = fit_all(geneTS, geneTSy, rows, lag, fit_method, hyper=hyper, has_reps=has_reps,
                                               bootstrap=True, seed=seed,
@@ -1084,20 +1084,20 @@ def run_bootstrap(geneTS, geneTSr, hyper, fit_method=fm.fit_lasso,
 
 
     if save_prefix != None:
-        pickle.dump(coefs, open(save_prefix + "_coefs.p", 'wB'))
-        pickle.dump(intercepts, open(save_prefix + "_intercepts.p", 'wB'))
-        pickle.dump(coefsr, open(save_prefix + "_coefsr.p", 'wB'))
-        # pickle.dump(interceptsr, open(save_prefix + "_interceptsr.p", 'wB'))
+        pickle.dump(coefs, open(save_prefix + "_coefs.p", 'wb'))
+        pickle.dump(intercepts, open(save_prefix + "_intercepts.p", 'wb'))
+        pickle.dump(coefsr, open(save_prefix + "_coefsr.p", 'wb'))
+        # pickle.dump(interceptsr, open(save_prefix + "_interceptsr.p", 'wb'))
         fit_result_df.to_csv(save_prefix + "_fit_result_df.txt", sep="\t", index=0)
         fit_result_dfr.to_csv(save_prefix + "_fit_result_dfr.txt", sep="\t", index=0)
 
 
-        print "Coefs saved to ", save_prefix + "_coefs.p"
-        print "Intercepts saved to ", save_prefix + "_intercepts.p"
-        print "Fit result saved to ", save_prefix + "_fit_result_df.txt"
-        print "Coefs-rand. saved to ", save_prefix + "_coefsr.p"
+        print("Coefs saved to ", save_prefix + "_coefs.p")
+        print("Intercepts saved to ", save_prefix + "_intercepts.p")
+        print("Fit result saved to ", save_prefix + "_fit_result_df.txt")
+        print("Coefs-rand. saved to ", save_prefix + "_coefsr.p")
         # print "Intercepts-rand. saved to ", save_prefix + "_interceptsr.p"
-        print "Fit result-rand. saved to ", save_prefix + "_fit_result_dfr.txt"
+        print("Fit result-rand. saved to ", save_prefix + "_fit_result_dfr.txt")
 
 
 
@@ -1149,17 +1149,17 @@ def bootstrap_matrices_iter_free(filenames):
     :return: first_matr
     """
 
-    first_matr = pickle.load(open(filenames[0], 'rU'))
+    first_matr = pickle.load(open(filenames[0], 'rb'))
 
     mean_matr = first_matr.copy()
     count_matr = (first_matr !=0).astype(int)
 
-    print "Bootstrap calculation by incremental adding + freeing"
+    print("Bootstrap calculation by incremental adding + freeing")
 
     n = 2
     for i in range(1, len(filenames)):
-        print i
-        next_matr = pickle.load(open(filenames[i], 'rU'))
+        print(i)
+        next_matr = pickle.load(open(filenames[i], 'rb'))
 
         if next_matr.shape == mean_matr.shape:
 
@@ -1235,7 +1235,7 @@ def bootstrap_matrices_iter_free(filenames):
 #
 #     lag = args.lag
 #     #nfolds = args.num_folds
-#     hyperlist = pickle.load(open(args.hyper_file, 'rB'))
+#     hyperlist = pickle.load(open(args.hyper_file, 'rb'))
 #
 #     assert args.stratify_by in {"e", "n"}
 #
@@ -1269,7 +1269,7 @@ def bootstrap_matrices_iter_free(filenames):
 #     if not os.path.exists("hyper"):
 #         os.makedirs("hyper")
 #
-#     pickle.dump(best_hyper, open("hyper" + os.sep + save_prefix + "_best_hyper.p", 'wB'))
+#     pickle.dump(best_hyper, open("hyper" + os.sep + save_prefix + "_best_hyper.p", 'wb'))
 #     best.to_csv("hyper" + os.sep + save_prefix + "_best_df.txt", sep="\t", index=0)
 #     hyper_df.to_csv("hyper" + os.sep + save_prefix + "_hyper_df.txt", sep="\t", index=0)
 #     for hyper, hyper_fit_df in zip(hyperlist, hyper_fit_dfs):
@@ -1415,7 +1415,7 @@ def bootstrap_matrices_iter_free(filenames):
 #             print "Threshes", threshes
 #
 #             matr_df = gtm.save_gene_matrix(filename=fdr_prefix + "_acoefs-lag-" + str(i+1) + "-fdr-" + str(fdr) + ".txt", matrix=acoefs_fdr[i], genes=genes)
-#             pickle.dump(threshes, open(fdr_prefix + "_acoefs-lag-" + str(i+1) + "-fdr-" + str(fdr) + "-threshes.p", 'wB'))
+#             pickle.dump(threshes, open(fdr_prefix + "_acoefs-lag-" + str(i+1) + "-fdr-" + str(fdr) + "-threshes.p", 'wb'))
 #
 #             net_df = nh.matr_to_net(matr_df, fdr_prefix + "-lag-" + str(i+1) + "-fdr-" + str(fdr) + "-sb-" + stratify_by, make_pair=False)
 #             net_df.to_csv(fdr_prefix + "_acoefs-lag-" + str(i+1) + "-fdr-" + str(fdr) + "-network.txt", sep="\t", index=False)
@@ -1432,7 +1432,7 @@ def bootstrap_matrices_iter_free(filenames):
 #
 #
 #
-#     with open("matrices_done.txt", 'w') as donefile:
+#     with open("matrices_done.txt", 'wb') as donefile:
 #         donefile.write("done\n")
 #
 #

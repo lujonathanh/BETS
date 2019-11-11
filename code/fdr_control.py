@@ -133,8 +133,8 @@ def get_thresh(beta_matr, rand_beta_matr, fdr, stratify_by="effect"):
     :param stratify_by: col: control the FDR by stratifying by this
     :return:
     """
-    print "Calculating thresholds"
-    print "Stratifying by ", stratify_by
+    print("Calculating thresholds")
+    print("Stratifying by ", stratify_by)
     thresh_matr = beta_matr.copy()
     beta_threshes = []
 
@@ -217,18 +217,18 @@ def get_pos_neg_thresh(beta_matr, rand_beta_matr, fdr, stratify_by="effect"):
 
     thresh_matr = pos_thresh_matr + neg_thresh_matr
 
-    beta_threshes = zip(pos_beta_threshes, neg_beta_threshes)
+    beta_threshes = list(zip(pos_beta_threshes, neg_beta_threshes))
 
 
     return thresh_matr, beta_threshes
 
 def cap_matr(matr, cap, name="matrix"):
-    print "Cap is ", cap
-    print "For matrix ", name
-    print "Before cap: Num entries ", len(np.where(matr != 0)[0])
+    print("Cap is ", cap)
+    print("For matrix ", name)
+    print("Before cap: Num entries ", len(np.where(matr != 0)[0]))
 
     matr[np.where(np.absolute(matr) > cap)] = 0
-    print "After cap: Num entries ", len(np.where(matr != 0)[0])
+    print("After cap: Num entries ", len(np.where(matr != 0)[0]))
 
     return matr
 
@@ -287,7 +287,7 @@ def summarize_fdr(matr, filename, fdr, readme_name, matrixname, test=None, lag=N
     if readme_name != None:
         sf_df.transpose().to_csv(readme_name, sep="\t")
 
-    print sf_df.transpose().to_string()
+    print(sf_df.transpose().to_string())
 
     return sf_df
 
@@ -318,7 +318,7 @@ def plot_betas(unshuffled, shuffled, filename=None, zoom_in_top_percentile=100, 
     plt.title(title, fontsize=25)
 
     if filename != None:
-        print "Overlaid betas saved to ", filename
+        print("Overlaid betas saved to ", filename)
         fig.savefig(filename)
     plt.show()
     plt.close()
@@ -367,8 +367,8 @@ def run(args):
     data = gtm.load_file_and_avg(args.original_data)
     rand_data = gtm.load_file_and_avg(args.randomized_data)
 
-    matr = pickle.load(open(args.original_matrix, 'rB'))[:, :, args.coef_num - 1]
-    rand_matr = pickle.load(open(args.randomized_matrix, 'rB'))[:, :, args.coef_num - 1]
+    matr = pickle.load(open(args.original_matrix, 'rb'))[:, :, args.coef_num - 1]
+    rand_matr = pickle.load(open(args.randomized_matrix, 'rb'))[:, :, args.coef_num - 1]
 
 
 
@@ -380,8 +380,8 @@ def run(args):
         elif args.stratify_by == "n":
             stratify_by = "none"
 
-    print
-    print "Beginning FDR control, stratifying the matrix by ", stratify_by
+    print()
+    print("Beginning FDR control, stratifying the matrix by ", stratify_by)
 
     genes = data["gene"]
     rand_genes = rand_data["gene"]
@@ -390,10 +390,10 @@ def run(args):
         raise ValueError("Genes are not the same!")
 
 
-    print "Original matrix for ", args.name, "saved to", args.name + "-unshuffled-matrix.txt"
+    print("Original matrix for ", args.name, "saved to", args.name + "-unshuffled-matrix.txt")
     gtm.save_gene_matrix(matrix=matr, filename=args.name + "-unshuffled-matrix.txt", genes=genes)
 
-    print "Randomized matrix for ", args.name, "saved to", args.name + "-shuffled-matrix.txt"
+    print("Randomized matrix for ", args.name, "saved to", args.name + "-shuffled-matrix.txt")
     gtm.save_gene_matrix(matrix=rand_matr, filename=args.name + "-shuffled-matrix.txt", genes=rand_genes)
 
 
@@ -403,15 +403,15 @@ def run(args):
 
 
     if args.cap_by != None:
-        print "First capping original and randomized matrix"
+        print("First capping original and randomized matrix")
         matr = cap_matr(matr, args.cap_by, name="Original")
         rand_matr = cap_matr(rand_matr, args.cap_by, name="Randomized")
 
 
 
-    print "Using original"
-    print "Trying to have an FDR of ", args.fdr
-    print args.name
+    print("Using original")
+    print("Trying to have an FDR of ", args.fdr)
+    print(args.name)
 
 
     functions = [get_abs_thresh, get_pos_neg_thresh]
@@ -421,12 +421,12 @@ def run(args):
 
     for function, t, a in zip(functions, types, absoluted):
 
-        print
-        print "*******************"
-        print t
-        print "*******************"
+        print()
+        print("*******************")
+        print(t)
+        print("*******************")
 
-        print "making matrix"
+        print("making matrix")
 
         out_prefix = args.name + "-unshuffled-" + t + "-FDR-" + str(args.fdr) + "-stratby-" + stratify_by
 
@@ -437,23 +437,23 @@ def run(args):
 
 
         matr_df = gtm.save_gene_matrix(out_prefix + "-matrix.txt", thresh_matr, genes)
-        pickle.dump(threshes, open(out_prefix + "-threshes.p", 'w'))
+        pickle.dump(threshes, open(out_prefix + "-threshes.p", 'wb'))
 
-        print "Matrix written to ", out_prefix + "-matrix.txt"
-        print "Threshes written to ", out_prefix + "-threshes.p"
+        print("Matrix written to ", out_prefix + "-matrix.txt")
+        print("Threshes written to ", out_prefix + "-threshes.p")
 
         #write_readme(thresh_matr, out_prefix, args.fdr, out_prefix + '-README.txt', out_prefix + "-matrix")
 
         if args.make_network:
-            print "making network"
+            print("making network")
             net_df = nh.matr_to_net(matr_df, args.name + "-sb-" + args.stratify_by, make_pair=False)
 
             net_df.to_csv(out_prefix + "-network.txt", sep="\t", index=False)
 
-            print "Network written to ", out_prefix + "-network.txt"
+            print("Network written to ", out_prefix + "-network.txt")
 
         if absoluted:
-            print "Making absoluted matrix "
+            print("Making absoluted matrix ")
             abs_matr = np.absolute(thresh_matr)
 
             abs_prefix = args.name + "-unshuffled-" + t + "-absoluted-FDR-" + str(args.fdr) + "-stratby-" + stratify_by
@@ -463,16 +463,16 @@ def run(args):
             #write_readme(abs_matr, abs_prefix, args.fdr, abs_prefix + '-README.txt', abs_prefix + "-matrix")
 
             if args.make_network:
-                print "Making absoluted network"
+                print("Making absoluted network")
                 abs_net_df = nh.matr_to_net(abs_df, args.name + "-sb-" + args.stratify_by, make_pair=False)
 
                 abs_net_df.to_csv(abs_prefix + "-network.txt", sep="\t", index=False)
 
-                print "Network written to ", abs_prefix + "-network.txt"
+                print("Network written to ", abs_prefix + "-network.txt")
 
-    print "FINISHED"
-    print "#################################################"
-    print
+    print("FINISHED")
+    print("#################################################")
+    print()
 
 
 def main():

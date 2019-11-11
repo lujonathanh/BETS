@@ -102,7 +102,7 @@ def load_and_run(args):
         genesr, geneTSr = gtm.get_gene_TS(dfr)
 
         timekeys = df.columns.values[1:]
-        print "Timekeys: ", timekeys
+        print("Timekeys: ", timekeys)
 
         # Num. replicates per key
         num_per_keys = None
@@ -114,29 +114,29 @@ def load_and_run(args):
 
 
 
-    coefs = pickle.load(open(args.coef_file, 'rB'))
-    intercepts = pickle.load(open(args.intercept_file, 'rB'))
+    coefs = pickle.load(open(args.coef_file, 'rb'))
+    intercepts = pickle.load(open(args.intercept_file, 'rb'))
     fit_result_df = pd.read_csv(args.fit_result_file, sep="\t")
 
-    coefsr = pickle.load(open(args.coef_rand_file, 'rB'))
-    # interceptsr = pickle.load(open(args.intercept_rand_file, 'rB'))
+    coefsr = pickle.load(open(args.coef_rand_file, 'rb'))
+    # interceptsr = pickle.load(open(args.intercept_rand_file, 'rb'))
     fit_result_dfr = pd.read_csv(args.fit_result_rand_file, sep="\t")
 
     if args.best_hyper_file != None:
-        best_hyper = pickle.load(open(args.best_hyper_file, 'rB'))
+        best_hyper = pickle.load(open(args.best_hyper_file, 'rb'))
     else:
         best_hyper = None
 
 
 
-    print "RESULTS"
+    print("RESULTS")
     
     
-    print "*************************"
-    print "RESIDUALS: "
+    print("*************************")
+    print("RESIDUALS: ")
     
-    print "*************************"
-    print "NORMAL: "
+    print("*************************")
+    print("NORMAL: ")
     cp.summarize_fit(coefs, intercepts, fit_result_df, filename= os.path.join(args.output_folder, "fit_all_summary_normal.txt"), hyper=best_hyper,
                      test_name=args.test_name, lag=lag)
 
@@ -150,7 +150,7 @@ def load_and_run(args):
     acoefsr = lc.align_coefs(coefsr, lag)
 
 
-    print "Removing alphas (gene-on-self effects) "
+    print("Removing alphas (gene-on-self effects) ")
 
     acoefs = lc.remove_alphas(acoefs, lag)
     acoefsr = lc.remove_alphas(acoefsr, lag)
@@ -192,10 +192,10 @@ def load_and_run(args):
         coefr_nets.append(coefr_net)
 
 
-        print "Coef ", i+1
-        print "Networks written to "
-        print coef_net_filename
-        print coefr_net_filename
+        print("Coef ", i+1)
+        print("Networks written to ")
+        print(coef_net_filename)
+        print(coefr_net_filename)
 
 
     # max_net_filename = save_prefix + "-max-network.txt"
@@ -206,8 +206,8 @@ def load_and_run(args):
     if acoefs.shape[0] > 1:
         m_net = cp.get_max_network(coef_nets, max_col="AbsWeight", index_col="Cause-Effect")
         union_net = cp.get_union_network(coef_nets + [m_net], suffixes=[str(i) for i in range(1, acoefs.shape[0] + 1)] + [""])
-        print "Max network edges: ", m_net.shape
-        print "Union network edges: ", union_net.shape
+        print("Max network edges: ", m_net.shape)
+        print("Union network edges: ", union_net.shape)
     else:
         union_net = coef_nets[0]
     union_net.to_csv(union_net_filename, sep="\t", index=False)
@@ -223,9 +223,9 @@ def load_and_run(args):
     # print "Max networks written to "
     # print max_net_filename
     # print max_r_net_filename
-    print "Unioned networks written to "
-    print union_net_filename
-    print union_r_net_filename
+    print("Unioned networks written to ")
+    print(union_net_filename)
+    print(union_r_net_filename)
 
 
 
@@ -255,8 +255,8 @@ def load_and_run(args):
                 fc.plot_betas(np.absolute(acoefs[i][np.nonzero(acoefs[i])].flatten()), np.absolute(acoefsr[i][np.nonzero(acoefsr[i])].flatten()), filename= os.path.join(args.output_folder, "plots", "betas", "beta_abs_coef-" + str(i+1) + "_zoom-in-top-5"), zoom_in_bottom_percentile=95, title="Absolute causal coefs, Coef " + str(i+1), xlabel="Absolute Causal Coefficient")
 
 
-            print "Coef ", i+1
-            print "Plots of betas written to: ", os.path.join(args.output_folder, "plots", "betas")
+            print("Coef ", i+1)
+            print("Plots of betas written to: ", os.path.join(args.output_folder, "plots", "betas"))
 
 
 
@@ -287,13 +287,13 @@ def load_and_run(args):
 
         fdr_nets = []
 
-        print "*************"
+        print("*************")
         for i in range(acoefs.shape[0]):
-            print "-----"
-            print "FDR = ", fdr
-            print "Lag ", lag
-            print "Coef ", i + 1
-            print "Stratify ", stratify_by
+            print("-----")
+            print("FDR = ", fdr)
+            print("Lag ", lag)
+            print("Coef ", i + 1)
+            print("Stratify ", stratify_by)
             acoefs_fdr[i], threshes = fc.get_abs_thresh(acoefs[i], acoefsr[i], fdr, stratify_by=stratify_by)
             # print "Threshes", threshes
 
@@ -303,7 +303,7 @@ def load_and_run(args):
             fdr_net_filename = fdr_prefix + "-" + str(i+1) + "-fdr-" + str(fdr) + "-" + stratify_by + "-network.txt"
 
             fdr_matr = gtm.save_gene_matrix(fdr_matr_filename,  matrix=acoefs_fdr[i], genes=genes)
-            pickle.dump(threshes, open(fdr_prefix + "-" + str(i+1) + "-fdr-" + str(fdr) + "-" + stratify_by  + "-threshes.p", 'wB'))
+            pickle.dump(threshes, open(fdr_prefix + "-" + str(i+1) + "-fdr-" + str(fdr) + "-" + stratify_by  + "-threshes.p", 'wb'))
 
 
             extra_dict = collections.OrderedDict()
@@ -325,7 +325,7 @@ def load_and_run(args):
 
             sf_dfs.append(sf_df)
 
-            print "Network edges: ", fdr_net.shape[0]
+            print("Network edges: ", fdr_net.shape[0])
 
 
         if acoefs_fdr.shape[0] > 1:
@@ -338,15 +338,15 @@ def load_and_run(args):
         union_net_filename = fdr_prefix + "-union-fdr-" + str(fdr) + "-" + stratify_by +  "-network.txt"
         union_net.to_csv(union_net_filename, sep="\t", index=False)
 
-        print "Union network edges", union_net.shape[0]
-        print "Written to ", union_net_filename
+        print("Union network edges", union_net.shape[0])
+        print("Written to ", union_net_filename)
 
 
 
         fdr_agg_matr_filename = fdr_prefix + "-union-fdr-" + str(fdr) + "-" + stratify_by +  "-coefs.p"
-        pickle.dump(acoefs_fdr, open(fdr_agg_matr_filename, 'w'))
+        pickle.dump(acoefs_fdr, open(fdr_agg_matr_filename, 'wb'))
 
-        print "Thresholded matrix written as pickle file: ", fdr_agg_matr_filename
+        print("Thresholded matrix written as pickle file: ", fdr_agg_matr_filename)
 
         acoefs_fdrs.append(acoefs_fdr.copy())
 
@@ -361,9 +361,9 @@ def load_and_run(args):
 
     save_file = os.path.join(args.output_folder ,"fit_all_summary_fdr-" + stratify_by + ".txt")
     all_sf_dfs.to_csv(save_file, sep="\t", index=False)
-    print "********"
-    print "Summaries of all fdrs written to ", save_file
-    print "Matrices done."
+    print("********")
+    print("Summaries of all fdrs written to ", save_file)
+    print("Matrices done.")
 
 
 

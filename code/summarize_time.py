@@ -32,7 +32,7 @@ def run(args):
     :return:
     """
 
-    print "Assumes that the first row is the start, last row is the end."
+    print("Assumes that the first row is the start, last row is the end.")
 
 
     filenames = []
@@ -44,7 +44,7 @@ def run(args):
     with open(args.timefile, 'rU') as f:
         for l in f.readlines():
             filename = l.split("\n")[0]
-            print filename
+            print(filename)
             time_df = pd.read_csv(filename)
 
             filenames.append(filename)
@@ -67,8 +67,8 @@ def run(args):
     out_df["Elapsed"] = elapseds
     out_df["Nscripts"] = nscripts
 
-    print "Summary: ", out_df
-    print "Writing to ", args.outfile
+    print("Summary: ", out_df)
+    print("Writing to ", args.outfile)
     out_df.to_csv(args.outfile, index=0)
 
     overall_df = pd.DataFrame()
@@ -79,8 +79,8 @@ def run(args):
     overall_df["Elapsed"] = [sum(elapseds)]
     overall_df["Nscripts"] = [sum(nscripts)]
 
-    print "Overall: ", overall_df
-    print "Writing to ", args.overallfile
+    print("Overall: ", overall_df)
+    print("Writing to ", args.overallfile)
     overall_df.to_csv(args.overallfile, index=0)
 
 

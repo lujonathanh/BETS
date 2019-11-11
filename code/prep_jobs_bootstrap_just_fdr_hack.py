@@ -70,25 +70,25 @@ def run(args):
 
     # Make row files
     # Split up the rows according to number of input scripts
-    partition_rows = pj.partition_inputs(range(n), args.script_num)
+    partition_rows = pj.partition_inputs(list(range(n)), args.script_num)
 
     row_filenames = []
 
 
-    print "*************"
-    print "ROWS"
-    print "*************"
+    print("*************")
+    print("ROWS")
+    print("*************")
 
-    for partition_row, i in zip(partition_rows, range(len(partition_rows))):
+    for partition_row, i in zip(partition_rows, list(range(len(partition_rows)))):
 
         row_filename = os.path.join("rows", args.output_name + "-row-" + str(i) + ".p")
         row_filenames.append(row_filename)
 
-    print "Reading rows from format: ", row_filename
+    print("Reading rows from format: ", row_filename)
 
-    print "*************"
-    print "BOOTSTRAP"
-    print "*************"
+    print("*************")
+    print("BOOTSTRAP")
+    print("*************")
 
 
     # Run the actual fit
@@ -362,15 +362,15 @@ def run(args):
         f.write("time python get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
                              " -o " + os.path.join(bootstrap_result_folder, args.output_name) + " -l " + str(args.lag) + " -tn " + args.test + \
                 " -b " + int_coef_file + " -da 1")
-    os.chmod(bootstrap_summary_file, 0777)
-    print "Script to analyze integrated bootstrapped coefs in", bootstrap_summary_file
+    os.chmod(bootstrap_summary_file, 0o777)
+    print("Script to analyze integrated bootstrapped coefs in", bootstrap_summary_file)
 
 
     for fdr in fdrs:
-        print "*************************"
-        print "Integrating bootstrap files for FDR ", fdr
+        print("*************************")
+        print("Integrating bootstrap files for FDR ", fdr)
 
-        print "****EFFECT***"
+        print("****EFFECT***")
 
         bootstrap_result_folder = os.path.join("bootstrap", "bootstrap-results-fdr-" + str(fdr) + "-effect")
         if not os.path.exists(bootstrap_result_folder):
@@ -393,14 +393,14 @@ def run(args):
             f.write("time python get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
                     " -o " + os.path.join(bootstrap_result_folder, args.output_name) + "-fdr-" + str(fdr) + "-effect" + " -l " + str(args.lag) + " -tn " + args.test + \
                     " -b " + bootstrap_fdr_effect_list_file +  " -da 0")
-            os.chmod(bootstrap_fdr_effect_summary_script, 0777)
-        print "Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_effect_summary_script
+            os.chmod(bootstrap_fdr_effect_summary_script, 0o777)
+        print("Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_effect_summary_script)
 
 
-        print "-----------------------"
+        print("-----------------------")
 
 
-        print "****NONE***"
+        print("****NONE***")
 
         bootstrap_result_folder = os.path.join("bootstrap", "bootstrap-results-fdr-" + str(fdr) + "-none")
         if not os.path.exists(bootstrap_result_folder):
@@ -422,13 +422,13 @@ def run(args):
             f.write("time python get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
                     " -o " + os.path.join(bootstrap_result_folder, args.output_name) + "-fdr-" + str(fdr) + "-none" + " -l " + str(args.lag) + " -tn " + args.test + \
                     " -b " + bootstrap_fdr_none_list_file + " -da 0")
-            os.chmod(bootstrap_fdr_none_summary_script, 0777)
-        print "Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_none_summary_script
+            os.chmod(bootstrap_fdr_none_summary_script, 0o777)
+        print("Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_none_summary_script)
 
 
-        print
-    print "FDR DONE "
-    print " *************************************"
+        print()
+    print("FDR DONE ")
+    print(" *************************************")
 
 
 

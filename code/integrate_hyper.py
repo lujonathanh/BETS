@@ -27,14 +27,14 @@ def get_parser():
 def load_and_run(args):
 
 
-    hyperlist = pickle.load(open(args.hyper_file, 'rB'))
+    hyperlist = pickle.load(open(args.hyper_file, 'rb'))
 
     # Integrate all hyperparameter files into dfs
     output_df = pd.read_csv(args.hyper_fit_names_to_int, sep="\t")
     int_name_df = pd.read_csv(args.int_name_dfname, sep="\t")
 
-    print "Integrated into: "
-    print int_name_df.head()
+    print("Integrated into: ")
+    print(int_name_df.head())
 
     assert set(output_df.columns.values) == set(int_name_df.columns.values)
 
@@ -43,12 +43,12 @@ def load_and_run(args):
     for x, hyper in zip(output_df, hyperlist):
         filenames = output_df[x].values
 
-        print
-        print x
-        print "hyper is ", hyper
-        print "Files to integrate are ", filenames
+        print()
+        print(x)
+        print("hyper is ", hyper)
+        print("Files to integrate are ", filenames)
         integrated_filename = int_name_df[x].values[0]
-        print "Integrated_file is ", integrated_filename
+        print("Integrated_file is ", integrated_filename)
 
         hyper_fit_df = pj.integrate_dfs(filenames, integrated_filename=integrated_filename,
                                         require_full=args.require_full)

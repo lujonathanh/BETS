@@ -57,13 +57,13 @@ def load_and_run(args):
 
 
     try:
-        best_hyper = pickle.load(open(args.best_hyper_file, 'rB'))
+        best_hyper = pickle.load(open(args.best_hyper_file, 'rb'))
     except IOError:
         raise IOError("Cross-validated hyperparameter file does not exist.")
 
 
     if args.row_file != None:
-        rows = pickle.load(open(args.row_file, 'rB'))
+        rows = pickle.load(open(args.row_file, 'rb'))
     else:
         rows = None
 
@@ -102,9 +102,9 @@ def load_and_run(args):
                                                                                 only_array=args.only_array)
 
 
-    print "RESULTS of causal fit"
-    print "*************************"
-    print "NORMAL: "
+    print("RESULTS of causal fit")
+    print("*************************")
+    print("NORMAL: ")
     cp.summarize_fit(coefs, intercepts, fit_result_df)
 
 

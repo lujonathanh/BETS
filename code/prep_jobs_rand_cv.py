@@ -67,7 +67,7 @@ def run(args):
         genes, geneTS = gtm.get_gene_TS(df)
     n = len(genes)
 
-    hyperlist = pickle.load(open(args.hyper_list_file, 'rB'))
+    hyperlist = pickle.load(open(args.hyper_list_file, 'rb'))
     # hyper_names = cp.hyperlist_to_namelist(hyperlist)
 
 
@@ -75,53 +75,53 @@ def run(args):
 
     hyper_filenames = []
 
-    print "*************"
-    print "HYPERS"
-    print "*************"
+    print("*************")
+    print("HYPERS")
+    print("*************")
 
     if not os.path.exists("hyper"):
         os.makedirs("hyper")
 
 
     # for hyper, hyper_name in zip(hyperlist, hyper_names):
-    for hyper, h in zip(hyperlist, range(len(hyperlist))):
+    for hyper, h in zip(hyperlist, list(range(len(hyperlist)))):
         hyper_filename = "hyper" + os.sep + args.output_name + "-hyper-" + str(h) + ".p"
 
         hyper_filenames.append(hyper_filename)
 
-        pickle.dump([hyper], open(hyper_filename, 'w'))
+        pickle.dump([hyper], open(hyper_filename, 'wb'))
 
-    print "Hypers written in format: ", hyper_filename
+    print("Hypers written in format: ", hyper_filename)
 
 
     # Make row files
     # Split up the rows according to number of input scripts
-    partition_rows = pj.partition_inputs(range(n), args.script_num)
+    partition_rows = pj.partition_inputs(list(range(n)), args.script_num)
 
     row_filenames = []
 
 
-    print "*************"
-    print "ROWS"
-    print "*************"
+    print("*************")
+    print("ROWS")
+    print("*************")
 
 
     if not os.path.exists("rows"):
         os.makedirs("rows")
 
-    for partition_row, i in zip(partition_rows, range(len(partition_rows))):
+    for partition_row, i in zip(partition_rows, list(range(len(partition_rows)))):
 
         row_filename = os.path.join("rows", args.output_name + "-row-" + str(i) + ".p")
         row_filenames.append(row_filename)
 
-        pickle.dump(partition_row, open(row_filename, 'w'))
+        pickle.dump(partition_row, open(row_filename, 'wb'))
 
-    print "Row written in format: ", row_filename
+    print("Row written in format: ", row_filename)
 
 
     if not os.path.exists("timing"):
         os.makedirs("timing")
-        print "Folder timing created"
+        print("Folder timing created")
     resulttimefile = os.path.join("timing", "result_time.csv")
     if not os.path.exists(resulttimefile):
         with open(resulttimefile, 'w') as csvfile:
@@ -130,9 +130,9 @@ def run(args):
 
 
     if args.cv != 0:
-        print "*************"
-        print "CV"
-        print "*************"
+        print("*************")
+        print("CV")
+        print("*************")
 
         # Make CV scripts
 
@@ -153,11 +153,11 @@ def run(args):
 
 
 
-        for hyper, h, hyper_filename in zip(hyperlist, range(len(hyperlist)), hyper_filenames):
+        for hyper, h, hyper_filename in zip(hyperlist, list(range(len(hyperlist))), hyper_filenames):
 
             hyper_output_group = []
 
-            for partition_row, i, row_filename in zip(partition_rows, range(len(partition_rows)), row_filenames):
+            for partition_row, i, row_filename in zip(partition_rows, list(range(len(partition_rows))), row_filenames):
 
                 cv_prefix = args.output_name + "-cv-" + str(h) + "-row-" + str(i)
 
@@ -174,15 +174,16 @@ def run(args):
                 with open(cv_script, 'w') as outputfile:
                     outputfile.write("#!/bin/bash\n")
                     outputfile.write("START=$(date)\n")
-                    outputfile.write("module load python/2.7\n")
+                    #outputfile.write("module load python/2.7\n")
                     # outputfile.write("module load python/2.7/scipy-mkl\n")
                     # outputfile.write("module load python/2.7/numpy-mkl\n")
-                    outputfile.write("module load anaconda\n")
+                    #outputfile.write("module load anaconda\n")
+                    outputfile.write("module load anaconda3\n")
                     outputfile.write(command_string)
                     outputfile.write("\n")
                     outputfile.write("END=$(date)\n")
                     outputfile.write("echo " + cv_script + ",$START,$END,$SECONDS >> " + cvtimefile + "\n")
-                os.chmod(cv_script, 0777)
+                os.chmod(cv_script, 0o777)
 
 
             # Set the output names, prepare for integration of all the hyper parameter fit results
@@ -194,27 +195,27 @@ def run(args):
         hyper_output_df = pd.DataFrame(hyper_output_dict)
         hyper_int_df = pd.DataFrame(hyper_int_dict, index=[0])
 
-        print "Hyper output df is in form", hyper_output_df.head(n=5)
+        print("Hyper output df is in form", hyper_output_df.head(n=5))
 
         hyper_output_df.to_csv("cv_outputs.txt", sep="\t", index=0)
         hyper_int_df.to_csv("cv_integrated.txt", sep="\t", index=0)
 
-        print "Partitioned CV fit_result_dfs in cv_outputs.txt", "Integrated CV fit_result_dfs in cv_integrated.txt"
+        print("Partitioned CV fit_result_dfs in cv_outputs.txt", "Integrated CV fit_result_dfs in cv_integrated.txt")
 
         with open("cv_script_list.txt", 'w') as outfile:
             for cv_script in cv_scripts:
                 outfile.write(cv_script + "\n")
-            print "CV scripts written to cv_script_list.txt"
+            print("CV scripts written to cv_script_list.txt")
 
         if args.parallel_num > 0:
-            print "Parallel Number (# processes per job): " + str(args.parallel_num)
+            print("Parallel Number (# processes per job): " + str(args.parallel_num))
 
             script_groups = pj.partition_inputs(cv_scripts, number=int(math.ceil(len(cv_scripts) * 1.0/args.parallel_num)))
 
-            print "Number of script groups ", len(script_groups)
+            print("Number of script groups ", len(script_groups))
 
             parallel_scripts = []
-            for i, script_group in zip(range(len(script_groups)), script_groups):
+            for i, script_group in zip(list(range(len(script_groups))), script_groups):
                 appended_script_filenames = ["./" + script_filename for script_filename in script_group]
                 parallel_script = " & ".join(appended_script_filenames)
                 parallel_scripts.append(parallel_script)
@@ -222,7 +223,7 @@ def run(args):
             with open("cv_parallel_script_list.txt", 'w') as scriptfile:
                 for parallel_script in parallel_scripts:
                     scriptfile.write(parallel_script + "\n")
-                print "Parallel script list written to cv_parallel_script_list.txt"
+                print("Parallel script list written to cv_parallel_script_list.txt")
 
 
 
@@ -243,16 +244,16 @@ def run(args):
                              os.sep + "best_hyper.p -hl " + args.hyper_list_file + " -tn " + args.test_name + " \n")
             outputfile.write("END=$(date)\n")
             outputfile.write("echo " + hyper_script + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
-        os.chmod(hyper_script, 0777)
+        os.chmod(hyper_script, 0o777)
 
-        print "set_hyper.sh written"
-
-
+        print("set_hyper.sh written")
 
 
-    print "*************"
-    print "FITTING"
-    print "*************"
+
+
+    print("*************")
+    print("FITTING")
+    print("*************")
 
 
     # Run the actual fit
@@ -271,7 +272,7 @@ def run(args):
 
     fit_scripts = []
     fit_output_prefixes = []
-    for partition_row, i, row_filename in zip(partition_rows, range(len(partition_rows)), row_filenames):
+    for partition_row, i, row_filename in zip(partition_rows, list(range(len(partition_rows))), row_filenames):
 
         fit_prefix = args.output_name + "-fit-row-" + str(i)
 
@@ -291,31 +292,31 @@ def run(args):
         with open(fit_script, 'w') as outputfile:
             outputfile.write("#!/bin/bash\n")
             outputfile.write("START=$(date)\n")
-            outputfile.write("module load python/2.7\n")
+            #outputfile.write("module load python/2.7\n")
             # outputfile.write("module load python/2.7/scipy-mkl\n")
             # outputfile.write("module load python/2.7/numpy-mkl\n")
-            outputfile.write("module load anaconda\n")
+            outputfile.write("module load anaconda3\n")
             outputfile.write(command_string)
             outputfile.write("\n")
             outputfile.write("END=$(date)\n")
             outputfile.write("echo " + fit_script + ",$START,$END,$SECONDS >> " + fittimefile + "\n")
-        os.chmod(fit_script, 0777)
+        os.chmod(fit_script, 0o777)
 
 
     with open("fit_script_list.txt", 'w') as outfile:
         for fit_script in fit_scripts:
             outfile.write("./" + fit_script + "\n")
-        print "Fit scripts written to fit_script_list.txt"
+        print("Fit scripts written to fit_script_list.txt")
 
     if args.parallel_num > 0:
-        print "Parallel Number (# processes per job): " + str(args.parallel_num)
+        print("Parallel Number (# processes per job): " + str(args.parallel_num))
 
         script_groups = pj.partition_inputs(fit_scripts, number=int(math.ceil(len(fit_scripts) * 1.0/args.parallel_num)))
 
-        print "Number of script groups ", len(script_groups)
+        print("Number of script groups ", len(script_groups))
 
         parallel_scripts = []
-        for i, script_group in zip(range(len(script_groups)), script_groups):
+        for i, script_group in zip(list(range(len(script_groups))), script_groups):
             appended_script_filenames = ["./" + script_filename for script_filename in script_group]
             parallel_script = " & ".join(appended_script_filenames)
             parallel_scripts.append(parallel_script)
@@ -323,7 +324,7 @@ def run(args):
         with open("fit_parallel_script_list.txt", 'w') as scriptfile:
             for parallel_script in parallel_scripts:
                 scriptfile.write(parallel_script + "\n")
-            print "Parallel script list written to fit_parallel_script_list.txt"
+            print("Parallel script list written to fit_parallel_script_list.txt")
 
 
 
@@ -346,7 +347,7 @@ def run(args):
 
     output_matr_df = pd.DataFrame(fit_output_dict)
     output_matr_df.to_csv("output_matr_list.txt", sep="\t", index=False)
-    print "Output matrices written to output_matr_list.txt"
+    print("Output matrices written to output_matr_list.txt")
 
     int_matr_dict = collections.OrderedDict()
     int_matr_dict["coef"] = "fit" + os.sep + args.output_name + "_coefs.p"
@@ -356,7 +357,7 @@ def run(args):
 
     int_matr_df = pd.DataFrame(int_matr_dict, index=[0])
     int_matr_df.to_csv("int_matr_list.txt", sep="\t", index=False)
-    print "integrated matrices written to int_matr_list.txt"
+    print("integrated matrices written to int_matr_list.txt")
 
 
     fit_result_dict = collections.OrderedDict()
@@ -365,7 +366,7 @@ def run(args):
 
     output_df_df = pd.DataFrame(fit_result_dict)
     output_df_df.to_csv("output_df_list.txt", sep="\t", index=False)
-    print "output dfs written to output_df_list.txt"
+    print("output dfs written to output_df_list.txt")
 
 
     int_df_dict = collections.OrderedDict()
@@ -374,7 +375,7 @@ def run(args):
 
     int_df_df = pd.DataFrame(int_df_dict, index=[0])
     int_df_df.to_csv("int_df_list.txt", sep="\t", index=False)
-    print "Integrated dfs written to int_df_list.txt"
+    print("Integrated dfs written to int_df_list.txt")
 
 
     with open("finish-none.sh", 'w') as ifile:
@@ -394,8 +395,8 @@ def run(args):
                     " -sb " + "n" + " -tn " + args.test_name + "\n")
         ifile.write("END=$(date)\n")
         ifile.write("echo " + "finish-none.sh" + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
-        print "Finish script, stratby None, written to finish-none.sh"
-        os.chmod("finish-none.sh", 0777)
+        print("Finish script, stratby None, written to finish-none.sh")
+        os.chmod("finish-none.sh", 0o777)
 
     with open("finish-effect.sh", 'w') as ifile:
         ifile.write("#!/bin/bash\n")
@@ -415,8 +416,8 @@ def run(args):
         ifile.write("END=$(date)\n")
         ifile.write("echo " + "finish-effect.sh" + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
 
-        print "Finish script, stratby effect, written to finish-effect.sh"
-        os.chmod("finish-effect.sh", 0777)
+        print("Finish script, stratby effect, written to finish-effect.sh")
+        os.chmod("finish-effect.sh", 0o777)
 
 
 
@@ -437,32 +438,32 @@ def run(args):
         ifile.write("END=$(date)\n")
         ifile.write("echo " + "plot_coef.sh" + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
 
-        print "Plot coef script written to plot_coef.sh"
-        os.chmod("plot_coef.sh", 0777)
+        print("Plot coef script written to plot_coef.sh")
+        os.chmod("plot_coef.sh", 0o777)
 
 
 
     with open("cleanup_list.txt", 'w') as outfile:
         cleanup_list = row_filenames
         if args.cv:
-            cleanup_list += cv_scripts + list(itertools.chain.from_iterable(hyper_output_dict.values()))
+            cleanup_list += cv_scripts + list(itertools.chain.from_iterable(list(hyper_output_dict.values())))
 
         cleanup_list += fit_scripts + fit_coefs + fit_intercepts + fit_results + fit_coefsr  + fit_resultsr
         for script in cleanup_list:
             outfile.write(script + "\n")
-        print "Cleanup scripts written to cleanup_list.txt"
+        print("Cleanup scripts written to cleanup_list.txt")
 
 
     with open("timing/timing_list.txt", 'w') as outfile:
         outfile.write(cvtimefile + "\n")
         outfile.write(fittimefile + "\n")
         outfile.write(resulttimefile + "\n")
-    print "Timing files written to timing_list.txt"
+    print("Timing files written to timing_list.txt")
 
     with open("summarize_time.sh", 'w') as outfile:
         outfile.write("python summarize_time.py -i timing/timing_list.txt -o timing/summary_time.csv -oo timing/overall_time.csv\n")
-    os.chmod("summarize_time.sh", 0777)
-    print "Summarize timing script written to summarize_time.sh"
+    os.chmod("summarize_time.sh", 0o777)
+    print("Summarize timing script written to summarize_time.sh")
 
 
 

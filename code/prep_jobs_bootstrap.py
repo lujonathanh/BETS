@@ -71,25 +71,25 @@ def run(args):
 
     # Make row files
     # Split up the rows according to number of input scripts
-    partition_rows = pj.partition_inputs(range(n), args.script_num)
+    partition_rows = pj.partition_inputs(list(range(n)), args.script_num)
 
     row_filenames = []
 
 
-    print "*************"
-    print "ROWS"
-    print "*************"
+    print("*************")
+    print("ROWS")
+    print("*************")
 
-    for partition_row, i in zip(partition_rows, range(len(partition_rows))):
+    for partition_row, i in zip(partition_rows, list(range(len(partition_rows)))):
 
         row_filename = os.path.join("rows", args.output_name + "-row-" + str(i) + ".p")
         row_filenames.append(row_filename)
 
-    print "Reading rows from format: ", row_filename
+    print("Reading rows from format: ", row_filename)
 
-    print "*************"
-    print "BOOTSTRAP"
-    print "*************"
+    print("*************")
+    print("BOOTSTRAP")
+    print("*************")
 
 
     # Run the actual fit
@@ -123,7 +123,7 @@ def run(args):
 
     # if args.write_all_bootstrap_scripts_first:
 
-    print "WRITING ALL THE SCRIPTS INITIALLY!!!!!! NOTE the list will be written before all the files are written!!!"
+    print("WRITING ALL THE SCRIPTS INITIALLY!!!!!! NOTE the list will be written before all the files are written!!!")
 
     for b in range(args.bootstrap_num):
         if not os.path.exists(os.path.join("bootstrap-fit-scripts", str(b))):
@@ -133,22 +133,22 @@ def run(args):
                              for b in range(args.bootstrap_num) for i in range(len(row_filenames))]
 
 
-    print "SCRIPTS"
+    print("SCRIPTS")
 
     with open("bootstrap_script_list.txt", 'w') as outfile:
         for bootstrap_script in all_bootstrap_scripts:
             outfile.write("./" + bootstrap_script + "\n")
-        print "bootstrap scripts written to bootstrap_script_list.txt"
+        print("bootstrap scripts written to bootstrap_script_list.txt")
 
         if args.parallel_num > 0:
-            print "Parallel Number (# processes per job): " + str(args.parallel_num)
+            print("Parallel Number (# processes per job): " + str(args.parallel_num))
 
             script_groups = pj.partition_inputs(all_bootstrap_scripts, number=int(math.ceil(len(all_bootstrap_scripts) * 1.0/args.parallel_num)))
 
-            print "Number of script groups ", len(script_groups)
+            print("Number of script groups ", len(script_groups))
 
             parallel_scripts = []
-            for i, script_group in zip(range(len(script_groups)), script_groups):
+            for i, script_group in zip(list(range(len(script_groups))), script_groups):
                 appended_script_filenames = ["./" + script_filename for script_filename in script_group]
                 parallel_script = " & ".join(appended_script_filenames)
                 parallel_scripts.append(parallel_script)
@@ -156,7 +156,7 @@ def run(args):
             with open("bootstrap_parallel_script_list.txt", 'w') as scriptfile:
                 for parallel_script in parallel_scripts:
                     scriptfile.write(parallel_script + "\n")
-                print "Parallel script list written to bootstrap_parallel_script_list.txt"
+                print("Parallel script list written to bootstrap_parallel_script_list.txt")
 
 
 
@@ -219,7 +219,7 @@ def run(args):
 
     for b in range(args.bootstrap_num):
         if b % 50 == 0:
-            print "SEED/BOOTSTRAP NUM: ", b
+            print("SEED/BOOTSTRAP NUM: ", b)
 
         bootstrap_outmost_name = args.output_name + "-bootstrap-" + str(b)
 
@@ -246,7 +246,7 @@ def run(args):
                             "hyper" + os.sep + "best_hyper.p" + " -t " + args.test + " -l " + str(args.lag) + " -rl " + \
                              "row_filename" + " -n " + args.null + " -s " + str(b) + " -oa " + str(args.only_array)
 
-        for i, row_filename in zip(range(len(partition_rows)), row_filenames):
+        for i, row_filename in zip(list(range(len(partition_rows))), row_filenames):
 
             # writing results to the bootstrap prefix
 
@@ -255,15 +255,16 @@ def run(args):
             with open(bootstrap_scripts[i], 'w') as outputfile:
                     outputfile.write("#!/bin/bash\n")
                     outputfile.write("START=$(date)\n")
-                    outputfile.write("module load python/2.7\n")
+                    #outputfile.write("module load python/2.7\n")
                     # outputfile.write("module load python/2.7/scipy-mkl\n")
                     # outputfile.write("module load python/2.7/numpy-mkl\n")
-                    outputfile.write("module load anaconda\n")
+                    #outputfile.write("module load anaconda\n")
+                    outputfile.write("module load anaconda3\n")
                     outputfile.write(command_string)
                     outputfile.write("\n")
                     outputfile.write("END=$(date)\n")
                     outputfile.write("echo " + bootstrap_scripts[i] + ",$START,$END,$SECONDS >> " + fittimefile + "\n")
-            os.chmod(bootstrap_scripts[i], 0777)
+            os.chmod(bootstrap_scripts[i], 0o777)
 
 
         # print "Scripts made"
@@ -353,7 +354,7 @@ def run(args):
             ifile.write("END=$(date)\n")
             ifile.write("echo " + finish_none_script + ",$START,$END,$SECONDS >> " + finishtimefile + "\n")
             # print "Finish script, stratby None, written to", finish_none_script
-            os.chmod(finish_none_script, 0777)
+            os.chmod(finish_none_script, 0o777)
 
         finish_none_scripts.append(finish_none_script)
 
@@ -378,7 +379,7 @@ def run(args):
             ifile.write("echo " + finish_effect_script + ",$START,$END,$SECONDS >> " + finishtimefile + "\n")
 
             # print "Finish script, stratby effect, written to", finish_effect_script
-            os.chmod(finish_effect_script, 0777)
+            os.chmod(finish_effect_script, 0o777)
 
         finish_effect_scripts.append(finish_effect_script)
 
@@ -406,13 +407,13 @@ def run(args):
     with open(int_coef_file, 'w') as f:
         for b_coef in all_int_coefs:
             f.write(b_coef + "\n")
-    print "All integrated bootstrapped coef files written to ", int_coef_file
+    print("All integrated bootstrapped coef files written to ", int_coef_file)
 
     int_intercept_file = "all_bootstrap_intercepts.txt"
     with open(int_intercept_file, 'w') as f:
         for b_intercept in all_int_intercepts:
             f.write(b_intercept + "\n")
-    print "All integrated bootstrapped intercept files written to ", int_intercept_file
+    print("All integrated bootstrapped intercept files written to ", int_intercept_file)
 
 
 
@@ -421,20 +422,20 @@ def run(args):
         f.write("set -e\n")
         for s in finish_effect_scripts:
             f.write("./" + s + "\n")
-    os.chmod(all_finish_effect_script, 0777)
+    os.chmod(all_finish_effect_script, 0o777)
 
-    print "All bootstrap effects scripts written to ", all_finish_effect_script
+    print("All bootstrap effects scripts written to ", all_finish_effect_script)
 
 
     if args.parallel_num > 0:
-        print "Parallel Number (# processes per job): " + str(args.parallel_num)
+        print("Parallel Number (# processes per job): " + str(args.parallel_num))
 
         script_groups = pj.partition_inputs(finish_effect_scripts, number=int(math.ceil(len(finish_effect_scripts) * 1.0/args.parallel_num)))
 
-        print "Number of script groups ", len(script_groups)
+        print("Number of script groups ", len(script_groups))
 
         parallel_scripts = []
-        for i, script_group in zip(range(len(script_groups)), script_groups):
+        for i, script_group in zip(list(range(len(script_groups))), script_groups):
             appended_script_filenames = ["./" + script_filename for script_filename in script_group]
             parallel_script = " & ".join(appended_script_filenames)
             parallel_scripts.append(parallel_script)
@@ -442,7 +443,7 @@ def run(args):
         with open("finish-effect-bootstrap_parallel_script_list.txt", 'w') as scriptfile:
             for parallel_script in parallel_scripts:
                 scriptfile.write(parallel_script + "\n")
-            print "Parallel script list written to finish-effect-bootstrap_parallel_script_list.txt"
+            print("Parallel script list written to finish-effect-bootstrap_parallel_script_list.txt")
 
 
 
@@ -451,20 +452,20 @@ def run(args):
         f.write("set -e\n")
         for s in finish_none_scripts:
             f.write("./" + s + "\n")
-    os.chmod(all_finish_none_script, 0777)
+    os.chmod(all_finish_none_script, 0o777)
 
-    print "All bootstrap nones scripts written to ", all_finish_none_script
+    print("All bootstrap nones scripts written to ", all_finish_none_script)
 
 
     if args.parallel_num > 0:
-        print "Parallel Number (# processes per job): " + str(args.parallel_num)
+        print("Parallel Number (# processes per job): " + str(args.parallel_num))
 
         script_groups = pj.partition_inputs(finish_none_scripts, number=int(math.ceil(len(finish_none_scripts) * 1.0/args.parallel_num)))
 
-        print "Number of script groups ", len(script_groups)
+        print("Number of script groups ", len(script_groups))
 
         parallel_scripts = []
-        for i, script_group in zip(range(len(script_groups)), script_groups):
+        for i, script_group in zip(list(range(len(script_groups))), script_groups):
             appended_script_filenames = ["./" + script_filename for script_filename in script_group]
             parallel_script = " & ".join(appended_script_filenames)
             parallel_scripts.append(parallel_script)
@@ -472,7 +473,7 @@ def run(args):
         with open("finish-none-bootstrap_parallel_script_list.txt", 'w') as scriptfile:
             for parallel_script in parallel_scripts:
                 scriptfile.write(parallel_script + "\n")
-            print "Parallel script list written to finish-none-bootstrap_parallel_script_list.txt"
+            print("Parallel script list written to finish-none-bootstrap_parallel_script_list.txt")
 
 
 
@@ -494,8 +495,8 @@ def run(args):
         f.write("time python get_intercept_bootstrap.py -b " + int_intercept_file + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "\n")
         f.write("END=$(date)\n")
         f.write("echo " + bootstrap_summary_file + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
-    os.chmod(bootstrap_summary_file, 0777)
-    print "Script to analyze integrated bootstrapped coefs in", bootstrap_summary_file
+    os.chmod(bootstrap_summary_file, 0o777)
+    print("Script to analyze integrated bootstrapped coefs in", bootstrap_summary_file)
 
 
     # integrate in a lite version
@@ -509,16 +510,16 @@ def run(args):
         f.write("time python get_intercept_bootstrap.py -b " + int_intercept_file + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "\n")
         f.write("END=$(date)\n")
         f.write("echo " + bootstrap_summary_file + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
-    os.chmod(bootstrap_summary_file, 0777)
-    print "Script to analyze integrated bootstrapped coefs in", bootstrap_summary_file
+    os.chmod(bootstrap_summary_file, 0o777)
+    print("Script to analyze integrated bootstrapped coefs in", bootstrap_summary_file)
 
 
 
     for fdr in fdrs:
-        print "*************************"
-        print "Integrating bootstrap files for FDR ", fdr
+        print("*************************")
+        print("Integrating bootstrap files for FDR ", fdr)
 
-        print "****EFFECT***"
+        print("****EFFECT***")
 
         bootstrap_result_folder = os.path.join("bootstrap", "bootstrap-results-fdr-" + str(fdr) + "-effect")
         if not os.path.exists(bootstrap_result_folder):
@@ -531,7 +532,7 @@ def run(args):
             for b_coef in all_fdr_effect_coefs_dict[fdr]:
                 f.write(b_coef + "\n")
 
-            print "All fdr effect written to ", bootstrap_fdr_effect_list_file
+            print("All fdr effect written to ", bootstrap_fdr_effect_list_file)
 
 
         bootstrap_fdr_effect_intercept_list_file = "all_bootstrap_intercepts_fdr-" + str(fdr) + "-effect.txt"
@@ -539,7 +540,7 @@ def run(args):
             for b_intercept in all_fdr_effect_intercepts_dict[fdr]:
                 f.write(b_intercept + "\n")
 
-            print "All fdr effect written to ", bootstrap_fdr_effect_intercept_list_file
+            print("All fdr effect written to ", bootstrap_fdr_effect_intercept_list_file)
 
 
         bootstrap_fdr_effect_summary_script = "get_result_bootstrap-fdr-" + str(fdr) + "-effect.sh"
@@ -553,8 +554,8 @@ def run(args):
             # f.write("time python get_intercept_bootstrap.py -b " + int_intercept_file + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "\n")
             f.write("END=$(date)\n")
             f.write("echo " + bootstrap_fdr_effect_summary_script + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
-        os.chmod(bootstrap_fdr_effect_summary_script, 0777)
-        print "Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_effect_summary_script
+        os.chmod(bootstrap_fdr_effect_summary_script, 0o777)
+        print("Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_effect_summary_script)
 
 
         bootstrap_fdr_effect_summary_script = "get_result_bootstrap-fdr-" + str(fdr) + "-effect_lite.sh"
@@ -567,16 +568,16 @@ def run(args):
                     " -b " + bootstrap_fdr_effect_list_file +  " -da 0" + " -dl 1 -uabrd 1\n")
             f.write("END=$(date)\n")
             f.write("echo " + bootstrap_fdr_effect_summary_script + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
-        os.chmod(bootstrap_fdr_effect_summary_script, 0777)
-        print "Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_effect_summary_script
+        os.chmod(bootstrap_fdr_effect_summary_script, 0o777)
+        print("Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_effect_summary_script)
 
 
 
 
-        print "-----------------------"
+        print("-----------------------")
 
 
-        print "****NONE***"
+        print("****NONE***")
 
         bootstrap_result_folder = os.path.join("bootstrap", "bootstrap-results-fdr-" + str(fdr) + "-none")
         if not os.path.exists(bootstrap_result_folder):
@@ -588,7 +589,7 @@ def run(args):
             for b_coef in all_fdr_none_coefs_dict[fdr]:
                 f.write(b_coef + "\n")
 
-            print "All fdr none written to ", bootstrap_fdr_none_list_file
+            print("All fdr none written to ", bootstrap_fdr_none_list_file)
 
 
         bootstrap_fdr_none_intercept_list_file = "all_bootstrap_intercepts_fdr-" + str(fdr) + "-none.txt"
@@ -596,7 +597,7 @@ def run(args):
             for b_intercept in all_fdr_none_intercepts_dict[fdr]:
                 f.write(b_intercept + "\n")
 
-            print "All fdr none written to ", bootstrap_fdr_none_intercept_list_file
+            print("All fdr none written to ", bootstrap_fdr_none_intercept_list_file)
 
 
         bootstrap_fdr_none_summary_script = "get_result_bootstrap-fdr-" + str(fdr) + "-none.sh"
@@ -609,8 +610,8 @@ def run(args):
                     " -b " + bootstrap_fdr_none_list_file + " -da 0" + " -tbf " + "bootstrap-transpose" + "-fdr-" + str(fdr) + "-none -uabrd 1\n")
             f.write("END=$(date)\n")
             f.write("echo " + bootstrap_fdr_none_summary_script + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
-        os.chmod(bootstrap_fdr_none_summary_script, 0777)
-        print "Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_none_summary_script
+        os.chmod(bootstrap_fdr_none_summary_script, 0o777)
+        print("Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_none_summary_script)
 
 
 
@@ -624,33 +625,33 @@ def run(args):
                     " -b " + bootstrap_fdr_none_list_file + " -da 0" + " -dl 1 -uabrd 1\n")
             f.write("END=$(date)\n")
             f.write("echo " + bootstrap_fdr_none_summary_script + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
-        os.chmod(bootstrap_fdr_none_summary_script, 0777)
-        print "Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_none_summary_script
+        os.chmod(bootstrap_fdr_none_summary_script, 0o777)
+        print("Script to analyze integrated bootstrapped coefs in", bootstrap_fdr_none_summary_script)
 
 
 
-        print
-    print "FDR DONE "
-    print " *************************************"
+        print()
+    print("FDR DONE ")
+    print(" *************************************")
 
 
-    print "SCRIPTS"
+    print("SCRIPTS")
 
     with open("bootstrap_script_list.txt", 'w') as outfile:
         # lEFT OFF HERE
         for bootstrap_script in sorted(all_bootstrap_scripts):
             outfile.write("./" + bootstrap_script + "\n")
-        print "bootstrap scripts written to bootstrap_script_list.txt"
+        print("bootstrap scripts written to bootstrap_script_list.txt")
 
         if args.parallel_num > 0:
-            print "Parallel Number (# processes per job): " + str(args.parallel_num)
+            print("Parallel Number (# processes per job): " + str(args.parallel_num))
 
             script_groups = pj.partition_inputs(all_bootstrap_scripts, number=int(math.ceil(len(all_bootstrap_scripts) * 1.0/args.parallel_num)))
 
-            print "Number of script groups ", len(script_groups)
+            print("Number of script groups ", len(script_groups))
 
             parallel_scripts = []
-            for i, script_group in zip(range(len(script_groups)), script_groups):
+            for i, script_group in zip(list(range(len(script_groups))), script_groups):
                 appended_script_filenames = ["./" + script_filename for script_filename in script_group]
                 parallel_script = " & ".join(appended_script_filenames)
                 parallel_scripts.append(parallel_script)
@@ -658,10 +659,10 @@ def run(args):
             with open("bootstrap_parallel_script_list.txt", 'w') as scriptfile:
                 for parallel_script in parallel_scripts:
                     scriptfile.write(parallel_script + "\n")
-                print "Parallel script list written to bootstrap_parallel_script_list.txt"
+                print("Parallel script list written to bootstrap_parallel_script_list.txt")
 
 
-    print "TIMING"
+    print("TIMING")
 
 
 

@@ -34,7 +34,7 @@ def conv_to_X(matr, lag, has_reps=False, verbose=False):
 
 
     if verbose:
-        print "Shape of input is ", matr.shape
+        print("Shape of input is ", matr.shape)
 
     X = matr.T # T x n
 
@@ -43,8 +43,8 @@ def conv_to_X(matr, lag, has_reps=False, verbose=False):
     X_t = np.zeros((T - lag, n * lag))
 
     if verbose:
-        print X.shape
-        print "Shape of out is ", X_t.shape
+        print(X.shape)
+        print("Shape of out is ", X_t.shape)
 
     # X_t is a matrix of T - lag replace_rows where for each row j, i = j + lag-1
     # [A_i, B_i, .... Z_i, A_{i-1}, B_{i-1}, .... Z_{i-1}......  A_{i-lag+1}, B_{i-lag+1}, .... Z_{i-lag+1}]
@@ -88,11 +88,11 @@ def conv_to_Y(matr, lag, has_reps=False, verbose=False):
 
 
     if verbose:
-        print "input shape", matr.shape
-        print "input", matr
-        print "Transpose shape", Y.shape
-        print "output shape", Y_t.shape
-        print "output", Y_t
+        print("input shape", matr.shape)
+        print("input", matr)
+        print("Transpose shape", Y.shape)
+        print("output shape", Y_t.shape)
+        print("output", Y_t)
     return Y_t
 
 
@@ -122,7 +122,7 @@ def get_XY_lagged(X_matr, Y_matr, lag, replace_row, has_reps=False, verbose=Fals
     n = X_matr.shape[0]
     T = X_matr.shape[1]
 
-    wanted_rows = range(len(X_matr))
+    wanted_rows = list(range(len(X_matr)))
     wanted_rows.remove(replace_row)
 
 
@@ -153,15 +153,15 @@ def get_XY_lagged(X_matr, Y_matr, lag, replace_row, has_reps=False, verbose=Fals
 
 
     if verbose:
-        print "X matr:", X_matr.shape
-        print X_matr[0:5,]
-        print "Y matr:", Y_matr.shape
-        print Y_matr
-        print "new_X_matr:", new_X_matr.shape
-        print new_X_matr[0:5,]
-        print "rows removed: ", replace_row
-        print "X_t: ", X_t[:,]
-        print "Y_t:", Y_t
+        print("X matr:", X_matr.shape)
+        print(X_matr[0:5,])
+        print("Y matr:", Y_matr.shape)
+        print(Y_matr)
+        print("new_X_matr:", new_X_matr.shape)
+        print(new_X_matr[0:5,])
+        print("rows removed: ", replace_row)
+        print("X_t: ", X_t[:,])
+        print("Y_t:", Y_t)
 
     return X_t, Y_t
 

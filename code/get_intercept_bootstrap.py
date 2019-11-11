@@ -37,9 +37,9 @@ def mean_and_sd_matrices(filenames, axis=0):
 
     for i, filename in enumerate(filenames):
         if i % 10 == 0:
-            print i
+            print(i)
         if os.path.exists(filename):
-            new_matr = pickle.load(open(filename, 'rU'))
+            new_matr = pickle.load(open(filename, 'rb'))
             if prev_matr != []:
                 if not new_matr.shape == prev_matr.shape:
                     raise ValueError("Inconsistent matrix shape: previous was " + str(prev_matr.shape) + " and new is " + str(new_matr.shape))
@@ -47,12 +47,12 @@ def mean_and_sd_matrices(filenames, axis=0):
             prev_matr = new_matr
             all_matrs.append(new_matr)
         else:
-            print "Error, missing: ", filename
+            print("Error, missing: ", filename)
 
     mean_matr = np.mean(all_matrs, axis=axis)
     sd_matr = np.std(all_matrs, axis=axis)
 
-    print "Final matrix shape", mean_matr.shape
+    print("Final matrix shape", mean_matr.shape)
 
     return mean_matr, sd_matr
 
@@ -63,7 +63,7 @@ def load_and_run(args):
     full_save_prefix = os.path.join(args.result_save_folder, save_prefix)
 
     filenames = []
-    with open(args.bootstrap_file_with_names, 'rU') as f:
+    with open(args.bootstrap_file_with_names, 'r') as f:
         for l in f.readlines():
             filenames.append(l.split("\n")[0])
 
@@ -72,11 +72,11 @@ def load_and_run(args):
     mean_filename = full_save_prefix + "_mean_intercepts.p"
     sd_filename = full_save_prefix + "_sd_intercepts.p"
 
-    pickle.dump(mean_matr, open(mean_filename, 'w'))
-    pickle.dump(sd_matr, open(sd_filename, 'w'))
+    pickle.dump(mean_matr, open(mean_filename, 'wb'))
+    pickle.dump(sd_matr, open(sd_filename, 'wb'))
 
-    print "Mean written to ", mean_filename
-    print "STD written to ", sd_filename
+    print("Mean written to ", mean_filename)
+    print("STD written to ", sd_filename)
 
 def main():
     load_and_run(get_parser().parse_args(sys.argv[1:]))

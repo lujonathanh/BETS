@@ -46,7 +46,7 @@ def transpose_bootstrap_matrices(filenames, length_before_dump=None, save_prefix
     # for dumping the arrays
 
 
-    first_matr = pickle.load(open(filenames[0], 'rU'))
+    first_matr = pickle.load(open(filenames[0], 'rb'))
 
 
     dump_filenames_matr = np.empty(first_matr.shape + (num_dump,), dtype=object)
@@ -66,7 +66,7 @@ def transpose_bootstrap_matrices(filenames, length_before_dump=None, save_prefix
 
 
     for d in range(num_dump):
-        print "Num dump: ", d
+        print("Num dump: ", d)
         matrs = []
         for i in range(length_before_dump):
 
@@ -76,16 +76,16 @@ def transpose_bootstrap_matrices(filenames, length_before_dump=None, save_prefix
                 break
 
 
-            matrs.append(pickle.load(open(filenames[num], 'rU')))
+            matrs.append(pickle.load(open(filenames[num], 'rb')))
 
             if num % 10 == 0:
-                print num
+                print(num)
 
         matr = np.stack(matrs, axis=-1)
 
         # iterate outside it
         for index, _ in np.ndenumerate(first_matr):
-            pickle.dump(matr[index], open(dump_filenames_matr[index + (d,)], 'w'))
+            pickle.dump(matr[index], open(dump_filenames_matr[index + (d,)], 'wb'))
 
         del matrs
         del matr
@@ -95,22 +95,22 @@ def transpose_bootstrap_matrices(filenames, length_before_dump=None, save_prefix
 
     # now just merge each of these
 
-    print "merging"
+    print("merging")
 
     t = time.time()
     for index, _ in np.ndenumerate(first_matr):
         if index[0] % 10 == 0 and index[1] % 100 == 0 and index[-1] % 100 == 0:
-            print "Merging index ", index
-            print time.time() - t
+            print("Merging index ", index)
+            print(time.time() - t)
             t = time.time()
         arrs = []
 
         for d in range(num_dump):
-            arrs.append(pickle.load(open(dump_filenames_matr[index + (d,)], 'rB')))
+            arrs.append(pickle.load(open(dump_filenames_matr[index + (d,)], 'rb')))
 
         arr = np.concatenate(arrs)
 
-        pickle.dump(arr, open(final_filenames_matr[index], 'w'))
+        pickle.dump(arr, open(final_filenames_matr[index], 'wb'))
 
         del arrs
         del arr
@@ -148,10 +148,10 @@ def compute_bootstrap_stats_matr(bootstrap_coef_file_matr):
     t = time.time()
     for index, filename in np.ndenumerate(bootstrap_coef_file_matr):
         if index[0] % 10 ==0 and index[1] % 100 == 0 and index[-1] % 100 == 0:
-            print "Merging index ", index
-            print time.time() - t
+            print("Merging index ", index)
+            print(time.time() - t)
             t = time.time()
-        coefs = pickle.load(open(filename, 'rU'))
+        coefs = pickle.load(open(filename, 'rb'))
 
         stats_matr_dict["mean"][index] = np.mean(coefs)
         stats_matr_dict["std"][index] = np.std(coefs, ddof=1)
@@ -251,42 +251,9 @@ def load_and_run(args):
         # # Num. replicates per key
         # num_per_keys = None
 
-    # load the coef matrices
-
-    # bootstrap_lag_to_matrs = dict([(i,[]) for i in range(1, lag+1)])
-    # matr_shape = None
-    # with open(args.bootstrap_file_with_names, 'rU') as f:
-    #     # check the same shape
-    #
-    #     # the alignment causes them to be lag x n x n
-    #     for line in f.readlines():
-    #
-    #         print "Loading ", line
-    #
-    #         # if args.bootstrap_type == "p":
-    #         bootstrap_matr = pickle.load(open(line.splitlines()[0], 'rB'))\
-    #
-    #         # else:
-    #         #     raise ValueError("Wrong bootstrap file type specified")
-    #
-    #
-    #         if matr_shape == None:
-    #             matr_shape = bootstrap_matr.shape
-    #         else:
-    #             assert matr_shape == bootstrap_matr.shape
-    #
-    #
-    #         aligned_bootstrap_matr = lc.align_coefs(bootstrap_matr, lag)
-    #         for i in range(1, lag+1):
-    #             bootstrap_lag_to_matrs[i].append(aligned_bootstrap_matr[i-1])
-    #
-    # print "Number of bootstrap matrices: ", len(bootstrap_lag_to_matrs[1])
 
 
-
-
-
-    with open(args.bootstrap_file_with_names, 'rU') as f:
+    with open(args.bootstrap_file_with_names, 'r') as f:
         filenames = [line.split("\n")[0] for line in f.readlines()]
 
 
@@ -326,17 +293,17 @@ def load_and_run(args):
                                                                     save_prefix=transpose_prefix,
                                                                     dump_prefix=dump_prefix
                                                                     )
-            print "Time to transpose: ", time.time() - t
+            print("Time to transpose: ", time.time() - t)
 
             bootstrap_coef_filename = dump_prefix + "-NAMES.p"
 
-            pickle.dump(bootstrap_coef_file_matr, open(bootstrap_coef_filename, 'w'))
+            pickle.dump(bootstrap_coef_file_matr, open(bootstrap_coef_filename, 'wb'))
 
-            print "Bootstrap coef matrix dumped to ", bootstrap_coef_filename
+            print("Bootstrap coef matrix dumped to ", bootstrap_coef_filename)
 
             t = time.time()
             stats_matr_dict = compute_bootstrap_stats_matr(bootstrap_coef_file_matr)
-            print "Time to get stats: ", time.time() - t
+            print("Time to get stats: ", time.time() - t)
 
 
 
@@ -353,10 +320,10 @@ def load_and_run(args):
 
         for k in dump_stats_matr_dict:
             outfile = full_save_prefix + "_raw_" + k + "_coefs.p"
-            with open(outfile, 'w') as f:
+            with open(outfile, 'wb') as f:
                 pickle.dump(dump_stats_matr_dict[k], f)
 
-            print "For ", k , "Saved to ", outfile
+            print("For ", k , "Saved to ", outfile)
 
 
 
@@ -375,9 +342,9 @@ def load_and_run(args):
 
     full_nets = []
     for i in range(1, lag + 1):
-        print "Lag: ", i
+        print("Lag: ", i)
 
-        print "Aggregating results"
+        print("Aggregating results")
         #bootstrap_mean, bootstrap_std, bootstrap_freq = cp.get_bootstrap_results(bootstrap_lag_to_matrs[i])
 
 
@@ -396,7 +363,7 @@ def load_and_run(args):
 
             matr = gtm.save_gene_matrix(matr_filename, matrix=raw_matr, genes=genes)
 
-            print "Saved ", k, " to ", matr_filename
+            print("Saved ", k, " to ", matr_filename)
 
             if k == "mean":
                 net = nh.matr_to_net(matr, make_type=False, edge_name="Bootstrap:" + k.capitalize(),
@@ -416,15 +383,15 @@ def load_and_run(args):
 
 
 
-        print "Final net: ", full_net.shape[0]
+        print("Final net: ", full_net.shape[0])
 
         sortby = "Bootstrap:Freq"
-        print "Sorting by :", sortby
+        print("Sorting by :", sortby)
         full_net.sort_values(sortby, inplace=True, ascending=False)
 
         full_net_filename = full_save_prefix +"-" + str(i) + "-bootstrap-network.txt"
         full_net.to_csv(full_net_filename, sep="\t", index=False)
-        print "Written to ", full_net_filename
+        print("Written to ", full_net_filename)
 
         full_nets.append(full_net)
 
@@ -434,17 +401,17 @@ def load_and_run(args):
 
         m_net = cp.get_max_network(full_nets, max_col="AbsBootstrap:Mean", index_col="Cause-Effect")
         union_net = cp.get_union_network(full_nets + [m_net], suffixes=[str(i) for i in range(1, lag + 1)] + [""])
-        print "Max network edges: ", m_net.shape
-        print "Union network edges: ", union_net.shape
+        print("Max network edges: ", m_net.shape)
+        print("Union network edges: ", union_net.shape)
     else:
         union_net = full_nets[0]
 
     sortby = "Bootstrap:Freq"
-    print "Sorting by :", sortby
+    print("Sorting by :", sortby)
     union_net.sort_values(sortby, inplace=True, ascending=False)
 
     union_net.to_csv(union_net_filename, sep="\t", index=False)
-    print "Unioned bootstrap network written to ", union_net_filename
+    print("Unioned bootstrap network written to ", union_net_filename)
 
 
 

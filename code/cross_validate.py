@@ -43,10 +43,10 @@ def load_and_run(args):
     fit_method = cp.test2fit_method[args.test]
 
     lag = args.lag
-    hyperlist = pickle.load(open(args.hyper_file, 'rB'))
+    hyperlist = pickle.load(open(args.hyper_file, 'rb'))
 
     if args.row_file != None:
-        rows = pickle.load(open(args.row_file, 'rB'))
+        rows = pickle.load(open(args.row_file, 'rb'))
     else:
         rows = None
 
@@ -70,16 +70,16 @@ def load_and_run(args):
 
 
 
-    print "Best hyper is : ", best_hyper
-    print "Best result : ", best
+    print("Best hyper is : ", best_hyper)
+    print("Best result : ", best)
 
-    print "Hyper df: "
-    print hyper_df
+    print("Hyper df: ")
+    print(hyper_df)
 
     for output_name, hyper_fit_df, hyper in zip(output_names, hyper_fit_dfs, hyperlist):
         hyper_fit_df.to_csv(output_name, sep="\t", index=0)
 
-        print "Result for ", hyper, " written to ", output_name
+        print("Result for ", hyper, " written to ", output_name)
 
 
 

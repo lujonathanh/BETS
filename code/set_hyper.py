@@ -39,12 +39,12 @@ def load_and_run(args):
         name = args.test_name.capitalize() + " "
 
 
-    hyperlist = pickle.load(open(args.hyper_file, 'rB'))
+    hyperlist = pickle.load(open(args.hyper_file, 'rb'))
 
     int_name_df = pd.read_csv(args.int_name_dfname, sep="\t")
 
-    print "Loading integrated"
-    print int_name_df.head()
+    print("Loading integrated")
+    print(int_name_df.head())
 
     hyper_fit_dfs = [pd.read_csv(int_name_df[x].values[0], sep="\t")
                      if os.path.exists(int_name_df[x].values[0])  else None
@@ -74,15 +74,15 @@ def load_and_run(args):
 
 
     # Write the hypers out
-    pickle.dump(best_hyper, open(args.output_name, 'wB'))
+    pickle.dump(best_hyper, open(args.output_name, 'wb'))
     hyper_df.to_csv(args.result_dfname, sep="\t", index=0)
 
-    print "Test is ", name
-    print "Best hyper is ", best_hyper
-    print "Best hyper result is ", best
+    print("Test is ", name)
+    print("Best hyper is ", best_hyper)
+    print("Best hyper result is ", best)
 
-    print "Best hyper written to ", args.output_name
-    print "Hyper result written to ",  args.result_dfname
+    print("Best hyper written to ", args.output_name)
+    print("Hyper result written to ",  args.result_dfname)
 
 
     if not os.path.exists("hyper"):
@@ -91,20 +91,20 @@ def load_and_run(args):
     # Get correlations
     mse_vec = np.array([np.array(hyper_fit_df["mse"].values) for hyper_fit_df in hyper_fit_dfs])
 
-    print mse_vec.shape
+    print(mse_vec.shape)
 
     mse_corr = np.corrcoef(mse_vec)
     gtm.save_gene_matrix("hyper" + os.sep + "mse_corr.txt", mse_corr, hyperlist)
-    print "MSE Correlation:"
-    print mse_corr
-    print "MSE corr. matrix saved to ", "hyper" + os.sep + "mse_corr.txt"
+    print("MSE Correlation:")
+    print(mse_corr)
+    print("MSE corr. matrix saved to ", "hyper" + os.sep + "mse_corr.txt")
 
     r2_vec = np.array([hyper_fit_df["r2"].values for hyper_fit_df in hyper_fit_dfs])
     r2_corr = np.corrcoef(r2_vec)
     gtm.save_gene_matrix("hyper" + os.sep + "r2_corr.txt", r2_corr, hyperlist)
-    print "R2 Correlation"
-    print r2_corr
-    print "R^2 corr. matrix saved to ", "hyper" + os.sep + "r2_corr.txt"
+    print("R2 Correlation")
+    print(r2_corr)
+    print("R^2 corr. matrix saved to ", "hyper" + os.sep + "r2_corr.txt")
 
 
     # Plot the hyperparameters
@@ -130,8 +130,8 @@ def load_and_run(args):
                          horizontal_line_color_labels=[(best["df_avg"].values[0], 'k', None)])
 
 
-    print "Correlation between hyperparameter results", "plots" + os.sep + "hyper"
-    print "Hyper box plots of r^2, mse, avg d.o.f. written to  ", "plots" + os.sep + "hyper"
+    print("Correlation between hyperparameter results", "plots" + os.sep + "hyper")
+    print("Hyper box plots of r^2, mse, avg d.o.f. written to  ", "plots" + os.sep + "hyper")
 
 
 

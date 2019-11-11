@@ -20,21 +20,21 @@ def get_parser():
 def run(args):
 
     keys = []
-    print "Loading params: ", args.paramfile
-    with open(args.paramfile, 'rU') as f:
+    print("Loading params: ", args.paramfile)
+    with open(args.paramfile, 'r') as f:
         for line in f.readlines():
             keys.append(line.split("\n")[0])
 
     env_dict = {}
-    print "Getting values: ", args.envfile
-    with open(args.envfile, 'rU') as e:
+    print("Getting values: ", args.envfile)
+    with open(args.envfile, 'r') as e:
         for line in e.readlines():
             key = line.split("=")[0]
             value = line.split("\n")[0].split("=")[1]
 
             env_dict[key] = value
 
-    print "Writing to: ", args.outputfile
+    print("Writing to: ", args.outputfile)
     with open(args.outputfile, 'w') as o:
         for key in keys:
             o.write(key + "," + env_dict[key] + "\n")

@@ -49,25 +49,25 @@ def run(args):
 
     # Make row files
     # Split up the rows according to number of input scripts
-    partition_rows = pj.partition_inputs(range(n), args.script_num)
+    partition_rows = pj.partition_inputs(list(range(n)), args.script_num)
 
     row_filenames = []
 
 
-    print "*************"
-    print "ROWS"
-    print "*************"
+    print("*************")
+    print("ROWS")
+    print("*************")
 
-    for partition_row, i in zip(partition_rows, range(len(partition_rows))):
+    for partition_row, i in zip(partition_rows, list(range(len(partition_rows)))):
 
         row_filename = os.path.join("rows", args.output_name + "-row-" + str(i) + ".p")
         row_filenames.append(row_filename)
 
-    print "Reading rows from format: ", row_filename
+    print("Reading rows from format: ", row_filename)
 
-    print "*************"
-    print "PAIRWISE"
-    print "*************"
+    print("*************")
+    print("PAIRWISE")
+    print("*************")
 
 
     # Run the actual fit
@@ -147,7 +147,7 @@ def run(args):
                          " -o " + "pairwise_row_prefixes[i]" +  " -l " + str(args.lag) + " -rl " + \
                          "row_filename"
 
-    for i, row_filename in zip(range(len(partition_rows)), row_filenames):
+    for i, row_filename in zip(list(range(len(partition_rows))), row_filenames):
 
         # writing results to the pairwise prefix
 
@@ -164,10 +164,10 @@ def run(args):
                 outputfile.write("\n")
                 outputfile.write("END=$(date)\n")
                 outputfile.write("echo " + pairwise_scripts[i] + ",$START,$END,$SECONDS >> " + fittimefile + "\n")
-        os.chmod(pairwise_scripts[i], 0777)
+        os.chmod(pairwise_scripts[i], 0o777)
 
 
-        print "Scripts made"
+        print("Scripts made")
 
         # all_pairwise_scripts = all_pairwise_scripts.union(set(pairwise_scripts))
 
@@ -181,7 +181,7 @@ def run(args):
     output_matr_df = pd.DataFrame(pairwise_output_dict)
     output_matr_file = os.path.join("pairwise", pairwise_outmost_name + "_output_matr_list.txt")
     output_matr_df.to_csv(output_matr_file, sep="\t", index=False)
-    print "Raw parallelilized output matrices, before integration, written to", output_matr_file
+    print("Raw parallelilized output matrices, before integration, written to", output_matr_file)
 
 
 
@@ -196,7 +196,7 @@ def run(args):
     int_matr_file = pairwise_outmost_prefix +  "_int_matr_list.txt"
     int_matr_df = pd.DataFrame(int_matr_dict, index=[0])
     int_matr_df.to_csv(int_matr_file, sep="\t", index=False)
-    print "integrated matrices written to " + int_matr_file
+    print("integrated matrices written to " + int_matr_file)
 
 
 
@@ -206,22 +206,22 @@ def run(args):
                              for i in range(len(partition_rows))]
 
 
-    print "SCRIPTS"
+    print("SCRIPTS")
 
     with open("pairwise_script_list.txt", 'w') as outfile:
         for pairwise_script in all_pairwise_scripts:
             outfile.write("./" + pairwise_script + "\n")
-        print "pairwise scripts written to pairwise_script_list.txt"
+        print("pairwise scripts written to pairwise_script_list.txt")
 
         if args.parallel_num > 0:
-            print "Parallel Number (# processes per job): " + str(args.parallel_num)
+            print("Parallel Number (# processes per job): " + str(args.parallel_num))
 
             script_groups = pj.partition_inputs(all_pairwise_scripts, number=int(math.ceil(len(all_pairwise_scripts) * 1.0/args.parallel_num)))
 
-            print "Number of script groups ", len(script_groups)
+            print("Number of script groups ", len(script_groups))
 
             parallel_scripts = []
-            for i, script_group in zip(range(len(script_groups)), script_groups):
+            for i, script_group in zip(list(range(len(script_groups))), script_groups):
                 appended_script_filenames = ["./" + script_filename for script_filename in script_group]
                 parallel_script = " & ".join(appended_script_filenames)
                 parallel_scripts.append(parallel_script)
@@ -229,7 +229,7 @@ def run(args):
             with open("pairwise_parallel_script_list.txt", 'w') as scriptfile:
                 for parallel_script in parallel_scripts:
                     scriptfile.write(parallel_script + "\n")
-                print "Parallel script list written to pairwise_parallel_script_list.txt"
+                print("Parallel script list written to pairwise_parallel_script_list.txt")
 
 
     finish_script = os.path.join("pairwise-finish-scripts", "finish.sh")
@@ -239,8 +239,8 @@ def run(args):
         ifile.write("time python integrate_outputs_rand_row.py -i " + output_matr_file + " -o " + int_matr_file +  " -t a \n")
         ifile.write("END=$(date)\n")
         ifile.write("echo " + finish_script + ",$START,$END,$SECONDS >> " + finishtimefile + "\n")
-        print "Finish script, written to", finish_script
-        os.chmod(finish_script, 0777)
+        print("Finish script, written to", finish_script)
+        os.chmod(finish_script, 0o777)
 
 
 def main():

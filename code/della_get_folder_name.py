@@ -48,7 +48,7 @@ def run(args):
 
     folder = "_".join([norm, null + "-null", fdr_type + "-fdr"])
 
-    print folder
+    print(folder)
 
 
 

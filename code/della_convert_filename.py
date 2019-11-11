@@ -53,7 +53,7 @@ def run(args):
 
     newname = "_".join([prefix, folder, suffix])
 
-    print newname
+    print(newname)
 
 
 

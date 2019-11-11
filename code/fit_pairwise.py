@@ -18,21 +18,21 @@ def fit_all_pairwise_conditional(geneTS, lag, rows, coeflag_options, has_reps=Tr
     assert isinstance(lag, int)
 
     if rows == None:
-        rows = range(geneTS.shape[0])
+        rows = list(range(geneTS.shape[0]))
 
 
     if coeflag_options == None:
-        coeflag_options = range(1, lag + 1)
+        coeflag_options = list(range(1, lag + 1))
 
     assert hasattr(rows, '__iter__')
     assert hasattr(coeflag_options, '__iter__')
 
     if rows == None:
-        rows = range(geneTS.shape[0])
+        rows = list(range(geneTS.shape[0]))
 
 
     if coeflag_options == None:
-        coeflag_options = range(1, lag + 1)
+        coeflag_options = list(range(1, lag + 1))
 
 
     n = geneTS.shape[0]
@@ -47,7 +47,7 @@ def fit_all_pairwise_conditional(geneTS, lag, rows, coeflag_options, has_reps=Tr
     # you just ignore the ones that are self-on-self
     for effect_index in rows:
 
-        print "Effect # ", effect_index
+        print("Effect # ", effect_index)
 
         if has_reps:
             effect_ts = geneTS[effect_index, :, :]
@@ -216,11 +216,11 @@ def F_test(RSS_1, RSS_2, n, p_1, p_2, silent_RSS_error=False):
     assert p_2 > p_1
     if RSS_1 < RSS_2:
         if silent_RSS_error:
-            print "Smaller model RSS1 = ", RSS_1
-            print "Smaller model p = ", p_1
-            print "Larger model RSS2 = ", RSS_2
-            print "Larger model p = ", p_2
-            print "Larger model has higher RSS??"
+            print("Smaller model RSS1 = ", RSS_1)
+            print("Smaller model p = ", p_1)
+            print("Larger model RSS2 = ", RSS_2)
+            print("Larger model p = ", p_2)
+            print("Larger model has higher RSS??")
             return None, None
         else:
             raise ValueError("Smaller model RSS " + str(RSS_1) + " less than larger model RSS" + str(RSS_2))
@@ -260,7 +260,7 @@ def load_and_run(args):
     lag = args.lag
 
     if args.row_file != None:
-        rows = pickle.load(open(args.row_file, 'rB'))
+        rows = pickle.load(open(args.row_file, 'rb'))
     else:
         rows = None
 
@@ -278,8 +278,8 @@ def load_and_run(args):
 
 
     outfile = args.out_prefix + "_coefs.p"
-    pickle.dump(coefs, open(outfile, 'w'))
-    print "Coefs saved to ", outfile
+    pickle.dump(coefs, open(outfile, 'wb'))
+    print("Coefs saved to ", outfile)
 
 
 def main():

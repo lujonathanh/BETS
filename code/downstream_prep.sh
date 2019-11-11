@@ -63,7 +63,7 @@ do
         ls fdr-$FDRTHRESHOLD-$FDRALIAS > tmp
         while read file; do
             cp fdr-$FDRTHRESHOLD-$FDRALIAS/$file $OUTDIR/networks
-            #cp -r fdr-$FDRTHRESHOLD-$FDRALIAS/$file $OUTDIR/networks/$(python della_convert_filename.py -f $file)
+            #cp -r fdr-$FDRTHRESHOLD-$FDRALIAS/$file $OUTDIR/networks/$(python2 della_convert_filename.py -f $file)
         done < tmp
 
         rm tmp

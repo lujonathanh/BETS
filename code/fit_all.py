@@ -53,10 +53,10 @@ def load_and_run(args):
     fit_method = cp.test2fit_method[args.test]
 
     lag = args.lag
-    best_hyper = pickle.load(open(args.best_hyper_file, 'rB'))
+    best_hyper = pickle.load(open(args.best_hyper_file, 'rb'))
 
     if args.row_file != None:
-        rows = pickle.load(open(args.row_file, 'rB'))
+        rows = pickle.load(open(args.row_file, 'rb'))
     else:
         rows = None
 
@@ -95,9 +95,9 @@ def load_and_run(args):
                                                                            )
 
 
-    print "RESULTS of causal fit"
-    print "*************************"
-    print "NORMAL: "
+    print("RESULTS of causal fit")
+    print("*************************")
+    print("NORMAL: ")
     cp.summarize_fit(coefs, intercepts, fit_result_df)
 
 
