@@ -16,7 +16,7 @@ BETS is a good method for your problem if:
 
 # Requirements
 
-BETS is coded in Python 2.7. It requires installation of the following libraries:
+BETS is coded in Python 3. It requires installation of the following libraries:
 
 * [numpy](https://docs.scipy.org/doc/numpy/user/install.html) (>= 1.13.1)
 * [scipy](https://scipy.org/install.html) (>= 0.19.1)
