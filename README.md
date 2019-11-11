@@ -22,7 +22,7 @@ BETS is coded in Python 2.7. It requires installation of the following libraries
 * [scipy](https://scipy.org/install.html) (>= 0.19.1)
 * [pandas](https://pandas.pydata.org/pandas-docs/stable/install.html) (>= 0.20.3)
 * [matplotlib](https://matplotlib.org/users/installing.html) (>= 1.4.3)
-* [sklearn](https://scikit-learn.org/stable/install.html) (>= 0.19.0)
+* [sklearn](https://scikit-learn.org/stable/install.html) (>= 0.0)
 
 It has been tested on MacOSX v.10.11.6.
 
