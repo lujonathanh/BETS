@@ -19,8 +19,9 @@ BETS takes in a tab-delimited gene by timepoint file. It should have the first c
 
 `...`
 
-If there are multiple replicates, you instead give a 
+If there are multiple replicates, you instead provide a text file with list of each of the individual replicate files. See `data/DREAM/insilico_size100_1/0mean/reps.txt` as an example: it lists individual replicate files like `data/DREAM/insilico/0mean/insilico_size100_1_0mean_TS-rep-1.txt` and `data/DREAM/insilico/0mean/insilico_size100_1_0mean_TS-rep-2.txt`. Each individual replicate files have the same format as above.
 
+BETS treats replicates as independent samples, so please make sure *your replicates are measured at the same timepoints and list genes in the same order*.
 
 # Running BETS (in detail)
 
