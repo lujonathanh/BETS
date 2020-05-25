@@ -35,7 +35,7 @@ def run(args):
                 key = ''
             try:
                 value = line.split("\n")[0].split("=")[1]
-            except AttributeError:
+            except (AttributeError, IndexError):
                 value = ''
 
             env_dict[key] = value
