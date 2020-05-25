@@ -93,11 +93,6 @@ export BOOTSTRAPNUM=1000
 ############ NO NEED TO MODIFY ANY CODE FROM BELOW #################
 # Internal processing for the data
 
-
-export OUTPUTNAME="$GENES-$NORMALIZATION-$REPS-$DEG-$SAMPLE-$CAUSAL-$LAG-$NULL"
-# Name of the folder
-
-
 export FOLDER=../runs/$OUTPUTNAME
 # Where the folder will be copied to. We recommend keeping all the runs in a single place.
 
@@ -106,6 +101,9 @@ export NULL=g  # DO NOT CHANGE
 # The null thresholding method, where g is broad null and l is the narrow null
 # Must be one of {l, g}.
 # BETS uses g.
+
+export OUTPUTNAME="$GENES-$NORMALIZATION-$REPS-$DEG-$SAMPLE-$CAUSAL-$LAG-$NULL"
+# Name of the folder
 
 
 ###################### JOB PARAMETERS ###############################
