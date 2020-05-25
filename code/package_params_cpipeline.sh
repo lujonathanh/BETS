@@ -45,7 +45,7 @@ export NROWS=100
 
 
 
-export GENES=insilico_size100_1-test-namedellamodify
+export GENES=insilico_size100_1
 # Give a name of the dataset.
 
 
@@ -54,23 +54,13 @@ export NORMALIZATION=0mean
 # BETS does NOT do normalization for you! We recommend zero-mean centered data.
 
 
-export DEG=er
-# Just a suffix that is used (TODO: REMOVE)
-
-
-export SAMPLE=norm
-# Just a name for the SAMPLE (TODO: REMOVE)
-
-
-
-
 ####################################
 ##           PARAMETERS           ##
 ####################################
 # Parameters of the causal network inference method.
 
 
-export CAUSAL=lasso
+export CAUSAL=enet
 # The type of vector autoregression model.
 # Must be one of {ridge, lasso, enet}
 # BETS sets CAUSAL=enet
@@ -98,7 +88,7 @@ export NULL=g  # DO NOT CHANGE
 # Must be one of {l, g}.
 # BETS uses g.
 
-export OUTPUTNAME="$GENES-$NORMALIZATION-$REPS-$DEG-$SAMPLE-$CAUSAL-$LAG-$NULL"
+export OUTPUTNAME="$GENES-$NORMALIZATION-$REPS-$CAUSAL-$LAG-$NULL"
 # Name of the folder
 
 export FOLDER=../runs/$OUTPUTNAME
