@@ -29,8 +29,14 @@ def run(args):
     print("Getting values: ", args.envfile)
     with open(args.envfile, 'r') as e:
         for line in e.readlines():
-            key = line.split("=")[0]
-            value = line.split("\n")[0].split("=")[1]
+            try:
+                key = line.split("=")[0]
+            except AttributeError:
+                key = ''
+            try:
+                value = line.split("\n")[0].split("=")[1]
+            except AttributeError:
+                value = ''
 
             env_dict[key] = value
 
