@@ -222,7 +222,7 @@ def annotate_cols(df, cols, genes, name):
 
 def make_pair_col(df, cols, col_name = "Pair", reorder=False):
     assert len(cols) == 2
-    pair_array = [str(tuple(sorted(x))) for x in df[cols].as_matrix()]
+    pair_array = [str(tuple(sorted(x))) for x in df[cols].values]
     df[col_name] = pair_array
     if reorder:
         df[cols[0]] = [eval(x)[0] for x in pair_array]
@@ -513,7 +513,7 @@ def matr_to_net(matr_df, edge_name=None, abs_name=None, cause_effect_col = "Caus
     if sort_by == None:
         sort_by = abs_name
 
-    matr = matr_df.as_matrix()
+    matr = matr_df.values
 
     genes = matr_df.columns.values
     indices = np.where(matr != 0)

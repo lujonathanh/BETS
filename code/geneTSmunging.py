@@ -272,7 +272,7 @@ def get_gene_TS(data, genes=None, gene_col="gene"):
 
     found_genes = found_data[gene_col].values
 
-    return found_genes, found_data[cols].as_matrix()
+    return found_genes, found_data[cols].values
 
 
 # Old get_gene_TS code
