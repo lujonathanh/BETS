@@ -72,10 +72,10 @@ export LAG=2
 # BETS sets LAG=2
 
 
-export BOOTSTRAPNUM=1000
+export BOOTSTRAPNUM=100
 # Number of bootstrap samples to use for stability selection
 # Set to a positive integer, e.g. 100 or 1000
-# BETS sets BOOTSTRAPNUM=1000
+# BETS sets BOOTSTRAPNUM=1000 or 1000
 # If your time is limited, BOOTSTRAPNUM=100 should be fine
 
 
