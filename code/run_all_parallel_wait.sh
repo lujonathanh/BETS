@@ -17,3 +17,5 @@ while read script; do
     echo Submitting Parallel Script $script
     ./clusterize -l $TIMEUPPERBOUND:00 -m $MEMUPPERBOUND -n $NNODES -p $PPN  -c "time $script & wait" >> submission_log.txt
 done < $scriptlist
+
+echo "ALL JOBS FROM $scriptlist SUBMITTED"
