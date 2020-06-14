@@ -18,6 +18,12 @@ export LOADREPS=1
 # Set to 1 if there are replicates. Each replicate should be a complete set of gene expression timeseries over the same number of timepoints.
 # Set to 0 if there is only one data set.
 
+if [ $LOADREPS -eq "1" ]; then
+export REPS=reps;
+else
+export REPS=noreps;
+fi
+
 
 export DATAFILE=../data/DREAM/insilico_size100_1/0mean/reps.txt
 # If there are replicates, this should go to
@@ -138,12 +144,6 @@ export GENENAME=${GENEFILE##*/}
 export HYPERFILE="$CAUSAL/hyperlist_$CAUSAL.p"
 export TEST="$(echo $CAUSAL | head -c 1)"
 
-
-if [ $LOADREPS -eq "1" ]; then
-export REPS=reps;
-else
-export REPS=noreps;
-fi
 
 
 # Just some echo'ing so you can confirm we have the right values
