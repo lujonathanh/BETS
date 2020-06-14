@@ -33,7 +33,7 @@ BETS treats replicates as independent samples, so please make sure *your replica
 
 1. Get to the BETS directory from the command line.
 1. Set the parameters at `code/package_params_cpipeline.sh`
-1. (OPTIONAL) If you want to run on your own computing cluster, modify `code/run_all_parallel_wait.sh`
+1. (OPTIONAL) If you want to run on a computing cluster, modify `code/run_all_parallel_wait.sh` so that it submits jobs appropriately.
 1. Package for the cluster
   * `cd code/`
   * `source ./package_params_cpipeline.sh`
@@ -52,7 +52,7 @@ BETS treats replicates as independent samples, so please make sure *your replica
 ## 3. Fit the model on the original data.
 1. `source ./package_params_cpipeline.sh`
 1. `export scriptlist=fit_parallel_script_list.txt`
-1. If on your own computer, do `./run_all_parallel_no_cluster.sh`, otherwise do `./run_all_parallel_wait.sh`
+1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If you want to run on a computing cluster, run `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. `./finish-effect.sh`
 
