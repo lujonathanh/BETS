@@ -45,24 +45,24 @@ BETS treats replicates as independent samples, so please make sure *your replica
 ## 2. Set hyperparameters
 1. Set the list of scripts to run from. `export scriptlist=cv_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`  
-   Otherwise do `./run_all_parallel_wait.sh`
+   If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. Set the hyperparameter for the fit. `./set_hyper.sh`
 
 ## 3. Fit the model on the original data.
 1. `source ./package_params_cpipeline.sh`
 1. `export scriptlist=fit_parallel_script_list.txt`
-1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If you want to run on a computing cluster, run `./run_all_parallel_wait.sh`
+1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do`./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. `./finish-effect.sh`
 
 ## 4. Perform stability selection (from bootstrap samples).
 1. `source ./package_params_cpipeline.sh`
 1. `export scriptlist=bootstrap_parallel_script_list.txt`
-1. If on your own computer, do `./run_all_parallel_no_cluster.sh`, otherwise do `./run_all_parallel_wait.sh`
+1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. `export scriptlist=finish-effect-bootstrap_parallel_script_list.txt`
-1. If on your own computer, do `./run_all_parallel_no_cluster.sh`, otherwise do `./run_all_parallel_wait.sh`
+1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. Combine the bootstrap elastic net fits. `./get_result_bootstrap_lite.sh`
 1. Combine the significant networks for each bootstrap sample. `./get_result_bootstrap-fdr-0.05-effect_lite.sh`
