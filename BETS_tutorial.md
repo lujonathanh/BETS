@@ -29,34 +29,46 @@ BETS treats replicates as independent samples, so please make sure *your replica
 
 `python3 -m pip install -r requirements.txt`
 
-## 1. Preparing for a Run
+## 1. Modify key run parameters
 
 1. Get to the BETS directory from the command line.
 1. Set the parameters at `code/package_params_cpipeline.sh`
 1. (OPTIONAL) If you want to run on a computing cluster, modify `code/run_all_parallel_wait.sh` so that it submits jobs appropriately.
-1. Package for the cluster
+
+## 2. Package the run folder, cd into it
+
   * `cd code/`
   * `source ./package_params_cpipeline.sh`
   * `./package_for_cluster_cpipeline.sh`
   * `cd $FOLDER`
+
+## 3. Perform the Run.
+
+Assuming you are in the run folder, a shortcut to run all of the following automatically on your computer without having to interven step-by-step is:
+
+`./run_BETS_no_cluster.sh`
+
+
+### A. Prep the scripts that will be run
+  * `source ./package_params_cpipeline.sh`
   * `./prep_jobs_rand_cv.sh`
   * `./prep_jobs_bootstrap.sh`
 
-## 2. Set hyperparameters
+### B. Set hyperparameters
 1. Set the list of scripts to run from. `export scriptlist=cv_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`  
    If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. Set the hyperparameter for the fit. `./set_hyper.sh`
 
-## 3. Fit the model on the original data.
+### C. Fit the model on the original data.
 1. `source ./package_params_cpipeline.sh`
 1. `export scriptlist=fit_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do`./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
 1. `./finish-effect.sh`
 
-## 4. Perform stability selection (from bootstrap samples).
+### D. Perform stability selection (from bootstrap samples).
 1. `source ./package_params_cpipeline.sh`
 1. `export scriptlist=bootstrap_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
@@ -67,12 +79,12 @@ BETS treats replicates as independent samples, so please make sure *your replica
 1. Combine the bootstrap elastic net fits. `./get_result_bootstrap_lite.sh`
 1. Combine the significant networks for each bootstrap sample. `./get_result_bootstrap-fdr-0.05-effect_lite.sh`
 
-## 5. Format the output.
+### E. Format the output.
 1. Put all the timing results together now that it's done. `./summarize_time.sh`
 1. Organize the results. `./downstream_prep.sh`
 1. All the results are now under `run_l-fdr`
 
-## 6. Run with permuted data.
+## 4. Run with permuted data.
 1. Edit `package_params_cpipeline.sh`:
 
   1. replace your `DATAFILE` with a version of `DATAFILE` where every gene's temporal profile has been independently shuffled across time, separately for distinct replicates. In this example, change
@@ -93,7 +105,7 @@ to
 
 `export GENES=insilico_size100_1_urand`
 
-1. Run steps 1 through 6 exactly as before.
+1. Run steps 1-3 as before.
 
 
 # Questions?
