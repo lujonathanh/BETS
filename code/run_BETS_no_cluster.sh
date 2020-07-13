@@ -1,11 +1,8 @@
 #!/bin/bash
 set -e
 
-### A. Package folder, prep the scripts that will be run
-cd code/
+### A. Prep the scripts that will be run
 source ./package_params_cpipeline.sh
-./package_for_cluster_cpipeline.sh
-cd $FOLDER
 ./prep_jobs_rand_cv.sh
 ./prep_jobs_bootstrap.sh
 
