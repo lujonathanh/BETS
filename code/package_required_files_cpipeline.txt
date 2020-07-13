@@ -46,5 +46,6 @@ prep_jobs_rand_cv_no_hyper.sh
 README_cpipeline.txt
 run_all_parallel_wait.sh
 run_all_parallel_no_cluster.sh
+run_BETS_no_cluster.sh
 set_hyper.py
 summarize_time.py
