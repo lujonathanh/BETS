@@ -107,6 +107,17 @@ to
 
 1. Run steps 1-3 as before.
 
+## 5. Perform false discovery thresholding.
+1. Change into the run directory with the original data as in Step 3.
+2. Modify `get_umbrella_null_results.py`
+
+`urand_run_folder = "../URANDFOLDERNAME/run_l-fdr"`
+
+for example, in this example, `urand_run_folder = "../insilico_size100_1_urand-0mean-reps-enet-2-g/run_l-fdr"`
+
+3. Do `python3 get_umbrella_null_results.py`
+
+4. The FDR-thresholded network is now available at `analysis/bootstrap-fdr-0.2-network.txt` and the bootstrap frequency threshold is available at `analysis/bootstrap-fdr-0.2-network-umbrella-results.csv`
 
 # Questions?
 
