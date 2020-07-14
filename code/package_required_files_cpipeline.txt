@@ -18,6 +18,7 @@ get_declared_bash_params.py
 get_intercept_bootstrap.py
 get_result_bootstrap.py
 get_result_coef.py
+get_umbrella_null_results.py
 integrate_hyper.py
 integrate_outputs_rand_row.py
 lag_conversion.py
