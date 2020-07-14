@@ -44,7 +44,7 @@ BETS treats replicates as independent samples, so please make sure *your replica
 
 ## 3. Perform the Run.
 
-Assuming you are in the run folder, a shortcut to run all of the following automatically on your computer without having to interven step-by-step is:
+Assuming you are in the run folder, a shortcut to run all of the following parts of step 3 automatically on your computer without having to intervene step-by-step is:
 
 `./run_BETS_no_cluster.sh`
 
