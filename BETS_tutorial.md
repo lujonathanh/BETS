@@ -91,7 +91,7 @@ Assuming you are in the run folder, a shortcut to run all of the following parts
 ## 4. Run with permuted data.
 1. Edit `package_params_cpipeline.sh`:
 
-  1. replace your `DATAFILE` with a version of `DATAFILE` where every gene's temporal profile has been independently shuffled across time, separately for distinct replicates. In this example, change
+  A. replace your `DATAFILE` with a version of `DATAFILE` where every gene's temporal profile has been independently shuffled across time, separately for distinct replicates. In this example, change
 
 `export DATAFILE=../data/DREAM/insilico_size100_1/0mean/reps.txt`
 
@@ -101,7 +101,7 @@ to
 
 (note this permuted data set is distinct from `RANDDATAFILE=../data/DREAM/insilico_size100_1/0mean/reps-rand.txt`.  Both are generated in the same way, but with different random seeds.)
 
-  1. add as a suffix of `_urand` to GENES. In this example, change
+  B. add as a suffix of `_urand` to GENES. In this example, change
   
 `export GENES=insilico_size100_1`
 
@@ -109,7 +109,7 @@ to
 
 `export GENES=insilico_size100_1_urand`
 
-1. Run steps 1-3 as before.
+2. Run sections 1-3, above, as before.
 
 ## 5. Perform false discovery thresholding.
 1. Change into the run directory with the original data as in Step 3.
