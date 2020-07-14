@@ -54,12 +54,6 @@ if not os.path.exists(outdir):
 
 orig_bnet = pd.read_csv(orig_bootstrap_filename, sep="\t")
 urand_bnet = pd.read_csv(urand_bootstrap_filename, sep="\t")
-
-gene_list = []
-with open(gene_file, 'r') as f:
-    for l in f.readlines():
-        gene_list.append(l.split("\n")[0])
-
         
 print("Original")
 print(orig_bootstrap_filename)
