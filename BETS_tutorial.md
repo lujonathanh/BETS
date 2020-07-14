@@ -44,7 +44,7 @@ BETS treats replicates as independent samples, so please make sure *your replica
 
 ## 3. Perform the Run.
 
-Assuming you are in the run folder, a shortcut to run all of the following automatically on your computer without having to interven step-by-step is:
+Assuming you are in the run folder, a shortcut to run all of the following parts of step 3 automatically on your computer without having to intervene step-by-step is:
 
 `./run_BETS_no_cluster.sh`
 
@@ -58,7 +58,8 @@ Assuming you are in the run folder, a shortcut to run all of the following autom
 1. Set the list of scripts to run from. `export scriptlist=cv_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`  
    If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
-1. Wait for the jobs to complete.
+1. Wait for the jobs to complete. 
+   (you can ignore the `line 3: module: command not found` errors)
 1. Set the hyperparameter for the fit. `./set_hyper.sh`
 
 ### C. Fit the model on the original data.
@@ -66,16 +67,19 @@ Assuming you are in the run folder, a shortcut to run all of the following autom
 1. `export scriptlist=fit_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do`./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
+   (you can ignore the `line 3: module: command not found` errors)
 1. `./finish-effect.sh`
 
 ### D. Perform stability selection (from bootstrap samples).
 1. `source ./package_params_cpipeline.sh`
 1. `export scriptlist=bootstrap_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
-1. Wait for the jobs to complete.
+1. Wait for the jobs to complete. 
+   (you can ignore the `line 3: module: command not found` errors)
 1. `export scriptlist=finish-effect-bootstrap_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
 1. Wait for the jobs to complete.
+   (you can ignore the `line 3: module: command not found` errors)
 1. Combine the bootstrap elastic net fits. `./get_result_bootstrap_lite.sh`
 1. Combine the significant networks for each bootstrap sample. `./get_result_bootstrap-fdr-0.05-effect_lite.sh`
 
