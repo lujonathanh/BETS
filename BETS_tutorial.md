@@ -115,6 +115,7 @@ to
 1. Change into the run directory with the original data as in Step 3.
 
 In this example, change into `BETS/runs/insilico_size100_1-0mean-reps-enet-2-g`
+
 2. Modify `get_umbrella_null_results.py`
 
 `urand_run_folder = "../URANDFOLDERNAME/run_l-fdr"`
@@ -125,7 +126,7 @@ In this example, change to `urand_run_folder = "../insilico_size100_1_urand-0mea
 
 4. The FDR-thresholded network is now available at `analysis/bootstrap-fdr-0.2-network.txt` and the bootstrap frequency threshold is available at `analysis/bootstrap-fdr-0.2-network-umbrella-results.csv`
 
-In this example, you should get a network with 3364 edges, 96 Causal Genes, 100 Effect Genes.
+In this example, you should get a network with 3364 edges.
 
 # Questions?
 
