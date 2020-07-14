@@ -15,7 +15,8 @@ fdr = 0.2
 
 orig_run_folder = "run_l-fdr"
 
-# MODIFY THE BELOW, REPLACING URANDFOLDERNAME WITH THE NAME OF THE FOLDER WITH THE 
+# MODIFY THE BELOW, REPLACING URANDFOLDERNAME WITH THE NAME OF THE FOLDER WITH THE PERMUTED RUN
+# e.g. replace URANDFOLDERNAME with insilico_size100_1_urand-0mean-reps-enet-2-g
 urand_run_folder = "../URANDFOLDERNAME/run_l-fdr"
 
 
