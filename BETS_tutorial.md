@@ -117,11 +117,13 @@ to
 
 `urand_run_folder = "../URANDFOLDERNAME/run_l-fdr"`
 
-for example, in this example, `urand_run_folder = "../insilico_size100_1_urand-0mean-reps-enet-2-g/run_l-fdr"`
+In this example, change to `urand_run_folder = "../insilico_size100_1_urand-0mean-reps-enet-2-g/run_l-fdr"`
 
 3. Do `python3 get_umbrella_null_results.py`
 
 4. The FDR-thresholded network is now available at `analysis/bootstrap-fdr-0.2-network.txt` and the bootstrap frequency threshold is available at `analysis/bootstrap-fdr-0.2-network-umbrella-results.csv`
+
+In this example, you should get a network with 3364 edges, 96 Causal Genes, 100 Effect Genes.
 
 # Questions?
 
