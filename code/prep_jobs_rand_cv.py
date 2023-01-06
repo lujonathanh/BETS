@@ -167,7 +167,7 @@ def run(args):
                 cv_output  = "hyper" + os.sep + cv_prefix + "-result.txt"
                 hyper_output_group.append(cv_output)
 
-                command_string = "time python cross_validate.py -d " + data_file + " -lr " + str(args.load_reps) +  " -o " + cv_output + " -hl " + str(hyper_filename) \
+                command_string = "time python3 cross_validate.py -d " + data_file + " -lr " + str(args.load_reps) +  " -o " + cv_output + " -hl " + str(hyper_filename) \
                                  + " -t " + args.test + " -l " + str(args.lag) + " -rl " + str(row_filename)
 
 
@@ -239,8 +239,8 @@ def run(args):
             outputfile.write("#!/bin/bash\n")
             outputfile.write("START=$(date)\n")
             outputfile.write("set -e\n")
-            outputfile.write("time python integrate_hyper.py -hfd cv_outputs.txt -ind cv_integrated.txt -hl " + args.hyper_list_file + "\n")
-            outputfile.write("time python set_hyper.py -ind cv_integrated.txt -r " + "hyper" + os.sep + "hyper_df.txt -o " + "hyper" +
+            outputfile.write("time python3 integrate_hyper.py -hfd cv_outputs.txt -ind cv_integrated.txt -hl " + args.hyper_list_file + "\n")
+            outputfile.write("time python3 set_hyper.py -ind cv_integrated.txt -r " + "hyper" + os.sep + "hyper_df.txt -o " + "hyper" +
                              os.sep + "best_hyper.p -hl " + args.hyper_list_file + " -tn " + args.test_name + " \n")
             outputfile.write("END=$(date)\n")
             outputfile.write("echo " + hyper_script + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
@@ -283,7 +283,7 @@ def run(args):
         fit_output_prefixes.append(fit_output_prefix)
 
 
-        command_string = "time python fit_all.py -d " + data_file + " -rd " + rand_data_file + " -lr " + str(args.load_reps) + \
+        command_string = "time python3 fit_all.py -d " + data_file + " -rd " + rand_data_file + " -lr " + str(args.load_reps) + \
                          " -o " + fit_output_prefix + " -bh " + \
                         "hyper" + os.sep + "best_hyper.p" + " -t " + args.test + " -l " + str(args.lag) + " -rl " + \
                          str(row_filename) + " -n " + args.null + " -oa " + str(args.only_array)
@@ -382,10 +382,10 @@ def run(args):
         ifile.write("#!/bin/bash\n")
         ifile.write("START=$(date)\n")
         ifile.write("set -e\n")
-        ifile.write("time python integrate_outputs_rand_row.py -i output_matr_list.txt -o int_matr_list.txt " + (" -t m -a 1 " if args.only_array else " -t a "))
+        ifile.write("time python3 integrate_outputs_rand_row.py -i output_matr_list.txt -o int_matr_list.txt " + (" -t m -a 1 " if args.only_array else " -t a "))
         ifile.write(" && " + \
-                    "time python integrate_outputs_rand_row.py -i output_df_list.txt -o int_df_list.txt -t d " + "\n")
-        ifile.write("time python get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
+                    "time python3 integrate_outputs_rand_row.py -i output_df_list.txt -o int_df_list.txt -t d " + "\n")
+        ifile.write("time python3 get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
                     " -lr " + str(args.load_reps) + \
                     " -bh " + "hyper" + os.sep + "best_hyper.p" + \
                     " -o " + \
@@ -402,10 +402,10 @@ def run(args):
         ifile.write("#!/bin/bash\n")
         ifile.write("START=$(date)\n")
         ifile.write("set -e\n")
-        ifile.write("time python integrate_outputs_rand_row.py -i output_matr_list.txt -o int_matr_list.txt " + (" -t m -a 1 " if args.only_array else " -t a "))
+        ifile.write("time python3 integrate_outputs_rand_row.py -i output_matr_list.txt -o int_matr_list.txt " + (" -t m -a 1 " if args.only_array else " -t a "))
         ifile.write(" && " + \
-                    "time python integrate_outputs_rand_row.py -i output_df_list.txt -o int_df_list.txt -t d " + "\n")
-        ifile.write("time python get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
+                    "time python3 integrate_outputs_rand_row.py -i output_df_list.txt -o int_df_list.txt -t d " + "\n")
+        ifile.write("time python3 get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
                     " -lr " + str(args.load_reps) + \
                     " -bh " + "hyper" + os.sep + "best_hyper.p" + \
                     " -o " + \
@@ -427,7 +427,7 @@ def run(args):
     with open("plot_coef.sh", 'w') as ifile:
         ifile.write("#!/bin/bash\n")
         ifile.write("START=$(date)\n")
-        ifile.write("time python get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
+        ifile.write("time python3 get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
                     " -lr " + str(args.load_reps) + \
                     " -bh " + "hyper" + os.sep + "best_hyper.p" + \
                     " -o " + \
@@ -461,7 +461,7 @@ def run(args):
     print("Timing files written to timing_list.txt")
 
     with open("summarize_time.sh", 'w') as outfile:
-        outfile.write("python summarize_time.py -i timing/timing_list.txt -o timing/summary_time.csv -oo timing/overall_time.csv\n")
+        outfile.write("python3 summarize_time.py -i timing/timing_list.txt -o timing/summary_time.csv -oo timing/overall_time.csv\n")
     os.chmod("summarize_time.sh", 0o777)
     print("Summarize timing script written to summarize_time.sh")
 

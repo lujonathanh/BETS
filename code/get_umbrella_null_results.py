@@ -8,9 +8,6 @@ import fdr_control as fc
 import time
 import pickle
 
-#!/usr/bin/env python
-# coding: utf-8
-
 fdr = 0.2
 
 orig_run_folder = "run_l-fdr"
@@ -34,22 +31,10 @@ orig_bootstrap_filename = [os.path.join(orig_run_folder, "bootstrap-results-fdr-
 urand_bootstrap_filename = [os.path.join(urand_run_folder, "bootstrap-results-fdr-0.05-effect", f) for f in os.listdir(os.path.join(urand_run_folder, "bootstrap-results-fdr-0.05-effect")) if f.endswith("-union-bootstrap-network.txt")][-1]
 
 
-# In[1]:
-
 if not os.path.exists(outdir):
     os.makedirs(outdir)
 
-
-#!/usr/bin/env python
-# coding: utf-8
-
 # # WARNING: this assumes that the networks and corresponding files are already ordered and will correspond
-
-# In[2]:
-
-
-
-# In[ ]:
 
 
 orig_bnet = pd.read_csv(orig_bootstrap_filename, sep="\t")

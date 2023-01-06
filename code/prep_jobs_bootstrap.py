@@ -241,7 +241,7 @@ def run(args):
                              for i in range(len(partition_rows))]
         bootstrap_row_prefixes = [bootstrap_outmost_prefix + "-row-" + str(i) for i in range(len(partition_rows))]
 
-        command_template = "time python fit_bootstrap.py -d " + data_file + " -rd " + rand_data_file + " -lr " + str(args.load_reps) + \
+        command_template = "time python3 fit_bootstrap.py -d " + data_file + " -rd " + rand_data_file + " -lr " + str(args.load_reps) + \
                              " -o " + "bootstrap_row_prefixes[i]" + " -bh " + \
                             "hyper" + os.sep + "best_hyper.p" + " -t " + args.test + " -l " + str(args.lag) + " -rl " + \
                              "row_filename" + " -n " + args.null + " -s " + str(b) + " -oa " + str(args.only_array)
@@ -339,11 +339,11 @@ def run(args):
         with open(finish_none_script, 'w') as ifile:
             ifile.write("set -e\n")
             ifile.write("START=$(date)\n")
-            ifile.write("time python integrate_outputs_rand_row.py -i " + output_matr_file + " -o " + int_matr_file +  (" -t m -a 1 " if args.only_array else " -t a "))
+            ifile.write("time python3 integrate_outputs_rand_row.py -i " + output_matr_file + " -o " + int_matr_file +  (" -t m -a 1 " if args.only_array else " -t a "))
             ifile.write(" && " + \
-                        "time python integrate_outputs_rand_row.py -i " + output_df_file + " -t d -o " + int_df_file + "\n"
+                        "time python3 integrate_outputs_rand_row.py -i " + output_df_file + " -t d -o " + int_df_file + "\n"
                         )
-            ifile.write("time python get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
+            ifile.write("time python3 get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
                         " -lr " + str(args.load_reps) + \
                         " -bh " + "hyper" + os.sep + "best_hyper.p" + \
                         " -o " + \
@@ -363,11 +363,11 @@ def run(args):
         with open(finish_effect_script, 'w') as ifile:
             ifile.write("set -e\n")
             ifile.write("START=$(date)\n")
-            ifile.write("time python integrate_outputs_rand_row.py -i " + output_matr_file + " -o " + int_matr_file +  (" -t m -a 1 " if args.only_array else " -t a "))
+            ifile.write("time python3 integrate_outputs_rand_row.py -i " + output_matr_file + " -o " + int_matr_file +  (" -t m -a 1 " if args.only_array else " -t a "))
             ifile.write(" && " + \
-                        "time python integrate_outputs_rand_row.py -i " + output_df_file + " -t d -o " + int_df_file + "\n"
+                        "time python3 integrate_outputs_rand_row.py -i " + output_df_file + " -t d -o " + int_df_file + "\n"
                         )
-            ifile.write("time python get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
+            ifile.write("time python3 get_result_coef.py -df " + data_file + " -rdf " + rand_data_file +\
                         " -lr " + str(args.load_reps) + \
                         " -bh " + "hyper" + os.sep + "best_hyper.p" + \
                         " -o " + \
@@ -489,10 +489,10 @@ def run(args):
     bootstrap_summary_file = "get_result_bootstrap.sh"
     with open(bootstrap_summary_file, 'w') as f:
         f.write("START=$(date)\n")
-        f.write("time python get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
+        f.write("time python3 get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
                              " -osf " + "bootstrap" + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + " -l " + str(args.lag) + " -tn " + args.test + \
                 " -b " + int_coef_file + " -da 1"+ " -tbf " + "bootstrap-transpose" + " -uabrd 0\n")
-        f.write("time python get_intercept_bootstrap.py -b " + int_intercept_file + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "\n")
+        f.write("time python3 get_intercept_bootstrap.py -b " + int_intercept_file + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "\n")
         f.write("END=$(date)\n")
         f.write("echo " + bootstrap_summary_file + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
     os.chmod(bootstrap_summary_file, 0o777)
@@ -504,10 +504,10 @@ def run(args):
     bootstrap_summary_file = "get_result_bootstrap_lite.sh"
     with open(bootstrap_summary_file, 'w') as f:
         f.write("START=$(date)\n")
-        f.write("time python get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
+        f.write("time python3 get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
                              " -osf " + "bootstrap" + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "_lite" + " -l " + str(args.lag) + " -tn " + args.test + \
                 " -b " + int_coef_file + " -da 1"+ " -dl 1 -uabrd 0\n")
-        f.write("time python get_intercept_bootstrap.py -b " + int_intercept_file + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "\n")
+        f.write("time python3 get_intercept_bootstrap.py -b " + int_intercept_file + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "\n")
         f.write("END=$(date)\n")
         f.write("echo " + bootstrap_summary_file + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
     os.chmod(bootstrap_summary_file, 0o777)
@@ -548,10 +548,10 @@ def run(args):
         with open(bootstrap_fdr_effect_summary_script, 'w') as f:
             f.write("START=$(date)\n")
             f.write("set -e\n")
-            f.write("time python get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
+            f.write("time python3 get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
                     " -osf " + "bootstrap" + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "-fdr-" + str(fdr) + "-effect" + " -l " + str(args.lag) + " -tn " + args.test + \
                     " -b " + bootstrap_fdr_effect_list_file +  " -da 0" + " -tbf " + "bootstrap-transpose" + "-fdr-" + str(fdr) + "-effect  -uabrd 1\n")
-            # f.write("time python get_intercept_bootstrap.py -b " + int_intercept_file + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "\n")
+            # f.write("time python3 get_intercept_bootstrap.py -b " + int_intercept_file + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "\n")
             f.write("END=$(date)\n")
             f.write("echo " + bootstrap_fdr_effect_summary_script + ",$START,$END,$SECONDS >> " + resulttimefile + "\n")
         os.chmod(bootstrap_fdr_effect_summary_script, 0o777)
@@ -563,7 +563,7 @@ def run(args):
         with open(bootstrap_fdr_effect_summary_script, 'w') as f:
             f.write("START=$(date)\n")
             f.write("set -e\n")
-            f.write("time python get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
+            f.write("time python3 get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
                     " -osf " + "bootstrap" + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "_lite" + "-fdr-" + str(fdr) + "-effect"  + " -l " + str(args.lag) + " -tn " + args.test + \
                     " -b " + bootstrap_fdr_effect_list_file +  " -da 0" + " -dl 1 -uabrd 1\n")
             f.write("END=$(date)\n")
@@ -605,7 +605,7 @@ def run(args):
         with open(bootstrap_fdr_none_summary_script, 'w') as f:
             f.write("START=$(date)\n")
             f.write("set -e\n")
-            f.write("time python get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
+            f.write("time python3 get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
                     " -osf " + "bootstrap" + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "-fdr-" + str(fdr) + "-none" + " -l " + str(args.lag) + " -tn " + args.test + \
                     " -b " + bootstrap_fdr_none_list_file + " -da 0" + " -tbf " + "bootstrap-transpose" + "-fdr-" + str(fdr) + "-none -uabrd 1\n")
             f.write("END=$(date)\n")
@@ -620,7 +620,7 @@ def run(args):
         with open(bootstrap_fdr_none_summary_script, 'w') as f:
             f.write("START=$(date)\n")
             f.write("set -e\n")
-            f.write("time python get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
+            f.write("time python3 get_result_bootstrap.py -df " + data_file + " -lr " + str(args.load_reps) + \
                     " -osf " + "bootstrap" + " -rsf " + bootstrap_result_folder + " -o " + args.output_name + "_lite" + "-fdr-" + str(fdr) + "-none" + " -l " + str(args.lag) + " -tn " + args.test + \
                     " -b " + bootstrap_fdr_none_list_file + " -da 0" + " -dl 1 -uabrd 1\n")
             f.write("END=$(date)\n")

@@ -26,12 +26,12 @@ fi
 
 
 export DATAFILE=../data/DREAM/insilico_size100_1/0mean/reps.txt
-# If there are replicates, this should go to
+# If there are replicates, this should go to a text file with list of each of the individual replicate files.
 # If no replicates, this should go to a file that has n genes and T timepoints. It should have the first column be the genenames, and the columns after be the ordered timepoints.
-
+# See data/DREAM/insilico/0mean/insilico_size100_1_0mean_TS-rep-1.txt as an example.
 
 export RANDDATAFILE=../data/DREAM/insilico_size100_1/0mean/reps-rand.txt
-# Same as DATAFILE, but the files should be the original files where each gene has been randomized over time.
+# Same as DATAFILE, but the file(s) should be the original file(s) where each gene has been randomized over time.
 
 
 export GENEFILE=../data/DREAM/insilico_size100_1/0mean/genes.txt

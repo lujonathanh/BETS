@@ -143,7 +143,7 @@ def run(args):
                          for i in range(len(partition_rows))]
     pairwise_row_prefixes = [pairwise_outmost_prefix + "-row-" + str(i) for i in range(len(partition_rows))]
 
-    command_template = "time python fit_pairwise.py -d " + data_file + " -lr " + str(args.load_reps) + \
+    command_template = "time python3 fit_pairwise.py -d " + data_file + " -lr " + str(args.load_reps) + \
                          " -o " + "pairwise_row_prefixes[i]" +  " -l " + str(args.lag) + " -rl " + \
                          "row_filename"
 
@@ -236,7 +236,7 @@ def run(args):
     with open(finish_script, 'w') as ifile:
         ifile.write("set -e\n")
         ifile.write("START=$(date)\n")
-        ifile.write("time python integrate_outputs_rand_row.py -i " + output_matr_file + " -o " + int_matr_file +  " -t a \n")
+        ifile.write("time python3 integrate_outputs_rand_row.py -i " + output_matr_file + " -o " + int_matr_file +  " -t a \n")
         ifile.write("END=$(date)\n")
         ifile.write("echo " + finish_script + ",$START,$END,$SECONDS >> " + finishtimefile + "\n")
         print("Finish script, written to", finish_script)
