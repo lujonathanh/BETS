@@ -49,12 +49,12 @@ Assuming you are in the run folder, a shortcut to run all of the following parts
 `./run_BETS_no_cluster.sh`
 
 
-### A. Prep the scripts that will be run
+### 3A. Prep the scripts that will be run
   * `source ./package_params_cpipeline.sh`
   * `./prep_jobs_rand_cv.sh`
   * `./prep_jobs_bootstrap.sh`
 
-### B. Set hyperparameters
+### 3B. Set hyperparameters
 1. Set the list of scripts to run from. `export scriptlist=cv_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`  
    If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
@@ -62,7 +62,7 @@ Assuming you are in the run folder, a shortcut to run all of the following parts
    (you can ignore the `line 3: module: command not found` errors)
 1. Set the hyperparameter for the fit. `./set_hyper.sh`
 
-### C. Fit the model on the original data.
+### 3C. Fit the model on the original data.
 1. `source ./package_params_cpipeline.sh`
 1. `export scriptlist=fit_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do`./run_all_parallel_wait.sh`
@@ -70,7 +70,7 @@ Assuming you are in the run folder, a shortcut to run all of the following parts
    (you can ignore the `line 3: module: command not found` errors)
 1. `./finish-effect.sh`
 
-### D. Perform stability selection (from bootstrap samples).
+### 3D. Perform stability selection (from bootstrap samples).
 1. `source ./package_params_cpipeline.sh`
 1. `export scriptlist=bootstrap_parallel_script_list.txt`
 1. If on your own computer, do `./run_all_parallel_no_cluster.sh`. If submitting jobs to cluster, do `./run_all_parallel_wait.sh`
@@ -83,7 +83,7 @@ Assuming you are in the run folder, a shortcut to run all of the following parts
 1. Combine the bootstrap elastic net fits. `./get_result_bootstrap_lite.sh`
 1. Combine the significant networks for each bootstrap sample. `./get_result_bootstrap-fdr-0.05-effect_lite.sh`
 
-### E. Format the output.
+### 3E. Format the output.
 1. Put all the timing results together now that it's done. `./summarize_time.sh`
 1. Organize the results. `./downstream_prep.sh`
 1. All the results are now under `run_l-fdr`
