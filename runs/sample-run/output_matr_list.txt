@@ -1,0 +1,2 @@
+coef	coefr	intercept
+fit/insilico_size100_1-0mean-reps-enet-2-g-fit-row-0_coefs.p	fit/insilico_size100_1-0mean-reps-enet-2-g-fit-row-0_coefsr.p	fit/insilico_size100_1-0mean-reps-enet-2-g-fit-row-0_intercepts.p

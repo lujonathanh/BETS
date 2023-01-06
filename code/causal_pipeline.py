@@ -1146,7 +1146,7 @@ def bootstrap_matrices_iter_free(filenames):
 
     our parameter of interest, though is: 2.5%, 5%, 95% and 97.5%
 
-    :return: first_matr
+    :return: stats_matr_dict, a dictionary of the mean, std and frequency of matrices
     """
 
     first_matr = pickle.load(open(filenames[0], 'rb'))

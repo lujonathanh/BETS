@@ -1,0 +1,19 @@
+Test: enet
+Lag: 2
+Hyper: (0.001, 0.30000000000000004)
+Responses: 100
+Coefs per response:200
+Total nonzero:4197
+Nonzero Coefs/Response:41.97
+Intercept avg: 0.00028517825320262675std: 0.004786453013742934
+Average fit result: 
+row          49.500000
+r2            0.773482
+mse           0.001506
+sse           0.286156
+n           190.000000
+df           41.970000
+DW:Lag1       1.964618
+dual_gap      0.000158
+time          0.017270
+dtype: float64

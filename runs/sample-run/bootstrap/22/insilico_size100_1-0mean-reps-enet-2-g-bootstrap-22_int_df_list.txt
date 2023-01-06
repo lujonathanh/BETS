@@ -1,0 +1,2 @@
+fit_result	fit_resultr
+bootstrap/22/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-22_fit_result_df.txt	bootstrap/22/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-22_fit_result_dfr.txt

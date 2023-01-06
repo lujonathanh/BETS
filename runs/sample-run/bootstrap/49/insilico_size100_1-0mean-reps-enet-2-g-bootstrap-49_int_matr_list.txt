@@ -1,0 +1,2 @@
+coef	coefr	intercept
+bootstrap/49/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-49_coefs.p	bootstrap/49/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-49_coefsr.p	bootstrap/49/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-49_intercepts.p

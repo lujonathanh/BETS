@@ -1,0 +1,16 @@
+	enet-2-2
+Test	enet
+Lag	2
+Coef	2
+Hyper	(0.001, 0.30000000000000004)
+FDR	0.1
+Causal Genes	61
+Effect Genes	51
+Sig. Edges	110
+% Sig. Edges	1.1111111111111112
+Total Genes	100
+Total possible Edges	9900
+Threshold_mean	1.1E-01
+Threshold_std	6.1E-02
+Matrix	bootstrap/70/fdr-0.1-effect/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-70-2-fdr-0.1-effect-matrix.txt
+Filename	bootstrap/70/fdr-0.1-effect/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-70-2-fdr-0.1-effect-network.txt

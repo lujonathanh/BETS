@@ -1,0 +1,26 @@
+Name,Start,End,Elapsed
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-2-row-0.sh,Fri Jan 6 08:59:02 PST 2023,Fri Jan 6 09:09:50 PST 2023,648
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-6-row-0.sh,Fri Jan 6 09:09:51 PST 2023,Fri Jan 6 09:13:18 PST 2023,208
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-9-row-0.sh,Fri Jan 6 09:13:18 PST 2023,Fri Jan 6 09:17:09 PST 2023,231
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-8-row-0.sh,Fri Jan 6 09:13:18 PST 2023,Fri Jan 6 09:17:21 PST 2023,243
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-7-row-0.sh,Fri Jan 6 09:13:18 PST 2023,Fri Jan 6 09:17:45 PST 2023,267
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-5-row-0.sh,Fri Jan 6 09:09:50 PST 2023,Fri Jan 6 09:18:42 PST 2023,532
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-10-row-0.sh,Fri Jan 6 09:17:10 PST 2023,Fri Jan 6 09:21:04 PST 2023,234
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-11-row-0.sh,Fri Jan 6 09:17:10 PST 2023,Fri Jan 6 09:21:04 PST 2023,234
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-12-row-0.sh,Fri Jan 6 09:17:10 PST 2023,Fri Jan 6 09:21:11 PST 2023,241
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-13-row-0.sh,Fri Jan 6 09:17:10 PST 2023,Fri Jan 6 09:21:13 PST 2023,243
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-16-row-0.sh,Fri Jan 6 09:21:13 PST 2023,Fri Jan 6 09:23:31 PST 2023,138
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-15-row-0.sh,Fri Jan 6 09:21:13 PST 2023,Fri Jan 6 09:23:39 PST 2023,146
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-14-row-0.sh,Fri Jan 6 09:21:13 PST 2023,Fri Jan 6 09:24:07 PST 2023,174
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-18-row-0.sh,Fri Jan 6 09:23:31 PST 2023,Fri Jan 6 09:25:35 PST 2023,124
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-17-row-0.sh,Fri Jan 6 09:23:32 PST 2023,Fri Jan 6 09:25:36 PST 2023,124
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-20-row-0.sh,Fri Jan 6 09:23:31 PST 2023,Fri Jan 6 09:25:36 PST 2023,125
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-19-row-0.sh,Fri Jan 6 09:23:32 PST 2023,Fri Jan 6 09:25:36 PST 2023,125
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-1-row-0.sh,Fri Jan 6 08:59:02 PST 2023,Fri Jan 6 09:27:03 PST 2023,1681
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-22-row-0.sh,Fri Jan 6 09:25:36 PST 2023,Fri Jan 6 09:27:58 PST 2023,142
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-24-row-0.sh,Fri Jan 6 09:25:37 PST 2023,Fri Jan 6 09:28:00 PST 2023,143
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-21-row-0.sh,Fri Jan 6 09:25:36 PST 2023,Fri Jan 6 09:28:00 PST 2023,144
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-23-row-0.sh,Fri Jan 6 09:25:37 PST 2023,Fri Jan 6 09:28:00 PST 2023,143
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-4-row-0.sh,Fri Jan 6 09:09:50 PST 2023,Fri Jan 6 09:28:56 PST 2023,1146
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-3-row-0.sh,Fri Jan 6 09:09:50 PST 2023,Fri Jan 6 09:41:20 PST 2023,1890
+cv-scripts/insilico_size100_1-0mean-reps-enet-2-g-cv-0-row-0.sh,Fri Jan 6 08:59:02 PST 2023,Fri Jan 6 12:22:20 PST 2023,12198

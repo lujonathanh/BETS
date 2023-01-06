@@ -1,0 +1,2 @@
+fit_result	fit_resultr
+fit/insilico_size100_1-0mean-reps-enet-2-g_fit_result_df.txt	fit/insilico_size100_1-0mean-reps-enet-2-g_fit_result_dfr.txt

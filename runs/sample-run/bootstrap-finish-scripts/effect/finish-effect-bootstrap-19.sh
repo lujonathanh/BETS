@@ -1,0 +1,6 @@
+set -e
+START=$(date)
+time python3 integrate_outputs_rand_row.py -i bootstrap/19/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19_output_matr_list.txt -o bootstrap/19/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19_int_matr_list.txt -t m -a 1  && time python3 integrate_outputs_rand_row.py -i bootstrap/19/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19_output_df_list.txt -t d -o bootstrap/19/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19_int_df_list.txt
+time python3 get_result_coef.py -df reps.txt -rdf reps-rand.txt -lr 1 -bh hyper/best_hyper.p -o insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19 -cf bootstrap/19/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19_coefs.p -if bootstrap/19/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19_intercepts.p -cfr bootstrap/19/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19_coefsr.p -fr bootstrap/19/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19_fit_result_df.txt -frr bootstrap/19/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-19_fit_result_dfr.txt -l 2 -sb e -tn enet -of bootstrap/19
+END=$(date)
+echo bootstrap-finish-scripts/effect/finish-effect-bootstrap-19.sh,$START,$END,$SECONDS >> timing/bootstrap_finish_time.csv

@@ -1,0 +1,6 @@
+timing/hyper_time.csv
+timing/fit_time.csv
+timing/result_time.csv
+timing/bootstrap_fit_time.csv
+timing/bootstrap_finish_time.csv
+timing/bootstrap_result_time.csv

@@ -1,0 +1,6 @@
+set -e
+START=$(date)
+time python3 integrate_outputs_rand_row.py -i bootstrap/54/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54_output_matr_list.txt -o bootstrap/54/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54_int_matr_list.txt -t m -a 1  && time python3 integrate_outputs_rand_row.py -i bootstrap/54/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54_output_df_list.txt -t d -o bootstrap/54/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54_int_df_list.txt
+time python3 get_result_coef.py -df reps.txt -rdf reps-rand.txt -lr 1 -bh hyper/best_hyper.p -o insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54 -cf bootstrap/54/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54_coefs.p -if bootstrap/54/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54_intercepts.p -cfr bootstrap/54/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54_coefsr.p -fr bootstrap/54/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54_fit_result_df.txt -frr bootstrap/54/insilico_size100_1-0mean-reps-enet-2-g-bootstrap-54_fit_result_dfr.txt -l 2 -sb e -tn enet -of bootstrap/54
+END=$(date)
+echo bootstrap-finish-scripts/effect/finish-effect-bootstrap-54.sh,$START,$END,$SECONDS >> timing/bootstrap_finish_time.csv

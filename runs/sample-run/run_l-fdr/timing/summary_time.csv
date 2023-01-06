@@ -1,0 +1,7 @@
+Name,Start,End,Real_Seconds,Real_Days,Elapsed,Nscripts
+timing/hyper_time.csv,Fri Jan 6 08:59:02 PST 2023,Fri Jan 6 09:41:20 PST 2023,2538.0,0.0,9326,24
+timing/fit_time.csv,Fri Jan 6 09:28:30 PST 2023,Fri Jan 6 09:28:35 PST 2023,5.0,0.0,5,1
+timing/result_time.csv,Fri Jan 6 09:28:00 PST 2023,Fri Jan 6 09:29:07 PST 2023,67.0,0.0,61,2
+timing/bootstrap_fit_time.csv,Fri Jan 6 09:29:08 PST 2023,Fri Jan 6 09:33:15 PST 2023,247.0,0.0,950,100
+timing/bootstrap_finish_time.csv,Fri Jan 6 09:33:15 PST 2023,Fri Jan 6 12:20:04 PST 2023,10009.0,0.1,40032,100
+timing/bootstrap_result_time.csv,Fri Jan 6 12:20:03 PST 2023,Fri Jan 6 12:20:27 PST 2023,24.0,0.0,24,2
